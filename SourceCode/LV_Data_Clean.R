@@ -82,6 +82,8 @@ restruct$DICoverageLimit <- gsub(",", "", restruct$DICoverageLimit)
 restruct$DICoverageLimit <- gsub("-", "", restruct$DICoverageLimit)
 restruct$DICoverageLimit <- gsub("Unlimited", "Full", restruct$DICoverageLimit)
 
+write.table(restruct, file = "/git_repositories/amcData/MainData/amcData.csv", sep = ",")
+
 
 
 
