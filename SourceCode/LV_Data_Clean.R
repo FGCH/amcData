@@ -96,9 +96,9 @@ restruct$AMC[restruct$AMC > 0] <- 1
 restruct$AMC[restruct$country == "Brazil" & restruct$year == 1994] <- 1
 restruct$AMCType[restruct$country == "Brazil" & restruct$year == 1994] <- "Decentralised"
 
-BrazilAMC <- c("- Brazil's PROER was added as a **AMC** and classified as 'Decentralised' in the **AMCType** variable. It was created in 1996")
+BrazilAMC <- c("- Brazil's PROER was added as a **AMC** and classified as 'Decentralised' in the **AMCType** variable. It was created in 1996. More details can be found the Banco Central Do Brazil's website <http://www.bcb.gov.br/?PROEREN>.")
 
-cat("# Notes on changes made to Laeven and Valencia (2012) data\n\n", BrazilAMC, file = "/git_repositories/amcData/MainData/LaevenValenciaVariableChanges.md")
+cat("\n\n# Notes on changes made to Laeven and Valencia (2012) data\n\n", BrazilAMC, file = "/git_repositories/amcData/MainData/LaevenValenciaVariableDescriptions.md", append = TRUE)
 
 
 # Save cleaned data file

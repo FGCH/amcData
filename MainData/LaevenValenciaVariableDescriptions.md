@@ -1,7 +1,7 @@
 # Variables Lables and Variable Descriptions for Laeven & Valencia's (2012) Restructuring Data
 
  <!-- html table generated in R 2.15.1 by xtable 1.7-0 package -->
-<!-- Tue Jul 17 13:22:44 2012 -->
+<!-- Tue Jul 17 13:26:56 2012 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> ColNames </TH> <TH> Description </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> country </TD> <TD> Country </TD> </TR>
@@ -56,3 +56,8 @@
   <TR> <TD align="right"> 50 </TD> <TD> FiveYearRecovery </TD> <TD> Recovery during period t to t+5, where t is the first year of the crisis </TD> </TR>
   <TR> <TD align="right"> 51 </TD> <TD> OutputLoss </TD> <TD> Output loss during period t to t+3 </TD> </TR>
    </TABLE>
+
+
+# Notes on changes made to Laeven and Valencia (2012) data
+
+ - Brazil's PROER was added as a **AMC** and classified as 'Decentralised' in the **AMCType** variable. It was created in 1996. More details can be found the Banco Central Do Brazil's website <http://www.bcb.gov.br/?PROEREN>.
