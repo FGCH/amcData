@@ -89,7 +89,7 @@ restruct$AMCType[restruct$AMC == 3] <- "Decentralised"
 
 restruct$AMC[restruct$AMC > 1] <- 2
 
-restruct$AMC <- as.factor(restruct$AMC)
+restruct$AMC <- factor(restruct$AMC, labels = c("No AMC", "AMC Created"))
 
 # Add Changes to the data file and Create Notes of the changes
 
