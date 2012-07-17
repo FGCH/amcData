@@ -1,7 +1,7 @@
 ############ 
 # Clean Up Laeven & Valencia (2012) Banking Crisis Data
 # Christopher Gandrud
-# Updated 16 July 2012
+# Updated 17 July 2012
 ############
 
 ## Laeven & Valencia (2012) data can be found at: http://www.imf.org/external/pubs/cat/longres.aspx?sk=26015.0
@@ -35,7 +35,7 @@ Description <- append(c, values = Description)
 
 Description <- str_trim(Description)
 
-ColNames <- c("country", "CrisisDate", "CrisisDateSystemic", "CurrencyCrisis", "YearCurrencyCrisis", "SovereignCrisis", "YearSovereignCrisis", "CreditBoom", "CreditorRights", "CreditorRightsIndex", "DepositIns", "YearDICreated", "DICoverageLimit", "DICoverageRatio", "DepositFreeze", "DateDepositFreeze", "DurationDepositFreeze", "TimeDepositsFreeze", "BankHoliday", "DateBankHoliday", "DurationBankHoliday", "BankGuaranteee", "DateBankGuaranteeStart", "DateBankGuaranteeEnd", "BankGuaranteeDuration", "BankGuaranteeCoverage", "EmergencyLending", "DateEmergencyLending", "PeakLendingSupport", "BankRestructuring", "Nationalizations", "AssetPurchases", "AssetManageCo", "Recap", "RecapCosts", "RecoveryDummy", "RecoveryProceeds", "GovRecapCosts", "DepositorLosses", "DepositorLosesSeverity", "MonetaryPolicyIndex", "AverageReserveChange", "FiscalPolicyIndex", "IncreasePublicDebt", "IMFProgram", "YearIMFProgram", "PeakNPLs", "NetFiscalCosts", "GrossFiscalCosts", "FiveYearRecovery", "OutputLoss")
+ColNames <- c("country", "CrisisDate", "CrisisDateSystemic", "CurrencyCrisis", "YearCurrencyCrisis", "SovereignCrisis", "YearSovereignCrisis", "CreditBoom", "CreditorRights", "CreditorRightsIndex", "DepositIns", "YearDICreated", "DICoverageLimit", "DICoverageRatio", "DepositFreeze", "DateDepositFreeze", "DurationDepositFreeze", "TimeDepositsFreeze", "BankHoliday", "DateBankHoliday", "DurationBankHoliday", "BankGuaranteee", "DateBankGuaranteeStart", "DateBankGuaranteeEnd", "BankGuaranteeDuration", "BankGuaranteeCoverage", "EmergencyLending", "DateEmergencyLending", "PeakLendingSupport", "BankRestructuring", "Nationalizations", "AssetPurchases", "AMC", "Recap", "RecapCosts", "RecoveryDummy", "RecoveryProceeds", "GovRecapCosts", "DepositorLosses", "DepositorLosesSeverity", "MonetaryPolicyIndex", "AverageReserveChange", "FiscalPolicyIndex", "IncreasePublicDebt", "IMFProgram", "YearIMFProgram", "PeakNPLs", "NetFiscalCosts", "GrossFiscalCosts", "FiveYearRecovery", "OutputLoss")
 
 # Create table and markdown file of variable descriptions.
 VarList <- cbind(ColNames, Description)
@@ -81,6 +81,16 @@ restruct$year <- as.numeric(str_extract(restruct$CrisisDate, "[0-9][0-9][0-9][0-
 restruct$DICoverageLimit <- gsub(",", "", restruct$DICoverageLimit)
 restruct$DICoverageLimit <- gsub("-", "", restruct$DICoverageLimit)
 restruct$DICoverageLimit <- gsub("Unlimited", "Full", restruct$DICoverageLimit)
+
+# Recode AMC variable 
+restruct$AMC <- as.numeric(restruct$AMC)
+
+restruct$AMCType[restruct$AMC == 1] <- "None"
+restruct$AMCType[restruct$AMC == 2] <- "Centralised"
+restruct$AMCType[restruct$AMC == 3] <- "Decentralised"
+
+restruct$AMC[restruct$AMC == 1] <- 0
+restruct$AMC[restruct$AMC > 0] <- 1
 
 write.table(restruct, file = "/git_repositories/amcData/MainData/amcData.csv", sep = ",")
 

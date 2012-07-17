@@ -1,6 +1,6 @@
 # Variables Lables and Variable Descriptions for Laeven & Valencia's (2012) Restructuring Data
  <!-- html table generated in R 2.15.1 by xtable 1.7-0 package -->
-<!-- Mon Jul 16 16:20:36 2012 -->
+<!-- Tue Jul 17 09:55:37 2012 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> ColNames </TH> <TH> Description </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> country </TD> <TD> Country </TD> </TR>
@@ -35,7 +35,7 @@
   <TR> <TD align="right"> 30 </TD> <TD> BankRestructuring </TD> <TD> Bank restructuring (Y/N) </TD> </TR>
   <TR> <TD align="right"> 31 </TD> <TD> Nationalizations </TD> <TD> Nationalizations (Y/N) </TD> </TR>
   <TR> <TD align="right"> 32 </TD> <TD> AssetPurchases </TD> <TD> Asset Purchases and Transfers (Y/N) </TD> </TR>
-  <TR> <TD align="right"> 33 </TD> <TD> AssetManageCo </TD> <TD> Asset management company </TD> </TR>
+  <TR> <TD align="right"> 33 </TD> <TD> AMC </TD> <TD> Asset management company </TD> </TR>
   <TR> <TD align="right"> 34 </TD> <TD> Recap </TD> <TD> Recapitalization (Y/N) </TD> </TR>
   <TR> <TD align="right"> 35 </TD> <TD> RecapCosts </TD> <TD> Recap cost to government (gross) (as % of GDP) </TD> </TR>
   <TR> <TD align="right"> 36 </TD> <TD> RecoveryDummy </TD> <TD> Recovery (Y/N) </TD> </TR>
