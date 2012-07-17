@@ -44,7 +44,7 @@ VarList <- xtable(VarList)
 
 LvVariableTable <- print(VarList, type = "html")
 
-cat("# Variables Lables and Variable Descriptions for Laeven & Valencia's (2012) Restructuring Data\n\n", LvVariableTable, file = "/git_repositories/amcData/MainData/LaevenValenciaVariableDescriptions.md")
+cat("# Variables Lables and Variable Descriptions for Laeven & Valencia's (2012) Restructuring Data\n ### See: <http://www.imf.org/external/pubs/cat/longres.aspx?sk=26015.0>\n\n", LvVariableTable, file = "/git_repositories/amcData/MainData/VariableDescriptions/LaevenValenciaVariableDescriptions.md")
 
 # Write new table. I did this to get around a problem correctly naming the reshaped variables.
 write.table(restruct, file = "restruct.csv", sep = ",")
@@ -98,11 +98,11 @@ restruct$AMCType[restruct$country == "Brazil" & restruct$year == 1994] <- "Decen
 
 BrazilAMC <- c("- Brazil's PROER was added as a **AMC** and classified as 'Decentralised' in the **AMCType** variable. It was created in 1996. More details can be found the Banco Central Do Brazil's website <http://www.bcb.gov.br/?PROEREN>.")
 
-cat("\n\n# Notes on changes made to Laeven and Valencia (2012) data\n\n", BrazilAMC, file = "/git_repositories/amcData/MainData/LaevenValenciaVariableDescriptions.md", append = TRUE)
+cat("\n\n# Notes on changes made to Laeven and Valencia (2012) data\n\n", BrazilAMC, file = "/git_repositories/amcData/MainData/VariableDescriptions/LaevenValenciaVariableDescriptions.md", append = TRUE)
 
 
 # Save cleaned data file
-write.table(restruct, file = "/git_repositories/amcData/MainData/amcData.csv", sep = ",")
+write.table(restruct, file = "/git_repositories/amcData/MainData/CleanedPartial/LvData.csv", sep = ",")
 
 
 
