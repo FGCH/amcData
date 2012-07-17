@@ -15,3 +15,5 @@ main <- read.csv(textConnection(main))
 
 # Basic Boxplots
 
+qplot(UDS, AMC, geom = "point", data = main)
+

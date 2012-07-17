@@ -87,8 +87,9 @@ restruct$AMCType[restruct$AMC == 1] <- "None"
 restruct$AMCType[restruct$AMC == 2] <- "Centralised"
 restruct$AMCType[restruct$AMC == 3] <- "Decentralised"
 
-restruct$AMC[restruct$AMC == 1] <- "NoAMC"
-restruct$AMC[restruct$AMC > 0] <- "AMCCreated"
+restruct$AMC[restruct$AMC > 1] <- 2
+
+restruct$AMC <- as.factor(restruct$AMC)
 
 # Add Changes to the data file and Create Notes of the changes
 
