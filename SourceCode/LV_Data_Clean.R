@@ -15,7 +15,7 @@ library(xtable)
 library(countrycode)
 
 # Set working directory and load the data.
-setwd("/git_repositories/amcData/BaseCsvFiles/LaeVal2012")
+setwd("/git_repositories/amcData/BaseFiles/LaeVal2012")
 
 # Input data and transform it into long format
 restruct <- read.csv("LavValPolicies.csv")
@@ -42,11 +42,9 @@ VarList <- cbind(ColNames, Description)
 
 VarList <- xtable(VarList)
 
-VarList <- 
-
 LvVariableTable <- print(VarList, type = "html")
 
-cat("# Variables Lables and Variable Descriptions for Laeven & Valencia's (2012) Restructuring Data\n", LvVariableTable, file = "/git_repositories/amcData/MainData/LaevenValenciaVariableDescriptions.md")
+cat("# Variables Lables and Variable Descriptions for Laeven & Valencia's (2012) Restructuring Data\n\n", LvVariableTable, file = "/git_repositories/amcData/MainData/LaevenValenciaVariableDescriptions.md")
 
 # Write new table. I did this to get around a problem correctly naming the reshaped variables.
 write.table(restruct, file = "restruct.csv", sep = ",")
@@ -92,6 +90,18 @@ restruct$AMCType[restruct$AMC == 3] <- "Decentralised"
 restruct$AMC[restruct$AMC == 1] <- 0
 restruct$AMC[restruct$AMC > 0] <- 1
 
+# Add Changes to the data file and Create Notes of the changes
+
+## Brazil PROER classify as AMC
+restruct$AMC[restruct$country == "Brazil" & restruct$year == 1994] <- 1
+restruct$AMCType[restruct$country == "Brazil" & restruct$year == 1994] <- "Decentralised"
+
+BrazilAMC <- c("- Brazil's PROER was added as a **AMC** and classified as 'Decentralised' in the **AMCType** variable. It was created in 1996")
+
+cat("# Notes on changes made to Laeven and Valencia (2012) data\n\n", BrazilAMC, file = "/git_repositories/amcData/MainData/LaevenValenciaVariableChanges.md")
+
+
+# Save cleaned data file
 write.table(restruct, file = "/git_repositories/amcData/MainData/amcData.csv", sep = ",")
 
 

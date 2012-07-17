@@ -1,6 +1,7 @@
 # Variables Lables and Variable Descriptions for Laeven & Valencia's (2012) Restructuring Data
+
  <!-- html table generated in R 2.15.1 by xtable 1.7-0 package -->
-<!-- Tue Jul 17 09:55:37 2012 -->
+<!-- Tue Jul 17 13:22:44 2012 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> ColNames </TH> <TH> Description </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> country </TD> <TD> Country </TD> </TR>
