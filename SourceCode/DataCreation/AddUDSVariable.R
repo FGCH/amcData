@@ -26,11 +26,11 @@ uds <- uds[, c("country", "year", "mean")]
 uds <- rename(uds, c(mean = "UDS"))
 
 # Create variable description
-ColNames <- names(uds[, "UDS"])
+ColNames <- names(uds[, c(-1, -2, -4)])
 Description <- c("Mean Unified Democarcy Score")
 Source <- c("Melton et al. (2011)")
 
-VarList <- cbind(ColNames, Description)
+VarList <- cbind(ColNames, Description, Source)
 
 VarList <- xtable(VarList)
 
