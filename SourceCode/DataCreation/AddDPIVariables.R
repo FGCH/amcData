@@ -1,12 +1,11 @@
 ############ 
-# Clean Up Database of Political Institutions (2010) (DPI) Data and Merge it with 
-# Laeven & Valencia (2012) Crisis Restructuring Data
+# Clean Up Database of Political Institutions (2010) (DPI) Data
 # Christopher Gandrud
 # Updated 17 July 2012
 ############
 
 # Set working directory and load the data.
-setwd("/git_repositories/amcData/BaseFiles/DPI2010")
+setwd("/git_repositories/amcData/BaseFiles/DPI2010/")
 
 # Load required packages
 library(foreign)
@@ -40,9 +39,14 @@ dpi$execrlc[dpi$execrlc == 3] <- "Left"
 # Add IMF code id variable
 dpi$imfcode <- countrycode(dpi$countryname, origin = "country.name", destination = "imf")
 
+# Rename countryname
+
+dpi <- rename(dpi, c(countryname = "country"))
+
 # Create variable descriptions
 ColNames <- names(dpi[, c(-1, -2, -7)])
-Description <- c("Years left in the chief executive's current term", "Number of Government parties", "Cheif executive's conomic policy orientation", "Year of an executive election (created from <em>yrcurnt</em>")
+Description <- c("Years left in the chief executive's current term", "Number of Government parties", "Cheif executive's conomic policy orientation", "Year of an executive election (created from yrcurnt = 0)")
+Source <- c("DPI")
 
 VarList <- cbind(ColNames, Description)
 
@@ -50,7 +54,7 @@ VarList <- xtable(VarList)
 
 DpiVariableTable <- print(VarList, type = "html")
 
-cat("# Variables Lables and Variable Descriptions for DPI (2010) Data\n ### See: <http://econ.worldbank.org/WBSITE/EXTERNAL/EXTDEC/EXTRESEARCH/0,,contentMDK:20649465~pagePK:64214825~piPK:64214943~theSitePK:469382,00.html>\n\n", DpiVariableTable, file = "/git_repositories/amcData/MainData/VariableDescriptions/DPIVariableDescriptions.md")
+cat("# Variable Labels and Variable Descriptions for DPI (2010) Data\n See: <http://go.worldbank.org/2EAGGLRZ40>\n\n", DpiVariableTable, file = "/git_repositories/amcData/MainData/VariableDescriptions/DPIVariableDescriptions.md")
 
 # Save file
 write.table(dpi, file = "/git_repositories/amcData/MainData/CleanedPartial/DpiData.csv", sep = ",")

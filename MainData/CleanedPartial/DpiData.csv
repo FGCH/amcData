@@ -1,4 +1,4 @@
-"countryname","year","yrcurnt","govoth","execrlc","ElectionYear","imfcode"
+"country","year","yrcurnt","govoth","execrlc","ElectionYear","imfcode"
 "1","Turk Cyprus",1975,NA,NA,NA,NA,423
 "2","Turk Cyprus",1976,0,NA,NA,"ElectionYear",423
 "3","Turk Cyprus",1977,4,0,"Right","NotElectionYear",423
