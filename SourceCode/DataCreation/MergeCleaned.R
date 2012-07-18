@@ -34,7 +34,7 @@ vars <- c("imfcode", "year", "country.x", "CrisisDate", "CrisisDateSystemic",
             "MonetaryPolicyIndex", "AverageReserveChange", "FiscalPolicyIndex", 
             "IncreasePublicDebt", "IMFProgram", "YearIMFProgram", "PeakNPLs", 
             "NetFiscalCosts", "GrossFiscalCosts", "FiveYearRecovery", "OutputLoss", 
-            "yrcurnt", "ElectionYear", "govoth", "execrlc", "UDS")
+            "yrcurnt", "ElectionYear", "govfrac", "execrlc", "UDS")
 
 amcData <- amcData[, vars]
 
