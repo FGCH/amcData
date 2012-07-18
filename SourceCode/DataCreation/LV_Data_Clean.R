@@ -1,7 +1,7 @@
 ############ 
 # Clean Up Laeven & Valencia (2012) Banking Crisis Data
 # Christopher Gandrud
-# Updated 17 July 2012
+# Updated 18 July 2012
 ############
 
 ## Laeven & Valencia (2012) data can be found at: http://www.imf.org/external/pubs/cat/longres.aspx?sk=26015.0
@@ -87,15 +87,15 @@ restruct$AMCType[restruct$AMC == 1] <- "None"
 restruct$AMCType[restruct$AMC == 2] <- "Centralised"
 restruct$AMCType[restruct$AMC == 3] <- "Decentralised"
 
+## Brazil PROER classify as AMC
+restruct$AMC[restruct$country == "Brazil" & restruct$year == 1994] <- 3
+restruct$AMCType[restruct$country == "Brazil" & restruct$year == 1994] <- "Decentralised"
+
 restruct$AMC[restruct$AMC > 1] <- 2
 
 restruct$AMC <- factor(restruct$AMC, labels = c("No AMC", "AMC Created"))
 
 # Add Changes to the data file and Create Notes of the changes
-
-## Brazil PROER classify as AMC
-restruct$AMC[restruct$country == "Brazil" & restruct$year == 1994] <- 1
-restruct$AMCType[restruct$country == "Brazil" & restruct$year == 1994] <- "Decentralised"
 
 BrazilAMC <- c("- Brazil's PROER was added as a **AMC** and classified as 'Decentralised' in the **AMCType** variable. It was created in 1996. More details can be found the Banco Central Do Brazil's website <http://www.bcb.gov.br/?PROEREN>.")
 

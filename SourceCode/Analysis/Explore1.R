@@ -15,5 +15,5 @@ main <- read.csv(textConnection(main))
 
 # Basic Boxplots
 
-qplot(UDS, AMC, geom = "point", data = main)
+qplot(AMC, UDS, geom = "boxplot", data = main) + theme_bw()
 
