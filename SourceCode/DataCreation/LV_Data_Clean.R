@@ -93,7 +93,7 @@ restruct$AMCType[restruct$country == "Brazil" & restruct$year == 1994] <- "Decen
 
 restruct$AMC[restruct$AMC > 1] <- 2
 
-restruct$AMC <- factor(restruct$AMC, labels = c("No AMC", "AMC Created"))
+restruct$AMC <- factor(restruct$AMC, labels = c("NoAMC", "AMCCreated"))
 
 # Add Changes to the data file and Create Notes of the changes
 

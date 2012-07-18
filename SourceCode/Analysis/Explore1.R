@@ -14,19 +14,19 @@ url <- "https://raw.github.com/christophergandrud/amcData/master/MainData/amcDat
 main <- getURL(url)
 main <- read.csv(textConnection(main))
 
-main$amc[main$AMC == "No AMC"] <- 0
-main$amc[main$AMC == "AMC Created"] <- 1
+main$SingleParty[main$govfrac > 0] <- "MultiParty"
+main$SingleParty[main$govfrac == 1] <- "SingleParty"
 
 
 ##### Basic Boxplots ####
 
-qplot(AMC, govoth, geom = "boxplot", data = main) + theme_bw()
+qplot(AMC, SingleParty, geom = "boxplot", data = main) + theme_bw()
 
 #### Exploratory Models ####
 
 M1 <- zelig(AMC ~ IMFProgram, model = "logit", data = main)
 
-M2 <- zelig(AMC ~ govoth, model = "logit", data = main)
+M2 <- zelig(AMC ~ IMFProgram + SingleParty, model = "logit", data = main)
 
 M3 <- zelig(AMC ~ execrlc, model = "logit", data = main)
 
