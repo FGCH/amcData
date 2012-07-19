@@ -2,7 +2,7 @@
  ### See: <http://www.imf.org/external/pubs/cat/longres.aspx?sk=26015.0>
 
  <!-- html table generated in R 2.15.1 by xtable 1.7-0 package -->
-<!-- Wed Jul 18 14:44:49 2012 -->
+<!-- Thu Jul 19 10:27:02 2012 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> ColNames </TH> <TH> Description </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> country </TD> <TD> Country </TD> </TR>
@@ -61,4 +61,4 @@
 
 # Notes on changes made to Laeven and Valencia (2012) data
 
- - Brazil's PROER was added as a **AMC** and classified as 'Decentralised' in the **AMCType** variable. It was created in 1996. More details can be found the Banco Central Do Brazil's website <http://www.bcb.gov.br/?PROEREN>.
+ - Brazil's PROER was added as a **AMC** and classified as 'Decentralised' in the **AMCType** variable. It was created in 1996. More details can be found the Banco Central Do Brazil's website <http://www.bcb.gov.br/?PROEREN>. - Sweden 1991 reclassified as having decentralised AMCs. See: <http://www.clevelandfed.org/research/PolicyDis/pdp21.pdf?WT.oss=Import+Prices&WT.oss_r=1730>
