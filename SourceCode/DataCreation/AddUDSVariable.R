@@ -1,11 +1,8 @@
 ############ 
 # Clean Up Unified Democracy Scores (2010) (UDS) Data 
 # Christopher Gandrud
-# Updated 17 July 2012
+# Updated 24 July 2012
 ############
-
-# Set working directory and load the data.
-setwd("/git_repositories/amcData/BaseFiles/UDS2011/")
 
 # Load required packages
 library(countrycode)

@@ -1,13 +1,14 @@
 ######### 
 # Make amcData Data Set
 # Christopher Gandrud
-# Updated 17 July 2012
+# Updated 24 July 2012
 #########
 
 # Set working directory 
 setwd("/git_repositories/amcData/SourceCode/DataCreation/")
-
-source("LV_Data_Clean.R")
+source("AddAMCLVStartYears.R")
+setwd("/git_repositories/amcData/SourceCode/DataCreation/")
+source("AddLV.R")
 setwd("/git_repositories/amcData/SourceCode/DataCreation/")
 source("AddDPIVariables.R")
 setwd("/git_repositories/amcData/SourceCode/DataCreation/")

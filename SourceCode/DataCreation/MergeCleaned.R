@@ -1,7 +1,7 @@
 ############ 
 # Merge Cleaned Up AMC Database Data
 # Christopher Gandrud
-# Updated 17 July 2012
+# Updated 24 July 2012
 ############
 
 # Load required packages
@@ -12,15 +12,17 @@ library(reshape)
 setwd("/git_repositories/amcData/MainData/CleanedPartial/")
 
 # Load data
+amc <- read.csv("amcStartData.csv")
 lv <- read.csv("LvData.csv") 
 uds <- read.csv("UdsData.csv")
 dpi <- read.csv("DpiData.csv")
 
-amcData <- merge(lv, uds, union("imfcode", "year"))
+amcData <- merge(amc, lv, union("imfcode", "CrisisYear"))
+amcData <- merge(amcData, uds, union("imfcode", "year"))
 amcData <- merge(amcData, dpi, union("imfcode", "year"))
 
 # Clean up merged
-vars <- c("imfcode", "year", "country.x", "CrisisDate", "CrisisDateSystemic", 
+vars <- c("imfcode", "year", "country.x", "CrisisYear", "CrisisDate", "CrisisDateSystemic", 
             "CurrencyCrisis", "YearCurrencyCrisis", "SovereignCrisis", "YearSovereignCrisis", 
             "CreditBoom", "CreditorRights", "CreditorRightsIndex", "DepositIns", 
             "YearDICreated", "DICoverageLimit", "DICoverageRatio", "DepositFreeze", 

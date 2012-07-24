@@ -45,7 +45,7 @@ dpi <- rename(dpi, c(countryname = "country"))
 
 # Create variable descriptions
 ColNames <- names(dpi[, c(-1, -2, -7)])
-Description <- c("Years left in the chief executive's current term", "Government party fractionalization", "Cheif executive's conomic policy orientation", "Year of an executive election (created from yrcurnt = 0)")
+Description <- c("Years left in the chief executive's current term", "Government party fractionalization", "Chief executive's conomic policy orientation", "Year of an executive election (created from yrcurnt = 0)")
 Source <- c("DPI")
 
 VarList <- cbind(ColNames, Description)
