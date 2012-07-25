@@ -1,7 +1,7 @@
 ############ 
 # Merge Cleaned Up AMC Database Data
 # Christopher Gandrud
-# Updated 24 July 2012
+# Updated 25 July 2012
 ############
 
 # Load required packages
@@ -17,12 +17,20 @@ lv <- read.csv("LvData.csv")
 uds <- read.csv("UdsData.csv")
 dpi <- read.csv("DpiData.csv")
 
-amcData <- merge(amc, lv, union("imfcode", "CrisisYear"))
-amcData <- merge(amcData, uds, union("imfcode", "year"))
+amcData <- merge(amc, lv, by = c("imfcode", "CrisisYear"), all = TRUE)
+  # Clean up
+  amcData <- amcData[, -3]
+  amcData <- rename(amcData, c(country.y = "country"))
+
+amcData <- merge(amcData, uds, union("imfcode", "year"), all = TRUE)
+  amcData <- rename(amcData, c(country.x = "country"))
+
 amcData <- merge(amcData, dpi, union("imfcode", "year"))
+  amcData <- rename(amcData, c(country.x = "country"), all = TRUE)
+
 
 # Clean up merged
-vars <- c("imfcode", "year", "country.x", "CrisisYear", "CrisisDate", "CrisisDateSystemic", 
+vars <- c("imfcode", "year", "country", "CrisisYear", "CrisisDate", "CrisisDateSystemic", 
             "CurrencyCrisis", "YearCurrencyCrisis", "SovereignCrisis", "YearSovereignCrisis", 
             "CreditBoom", "CreditorRights", "CreditorRightsIndex", "DepositIns", 
             "YearDICreated", "DICoverageLimit", "DICoverageRatio", "DepositFreeze", 
@@ -39,8 +47,6 @@ vars <- c("imfcode", "year", "country.x", "CrisisYear", "CrisisDate", "CrisisDat
             "yrcurnt", "ElectionYear", "govfrac", "execrlc", "UDS")
 
 amcData <- amcData[, vars]
-
-amcData <- rename(amcData, c(country.x = "country")) 
 
 amcData <- amcData[order(amcData$country),]
 
