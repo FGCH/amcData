@@ -1,5 +1,5 @@
 ############ 
-# Merge Cleaned Up AMC Database Data
+# Merge Cleaned Up AMC Database Data (Crisis Only Version)
 # Christopher Gandrud
 # Updated 25 July 2012
 ############
@@ -12,25 +12,28 @@ library(reshape)
 setwd("/git_repositories/amcData/MainData/CleanedPartial/")
 
 # Load data
-amc <- read.csv("amcStartData.csv")
 lv <- read.csv("LvData.csv") 
 uds <- read.csv("UdsData.csv")
 dpi <- read.csv("DpiData.csv")
 
-amcData <- merge(amc, lv, by = c("imfcode", "CrisisYear"), all = TRUE)
-  # Clean up
-  amcData <- amcData[, -3]
-  amcData <- rename(amcData, c(country.y = "country"))
+# Remove missing id variables
+lv <- lv[!is.na(lv$imfcode), ]
+uds <- uds[!is.na(uds$imfcode), ]
+dpi <- dpi[!is.na(dpi$imfcode), ]
 
-amcData <- merge(amcData, uds, union("imfcode", "year"), all = TRUE)
-  amcData <- rename(amcData, c(country.x = "country"))
+lv <- lv[!is.na(lv$year), ]
+uds <- uds[!is.na(uds$year), ]
+dpi <- dpi[!is.na(dpi$year), ]
 
-amcData <- merge(amcData, dpi, union("imfcode", "year"))
-  amcData <- rename(amcData, c(country.x = "country"), all = TRUE)
+amcCrisisYear <- merge(lv, uds, union("imfcode", "year"))
 
+amcCrisisYear <- merge(amcCrisisYear, dpi, union("imfcode", "year"))
+
+amcCrisisYear <- rename(amcCrisisYear, c(country.x = "country"))
+amcCrisisYear <- rename(amcCrisisYear, c(year = "CrisisYear"))
 
 # Clean up merged
-vars <- c("imfcode", "year", "country", "CrisisYear", "CrisisDate", "CrisisDateSystemic", 
+vars <- c("imfcode", "CrisisYear", "country", "CrisisDate", "CrisisDateSystemic", 
             "CurrencyCrisis", "YearCurrencyCrisis", "SovereignCrisis", "YearSovereignCrisis", 
             "CreditBoom", "CreditorRights", "CreditorRightsIndex", "DepositIns", 
             "YearDICreated", "DICoverageLimit", "DICoverageRatio", "DepositFreeze", 
@@ -46,8 +49,8 @@ vars <- c("imfcode", "year", "country", "CrisisYear", "CrisisDate", "CrisisDateS
             "NetFiscalCosts", "GrossFiscalCosts", "FiveYearRecovery", "OutputLoss", 
             "yrcurnt", "ElectionYear", "govfrac", "execrlc", "UDS")
 
-amcData <- amcData[, vars]
+amcCrisisYear <- amcCrisisYear[, vars]
 
-amcData <- amcData[order(amcData$country),]
+amcCrisisYear <- amcCrisisYear[order(amcCrisisYear$country),]
 
-write.table(amcData, file = "/git_repositories/amcData/MainData/amcData.csv", sep = ",")
+write.table(amcCrisisYear, file = "/git_repositories/amcData/MainData/amcCrisisYear.csv", sep = ",")

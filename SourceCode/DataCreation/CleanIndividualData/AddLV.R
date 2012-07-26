@@ -1,7 +1,7 @@
 ############ 
 # Clean Up Laeven & Valencia (2012) Banking Crisis Data
 # Christopher Gandrud
-# Updated 24 July 2012
+# Updated 26 July 2012
 ############
 
 ## Laeven & Valencia (2012) data can be found at: http://www.imf.org/external/pubs/cat/longres.aspx?sk=26015.0
@@ -73,7 +73,7 @@ restruct$CrisisDate <- gsub("1989", "Jan-89", restruct$CrisisDate)
 restruct$CrisisDate <- paste(restruct$CrisisDate, "-01", sep = "")
 restruct$CrisisDate <- as.Date(restruct$CrisisDate, "%b-%y-%d")
 
-restruct$CrisisYear <- as.numeric(str_extract(restruct$CrisisDate, "[0-9][0-9][0-9][0-9]"))
+restruct$year <- as.numeric(str_extract(restruct$CrisisDate, "[0-9][0-9][0-9][0-9]"))
 
 # Clean up DICoverageLimit variable values
 restruct$DICoverageLimit <- gsub(",", "", restruct$DICoverageLimit)
@@ -88,15 +88,34 @@ restruct$AMCType[restruct$AMC == 2] <- "Centralised"
 restruct$AMCType[restruct$AMC == 3] <- "Decentralised"
 
 # Sweden reclassified as decentralised
-restruct$AMCType[restruct$country == "Sweden" & restruct$CrisisYear == 1991] <- "Decentralised"
+restruct$AMCType[restruct$country == "Sweden" & restruct$year == 1991] <- "Decentralised"
 
 ## Brazil PROER classify as AMC
-restruct$AMC[restruct$country == "Brazil" & restruct$CrisisYear == 1994] <- 3
-restruct$AMCType[restruct$country == "Brazil" & restruct$CrisisYear == 1994] <- "Decentralised"
+restruct$AMC[restruct$country == "Brazil" & restruct$year == 1994] <- 3
+restruct$AMCType[restruct$country == "Brazil" & restruct$year == 1994] <- "Decentralised"
 
 restruct$AMC[restruct$AMC > 1] <- 2
 
 restruct$AMC <- factor(restruct$AMC, labels = c("NoAMC", "AMCCreated"))
+
+# Reorder variables so that year is at the end
+vars <- c("country", "CrisisDate", "CrisisDateSystemic", "CurrencyCrisis", 
+          "YearCurrencyCrisis", "SovereignCrisis", "YearSovereignCrisis", 
+          "CreditBoom", "CreditorRights", "CreditorRightsIndex", "DepositIns", 
+          "YearDICreated", "DICoverageLimit", "DICoverageRatio", "DepositFreeze", 
+          "DateDepositFreeze", "DurationDepositFreeze", "TimeDepositsFreeze", 
+          "BankHoliday", "DateBankHoliday", "DurationBankHoliday", "BankGuaranteee", 
+          "DateBankGuaranteeStart", "DateBankGuaranteeEnd", "BankGuaranteeDuration", 
+          "BankGuaranteeCoverage", "EmergencyLending", "DateEmergencyLending", 
+          "PeakLendingSupport", "BankRestructuring", "Nationalizations", 
+          "AssetPurchases", "AMC", "Recap", "RecapCosts", "RecoveryDummy", 
+          "RecoveryProceeds", "GovRecapCosts", "DepositorLosses", "DepositorLosesSeverity", 
+          "MonetaryPolicyIndex", "AverageReserveChange", "FiscalPolicyIndex", 
+          "IncreasePublicDebt", "IMFProgram", "YearIMFProgram", "PeakNPLs", 
+          "NetFiscalCosts", "GrossFiscalCosts", "FiveYearRecovery", "OutputLoss", 
+          "imfcode", "AMCType", "year")
+
+restruct <- restruct[, vars]
 
 # Add Changes to the data file and Create Notes of the changes
 
