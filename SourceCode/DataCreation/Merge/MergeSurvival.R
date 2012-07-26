@@ -33,20 +33,32 @@ TempYear3 <- rename(TempYear3, c(temp = "year"))
 TempYear4 <- remove.vars(TempYear4, names = "year")
 TempYear4 <- rename(TempYear4, c(temp = "year"))
 
-lv <- rbind(lv, TempYear1, TempYear3, TempYear3, TempYear4)
+lv <- rbind(lv, TempYear1, TempYear2, TempYear3, TempYear4)
 
+# Merge with UDS
+amcCountryYear <- merge(lv, uds, union("imfcode", "year"), all = TRUE)
+  amcCountryYear <- remove.vars(amcCountryYear, names = "country.y")
+  amcCountryYear <- rename(amcCountryYear, c(country.x = "country"))
 
 # Merge with DPI
-amcCountryYear <- merge(lv, uds, union("imfcode", "year"), all = TRUE)
-for (i in 1:4){
-  lv <- remove.vars(lv, names = "year")
-  year <- lv[[paste("year", i, sep = "")]]
-  lv <- cbind(lv, year)
-  amcCountryYear <- merge(lv, amcCountryYear, union("imfcode", "year"), all = TRUE, suffixes = paste("year", i, sep = ""))
+amcCountryYear <- merge(amcCountryYear, dpi, union("imfcode", "year"), all = TRUE)
+  amcCountryYear <- remove.vars(amcCountryYear, names = "country.y")
   amcCountryYear <- rename(amcCountryYear, c(country.x = "country"))
-}
 
+# Merge with AMC Start Year
+amc <- rename(amc, c(AMCStartYear = "year"))
+amcCountryYear <- merge(amcCountryYear, amc, union("imfcode", "year"), all = TRUE)
+  amcCountryYear <- remove.vars(amcCountryYear, names = "country.y")
+  amcCountryYear <- rename(amcCountryYear, c(country.x = "country"))
 
+# Clean up merge
+amcCountryYear <- amcCountryYear[amcCountryYear$year >= 1980, ]
+amcCountryYear <- amcCountryYear[!is.na(amcCountryYear$year), ]
+
+amcCountryYear$AMCDummy[is.na(amcCountryYear$AMCDummy)] <- 0
+amcCountryYear <- amcCountryYear[!duplicated(amcCountryYear[, 1:2], fromLast=FALSE), ]
+
+write.table(amcCrisisYear, file = "/git_repositories/amcData/MainData/amcCountryYear.csv", sep = ",")
 
 
 

@@ -2,7 +2,7 @@
  See: <http://www.unified-democracy-scores.org/uds.html>
 
  <!-- html table generated in R 2.15.1 by xtable 1.7-0 package -->
-<!-- Wed Jul 25 14:40:43 2012 -->
+<!-- Thu Jul 26 15:46:48 2012 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> Description </TH> <TH> Source </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> Mean Unified Democarcy Score </TD> <TD> Melton et al. (2011) </TD> </TR>

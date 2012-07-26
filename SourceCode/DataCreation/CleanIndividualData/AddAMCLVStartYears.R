@@ -41,8 +41,8 @@ amcStart$AMCDummy[!is.na(amcStart$AMCStartYear)] <- "1"
 amcStart$imfcode <- countrycode(amcStart$country, origin = "country.name", destination = "imf")
 
 # Create variable descriptions
-ColNames <- names(amcStart[, "AMCStartYear"])
-Description <- c("The year that an AMC was created.")
+ColNames <- names(amcStart[, "AMCDummy"])
+Description <- c("Dummy variable for whether or not an AMC was created in a given year.")
 Date <- date()
 Source <- paste("Gathered by authors. Current as of", Date, sep = " ")
 
