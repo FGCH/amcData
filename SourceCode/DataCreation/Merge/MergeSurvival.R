@@ -68,6 +68,28 @@ amcCountryYear <- amcCountryYear[!is.na(amcCountryYear$year), ]
 amcCountryYear$AMCDummy[is.na(amcCountryYear$AMCDummy)] <- 0
 amcCountryYear <- amcCountryYear[!duplicated(amcCountryYear[, 1:2], fromLast=FALSE), ]
 
+vars <- c("country", "imfcode", "year", "UDS", "yrcurnt", "govfrac", "execrlc", 
+          "ElectionYear", "CrisisYear", "AMCDummy", "GDPperCapita", "NPLwdi", 
+          "CurrentAccount", "CrisisDate", "CrisisDateSystemic", "CurrencyCrisis", 
+          "YearCurrencyCrisis", "SovereignCrisis", "YearSovereignCrisis", 
+          "CreditBoom", "CreditorRights", "CreditorRightsIndex", "DepositIns", 
+          "YearDICreated", "DICoverageLimit", "DICoverageRatio", "DepositFreeze", 
+          "DateDepositFreeze", "DurationDepositFreeze", "TimeDepositsFreeze", 
+          "BankHoliday", "DateBankHoliday", "DurationBankHoliday", "BankGuaranteee", 
+          "DateBankGuaranteeStart", "DateBankGuaranteeEnd", "BankGuaranteeDuration", 
+          "BankGuaranteeCoverage", "EmergencyLending", "DateEmergencyLending", 
+          "PeakLendingSupport", "BankRestructuring", "Nationalizations", 
+          "AssetPurchases", "AMC", "Recap", "RecapCosts", "RecoveryDummy", 
+          "RecoveryProceeds", "GovRecapCosts", "DepositorLosses", "DepositorLosesSeverity", 
+          "MonetaryPolicyIndex", "AverageReserveChange", "FiscalPolicyIndex", 
+          "IncreasePublicDebt", "IMFProgram", "YearIMFProgram", "PeakNPLs", 
+          "NetFiscalCosts", "GrossFiscalCosts", "FiveYearRecovery", "OutputLoss", 
+          "AMCType")
+
+amcCountryYear <- amcCountryYear[, vars]
+
+amcCountryYear <- amcCountryYear[order(amcCountryYear$country),]
+
 write.table(amcCountryYear, file = "/git_repositories/amcData/MainData/amcCountryYear.csv", sep = ",", row.names = FALSE)
 
 
