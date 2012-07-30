@@ -15,6 +15,8 @@ setwd("/git_repositories/amcData/SourceCode/DataCreation/CleanIndividualData/")
   source("AddUDSVariable.R")
 setwd("/git_repositories/amcData/SourceCode/DataCreation/CleanIndividualData/")
   source("AddWorldBank.R")
+setwd("/git_repositories/amcData/SourceCode/DataCreation/CleanIndividualData/")
+  source("AddDreherIMF.R")
 
 # Create merged data sets 
 ## Country-Crisis data

@@ -18,12 +18,14 @@ uds <- read.csv("UdsData.csv")
 dpi <- read.csv("DpiData.csv")
 amc <- read.csv("amcStartData.csv")
 wdi <- read.csv("WDIData.csv")
+imf <- read.csv("IMFData.csv")
 
 # Remove missing id variables
 lv <- lv[!is.na(lv$imfcode), ]
 uds <- uds[!is.na(uds$imfcode), ]
 dpi <- dpi[!is.na(dpi$imfcode), ]
 wdi <- wdi[!is.na(wdi$imfcode), ]
+imf <- imf[!is.na(imf$imfcode), ]
 
 # Create Crisis 5 year data (crisis year + 4)
 for (i in 1:4){
@@ -61,6 +63,9 @@ amcCountryYear <- merge(amcCountryYear, amc, union("imfcode", "year"), all = TRU
 # Merge with WDI Data
 amcCountryYear <- merge(amcCountryYear, wdi, union("imfcode", "year"), all = TRUE)
 
+# Merge with IMF Dreher Data
+amcCountryYear <- merge(amcCountryYear, imf, union("imfcode", "year"), all = TRUE)
+
 # Clean up merge
 amcCountryYear <- amcCountryYear[amcCountryYear$year >= 1980, ]
 amcCountryYear <- amcCountryYear[!is.na(amcCountryYear$year), ]
@@ -70,7 +75,7 @@ amcCountryYear <- amcCountryYear[!duplicated(amcCountryYear[, 1:2], fromLast=FAL
 
 vars <- c("country", "imfcode", "year", "UDS", "yrcurnt", "govfrac", "execrlc", 
           "ElectionYear", "CrisisYear", "AMCDummy", "GDPperCapita", "NPLwdi", 
-          "CurrentAccount", "CrisisDate", "CrisisDateSystemic", "CurrencyCrisis", 
+          "CurrentAccount", "IMFDreher", "CrisisDate", "CrisisDateSystemic", "CurrencyCrisis", 
           "YearCurrencyCrisis", "SovereignCrisis", "YearSovereignCrisis", 
           "CreditBoom", "CreditorRights", "CreditorRightsIndex", "DepositIns", 
           "YearDICreated", "DICoverageLimit", "DICoverageRatio", "DepositFreeze", 
