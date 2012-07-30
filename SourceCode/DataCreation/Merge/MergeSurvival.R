@@ -17,6 +17,13 @@ lv <- read.csv("LvData.csv")
 uds <- read.csv("UdsData.csv")
 dpi <- read.csv("DpiData.csv")
 amc <- read.csv("amcStartData.csv")
+wdi <- read.csv("WDIData.csv")
+
+# Remove missing id variables
+lv <- lv[!is.na(lv$imfcode), ]
+uds <- uds[!is.na(uds$imfcode), ]
+dpi <- dpi[!is.na(dpi$imfcode), ]
+wdi <- wdi[!is.na(wdi$imfcode), ]
 
 # Create Crisis 5 year data (crisis year + 4)
 for (i in 1:4){
@@ -37,8 +44,8 @@ lv <- rbind(lv, TempYear1, TempYear2, TempYear3, TempYear4)
 
 # Merge with UDS
 amcCountryYear <- merge(lv, uds, union("imfcode", "year"), all = TRUE)
-  amcCountryYear <- remove.vars(amcCountryYear, names = "country.y")
-  amcCountryYear <- rename(amcCountryYear, c(country.x = "country"))
+  amcCountryYear <- remove.vars(amcCountryYear, names = "country.x")
+  amcCountryYear <- rename(amcCountryYear, c(country.y = "country"))
 
 # Merge with DPI
 amcCountryYear <- merge(amcCountryYear, dpi, union("imfcode", "year"), all = TRUE)
@@ -50,6 +57,9 @@ amc <- rename(amc, c(AMCStartYear = "year"))
 amcCountryYear <- merge(amcCountryYear, amc, union("imfcode", "year"), all = TRUE)
   amcCountryYear <- remove.vars(amcCountryYear, names = "country.y")
   amcCountryYear <- rename(amcCountryYear, c(country.x = "country"))
+
+# Merge with WDI Data
+amcCountryYear <- merge(amcCountryYear, wdi, union("imfcode", "year"), all = TRUE)
 
 # Clean up merge
 amcCountryYear <- amcCountryYear[amcCountryYear$year >= 1980, ]

@@ -1,7 +1,7 @@
 ############ 
 # Merge Cleaned Up AMC Database Data (Crisis Only Version)
 # Christopher Gandrud
-# Updated 25 July 2012
+# Updated 30 July 2012
 ############
 
 # Load required packages
@@ -15,19 +15,20 @@ setwd("/git_repositories/amcData/MainData/CleanedPartial/")
 lv <- read.csv("LvData.csv") 
 uds <- read.csv("UdsData.csv")
 dpi <- read.csv("DpiData.csv")
+wdi <- read.csv("WDIData.csv")
 
 # Remove missing id variables
 lv <- lv[!is.na(lv$imfcode), ]
 uds <- uds[!is.na(uds$imfcode), ]
 dpi <- dpi[!is.na(dpi$imfcode), ]
+wdi <- wdi[!is.na(wdi$imfcode), ]
 
-lv <- lv[!is.na(lv$year), ]
-uds <- uds[!is.na(uds$year), ]
-dpi <- dpi[!is.na(dpi$year), ]
 
 amcCrisisYear <- merge(lv, uds, union("imfcode", "year"))
 
 amcCrisisYear <- merge(amcCrisisYear, dpi, union("imfcode", "year"))
+
+amcCrisisYear <- merge(amcCrisisYear, wdi, union("imfcode", "year"))
 
 amcCrisisYear <- rename(amcCrisisYear, c(country.x = "country"))
 amcCrisisYear <- rename(amcCrisisYear, c(year = "CrisisYear"))
@@ -47,7 +48,7 @@ vars <- c("imfcode", "CrisisYear", "country", "CrisisDate", "CrisisDateSystemic"
             "MonetaryPolicyIndex", "AverageReserveChange", "FiscalPolicyIndex", 
             "IncreasePublicDebt", "IMFProgram", "YearIMFProgram", "PeakNPLs", 
             "NetFiscalCosts", "GrossFiscalCosts", "FiveYearRecovery", "OutputLoss", 
-            "yrcurnt", "ElectionYear", "govfrac", "execrlc", "UDS")
+            "yrcurnt", "ElectionYear", "govfrac", "execrlc", "UDS", "GDPperCapita", "NPLwdi", "CurrentAccount")
 
 amcCrisisYear <- amcCrisisYear[, vars]
 
