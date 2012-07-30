@@ -1,7 +1,7 @@
 ############ 
 # Merge Cleaned Up AMC Database Data (Repeated Survival Time Version)
 # Christopher Gandrud
-# Updated 26 July 2012
+# Updated 30 July 2012
 ############
 
 # Load required packages
@@ -68,7 +68,7 @@ amcCountryYear <- amcCountryYear[!is.na(amcCountryYear$year), ]
 amcCountryYear$AMCDummy[is.na(amcCountryYear$AMCDummy)] <- 0
 amcCountryYear <- amcCountryYear[!duplicated(amcCountryYear[, 1:2], fromLast=FALSE), ]
 
-write.table(amcCrisisYear, file = "/git_repositories/amcData/MainData/amcCountryYear.csv", sep = ",")
+write.table(amcCountryYear, file = "/git_repositories/amcData/MainData/amcCountryYear.csv", sep = ",", row.names = FALSE)
 
 
 

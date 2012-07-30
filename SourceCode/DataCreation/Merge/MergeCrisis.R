@@ -54,4 +54,4 @@ amcCrisisYear <- amcCrisisYear[, vars]
 
 amcCrisisYear <- amcCrisisYear[order(amcCrisisYear$country),]
 
-write.table(amcCrisisYear, file = "/git_repositories/amcData/MainData/amcCrisisYear.csv", sep = ",")
+write.table(amcCrisisYear, file = "/git_repositories/amcData/MainData/amcCrisisYear.csv", sep = ",", row.names = FALSE)

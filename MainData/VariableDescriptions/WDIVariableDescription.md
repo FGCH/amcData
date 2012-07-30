@@ -1,6 +1,6 @@
 # Variable Label and Variable Description for World Bank Development Indictors
  See: http://data.worldbank.org/ <!-- html table generated in R 2.15.1 by xtable 1.7-0 package -->
-<!-- Mon Jul 30 10:43:37 2012 -->
+<!-- Mon Jul 30 11:23:09 2012 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> ColNames </TH> <TH> Description </TH> <TH> Source </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> GDPperCapita </TD> <TD> GDP per capita (constant 2000 US$) </TD> <TD> World Bank Development Indicators (July 2012 </TD> </TR>
