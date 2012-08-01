@@ -16,6 +16,6 @@ mainCountry <- read.csv(textConnection(mainCountry))
 
 M1 <- zelig(AMCDummy ~ govfrac, model = "logit.bayes", data = mainCountry, robust = "weave", order.by = ~year)
 
-M2 <- zelig(AMCDummy ~ IMFProgram, model = "logit.bayes", data = mainCountry, robust = "weave", order.by = ~year)
+M2 <- zelig(AMCDummy ~ IMFDreher + govfrac + GDPperCapita, model = "logit.bayes", data = mainCountry, robust = "weave")
 
 M3 <- zelig(AMCDummy ~ UDS, model = "logit.bayes", data = mainCountry, robust = "weave", order.by = ~year)
