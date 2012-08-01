@@ -44,7 +44,7 @@ VarList <- xtable(VarList)
 
 LvVariableTable <- print(VarList, type = "html")
 
-cat("# Variables Lables and Variable Descriptions for Laeven & Valencia's (2012) Restructuring Data\n ### See: <http://www.imf.org/external/pubs/cat/longres.aspx?sk=26015.0>\n\n", LvVariableTable, file = "/git_repositories/amcData/MainData/VariableDescriptions/LaevenValenciaVariableDescriptions.md")
+cat("# Variables Labels and Variable Descriptions for Laeven & Valencia's (2012) Restructuring Data\n ### See: <http://www.imf.org/external/pubs/cat/longres.aspx?sk=26015.0>\n\n", LvVariableTable, file = "/git_repositories/amcData/MainData/VariableDescriptions/LaevenValenciaVariableDescriptions.md")
 
 # Write new table. I did this to get around a problem correctly naming the reshaped variables.
 write.table(restruct, file = "restruct.csv", sep = ",")

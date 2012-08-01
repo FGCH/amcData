@@ -1,0 +1,119 @@
+Country ;Crisis Start;;AMC start;; AMC Type;"AMC
+/ DF
+/ BB";"other
+funcs
+Y/N";"operating
+Y/N";close date;;AMC name;"SOE
+/ PRIV";"Pred
+Y/N";"Pred 
+name";Pred start;;"Sort
+of change";AMC website;info1;info2
+;mth;year;mth;year;;;;;mth;year;;;;;mth;year;;;;
+Austria;9;2008;12;2009;Decentralized;BB;;Y;-;-;? Hypo Group Alpe Adria (HGAA) ;;N;-;;;;http://www.hypo-alpe-adria.at/015/home.nsf/home/de;;
+Austria;9;2008;11;2009;Decentralized;BB;;Y;-;-;KA Finanz AG;SOE;N;-;;;;http://www.kafinanz.at/EN/About%20us/About+us.aspx;;
+Belgium;9;2008;9;2008;Decentralized;recapital;-;;;;fortis NV;;N;-;;;;none;;
+Belgium;9;2008;10;2008;Decentralized;recapital;-;;;;dexia;;N;-;;;;;;
+Belgium;9;2008;10;2011;Decentralized;BB;N;;;;dexia;;N;-;;;;;http://en.wikipedia.org/wiki/Dexia;
+Bolivia;11;1994;9;1995;Centralised;?AMC;Y;;;;FONDESIF;;;;;;;www.fondesif.gov.bo;;
+Bulgaria;1;1996;9;1996;Decentralized;;;;;;work-out units in banks;;;;;;;none;;
+Colombia;6;1998;;;Centralised;;;;;;govt / CB / fogafin;;;;;;;;;
+Cote d Ivoire;???;1988;;;Centralised;;;;;;;;;;;;;;;
+Croatia;3;1998;0;1997;Centralised;AMC;Y;Y;-;-;State Agency for Deposit Insurance and Bank Rehabilitation;SOE;N;-;;;;http://www.dab.hr/ENSITE/indexen.html;http://www.bankofalbania.org/web/pub/markoSkreb_evanKraft_ang_218_1.pdf;http://www.dab.hr/ENSITE/indexen.html
+Czech Republic;;;0;1991;Centralised;AMC;Y;Y;-;-;KOB (Konsolidacni banka) and the Revitalization Agency;SOE;N;-;;;;;http://www.worldbank.org/ifa/icr_cze.pdf;http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.17.4619&rep=rep1&type=pdf
+Czech Republic;;;0;1993;Centralised;AMC;;Y;-;-;Ceska Inkasni;SOE;;;;;;;http://unpan1.un.org/intradoc/groups/public/documents/NISPAcee/UNPAN004810.pdf;
+Czech Republic;6;1996;0;1996;Centralised;AMC;;Y;-;-;Ceska Financni;;;;;;;;http://books.google.pl/books?id=L_AF5-fwYIYC&pg=PA93&lpg=PA93&dq=Konsolidacni+banka&source=bl&ots=1U_3asd5iQ&sig=2RDxbN7NdhUoUd41Wt_cYW62Sug&hl=pl&sa=X&ei=re8FUOmkFofUsgbE2-CSBw&ved=0CM8CEOgBMBU#v=onepage&q=Konsolidacni%20banka&f=false (p33);
+Denmark;9;2008;10;2008;Centralised;;;;;;Finansiel Stabilitet (FS);;N;-;;;;http://www.finansielstabilitet.dk/;http://ftalphaville.ft.com/blog/2011/02/07/481011/a-senior-haircut-precedent-in-denmark/;Woll paper
+Dominican Republic;4;2003;4;2003;Centralised;;;;;;central bank;;;;;;;;http://www.cato.org/pubs/fpbriefs/fpb83.pdf;
+Ecuador;8;1998;11;1998;Centralised;AMC/DF;Y;;;;Agencia de Garantía de Depósitos (AGD);SOE;N;-;;;;;;
+Estonia;11;1992;3;1995;Decentralized;BB;;N;8;1996;"Social Bank's ""bad bank""";;N;-;;;;;;
+Finland;9;1991;4;1993;Centralised;;;;;;STS Bank;;;;;;;http://www.vm.fi/vm/en/02_ministry/03_branch_of_government/02_stateowned_companies/index.jsp;http://www.esri.go.jp/jp/workshop/020320/session4_prf_kroszner1.pdf;
+Finland;9;1991;10;1993;Centralised;;;;;;Arsenal AMC;;;;;;;http://www.arsenal.fi/;;
+France;9;2008;10;2008;Decentralized;?;;;;;SPPE;PPP;N;-;;;;;;
+France;9;2008;10;2008;Decentralized;AMC;;Y;-;-;SFEF;SOE;N;-;;;;;;
+France;9;2008;;1816;Decentralized;q-AMC;Y;Y;-;-;CB and Caisse des Dépôts - DEXIA;SOE;N;-;;;;http://www.caissedesdepots.fr/en/the-group/who-are-we.html;;
+France;;?;4;1995;Decentralized;AMC;;;;;Consortium de Realisation (CDR);SOE;N;-;;;;;http://www.prmia.org/pdf/Case_Studies/Credit_Lyonnais_1.pdf;
+Germany;9;2008;7;2009;Decentralized;AMC;;Y;-;-;Financial Market Stabilisation Agency (FMSA);SOE;Y;same;10;2008;law change;http://www.fmsa.de/en/fmsa/tasks/history/;;
+Germany;9;2008;10;2010;Decentralized;BB;;Y;-;-;FMS Wert-management;SOE;N;-;;;;http://www.fms-wm.de/en/;;
+Germany;9;2008;12;2009;Decentralized;BB;;Y;-;-;Erste Abwicklungsanstalt (EAA);PPP?;N;-;;;;https://www.aa1.de/;;
+Germany;9;2008;3;2009;Decentralized;BB;;Y;-;-;Portfolio Restructure Unit;PRIV;Y;Institutional Restructuring Unit ;;2003;from Dresdner Bank;;http://ftp.iza.org/pp10.pdf;
+Germany;???;???;0;2003;Decentralized;BB;;N;;;Dresdner Bank 2003;;N;-;;;;;;
+Germany;;;;2008;Decentralized;BB;;Y;;;WestLB;;N;-;;;;;;
+Ghana;1;1982;9;1990;Centralised;AMC;;;;1997;Non Performing Assets Recovery Trust (NPART);SOE;N;-;;;;none;;
+Indonesia;11;1997;1;1998;Centralised;AMC+;Y;N;4;2004;Indonesian Bank Restructuring Agency (IBRA);SOE;N;-;;;;;;
+Ireland;9;2008;12;2009;Centralised;AMC;N;Y;-;-;NAMA;SOE;N;-;;;;http://www.nama.ie/;;
+Jamaica;12;1996;1;1997;Centralised;;;;;;Financial Sector Adjustment Company (Finsac);;;;;;;http://www.finsac.com/;;
+Japan;11;1997;0;1996;Centralised;;;;;;HLAC / RCB;SOE;N;-;;;;http://www.dic.go.jp/english/e_kikotoha/e_kogaisha/index.html;;http://www.adbi.org/files/2010.06.29.wp222.lessons.japan.banking.crisis.1991.2005.pdf
+Japan;11;1997;4;1999;Centralised;;;;;;Resolution and Collection Corporation;SOE;Y;HLAC / RCB;7;1996;merger;;;
+Japan;11;1997;4;2003;Centralised;AMC;;N;3;2005;Industrial Revitalization Corporation of Japan (IRCJ);;N;-;;;;;;
+Japan;;1990;1;1993;Decentralized;;;;;;Japanese Cooperative Credit Purchasing Company (CCPC);PRIV;N;-;;;;;;
+Korea;8;1997;4;1962;Centralised;;;;;;Korea Asset Management Corporation (KAMCO);;;;;;;http://kamco.or.kr/eng/index.jsp;http://mpra.ub.uni-muenchen.de/36469/2/MPRA_paper_36469.pdf;
+Korea;8;1997;6;1996;Centralised;;;;;;Korea Deposit Insurance Corporation (KDIC);;;;;;;http://www.kdic.or.kr/english/index.jsp;;
+Latvia;9;2008;10;2010;Decentralized;;;;;;Parex / Reverta;;;;;;;http://www.reverta.lv/;;
+Lithuania;12;1995;0;1996;Centralised;BB;;Y;-;-;Turto Bankas;;;;;;;http://www.turtas.lt/en/home.html;;
+Malaysia;7;1997;6;1998;Centralised;;;;;;Pengurusan Danaharta Nasional Burhad;;;;;;;none;http://www.bis.org/publ/plcy06h.pdf;
+Malaysia;7;1997;7;1998;;;;;;;Corporate Debt Restructuring Committee (CDRC);;;;;;;;;
+Malaysia;7;1997;8;1998;;;;;;;Danamodal Nasional Berhad (Danamodal) ;;;;;;;;;
+Nicaragua;8;2000;;;Decentralized;;;;;;CB / FOGADE (insurance institution);;;;;;;;;
+Nigeria;8;2009;7;2010;Centralised;;;;;;AMCON;;;;;;;http://amcon.com.ng/;;
+Russia;8;1998;3;1999;Centralised;;;;;;Agency for the Restructuring of Credit Organisations (ARKO);;;;;;;none;;
+Russia;8;1998;10;1998;Centralised;;;;;;State Corporation Deposit Insurance Agency (DIA);;;;;;;http://www.asv.org.ru/en/dia/;;
+Sweden;9;1991;12;1992;Decentralised;;;;;;Bank Support Authority;;;;;;;;http://www.esri.go.jp/jp/workshop/020320/session4_prf_kroszner1.pdf;http://fic.wharton.upenn.edu/fic/papers/98/9805.pdf
+Sweden;9;1991;0;1993;Decentralised;BB;N;;;;Securum;SOE;;;;;;;;
+Sweden;9;1991;0;1993;Decentralised;BB;N;;;;Retriva;SOE;;;;;;;;
+Sweden;9;1991;;;Decentralised;;;;;;other major banks;PRIV;;;;;;;;
+Sweden;9;1991;7;1992;Decentralised;BB;N;N;12;1998;Nackebro;PRIV;;;;;;;;
+Switzerland;9;2008;10;2008;Decentralized;;;;;;UBS / stabilization fund;;;;;;;;http://www.centralbanking.com/central-banking-journal/feature/2042698/stabfund-look-inner-workings-bad-bank;
+Thailand;;2007;8;2008;Centralised;;;;;;Financial Institutions Development Fund;SOE;Y;the same;11;1985;law change;;;
+Thailand;7;1997;10;1997;Centralised;AMC;Y;;;;Financial Sector Restructuring Agency (FRA);SOE;N;-;;;;;;
+Thailand;7;1997;10;1997;Centralised;AMC;N;;;;Thai Asset Management Corporation;SOE;N;-;;;;http://tamc.or.th/en/history.php;http://www.bis.org/publ/plcy06h.pdf;http://www.jri.co.jp/english/periodical/rim/1998/RIMe199804thaifin/
+Thailand;7;1997;4;1997;Centralised;AMC;;;;;Property Loan Management Organisation;SOE;N;-;;;;;;
+Thailand;7;1997;0;1998;Centralised;;;;;;privately-owned AMCs;;;;;;;;;
+Thailand;7;1997;;;Centralised;BB;;;;;bad bank for BBC;;;;;;;;;
+Thailand;7;1997;1;1998;Centralised;GB;;                                                                                                                                                  ;;;Radhanasin Bank;SOE;N;-;;;;;;
+Turkey;11;2000;;2001;Centralised;AMC;;Y;-;-;Turkish Treasury and the Banking and Supervision Agency (BRSA);SOE;Y;the same;9;2000;law change;http://www.bddk.org.tr/websitesi/English.aspx;"http://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=D59441922F6F4081D401388837CCD0FF?doi=10.1.1.199.8963&rep=rep1&type=pdf";
+United Kingdom;9;2007;11;2008;Decentralized;AMC;;;;;United Kingdom Financial Investments (UKFI);SOE;N;-;;;;http://www.ukfi.co.uk/;http://en.wikipedia.org/wiki/UK_Financial_Investments_Limited;
+United Kingdom;9;2007;1;2010;Decentralized;BB;;Y;-;-;Northern Rock (Asset Management) (NRAM);SOE;N;-;;;;http://www.n-ram.co.uk/;http://en.wikipedia.org/wiki/Northern_Rock_(Asset_Management);
+United Kingdom;9;2007;10;2010;Decentralized;AMC;;Y;-;-;UK Asset Resolution Ltd ;SOE;N/Y;NRAM;1;2010;UKAR manages NRAM;http://www.ukar.co.uk/;;
+United States;12;2007;3;2008;Decentralized;;;;;;Bear Stearns;;;;;;;;;
+United States;12;2007;9;2008;Decentralized;;;;;;Fannie Mae / Freddie Mac;;;;;;;;http://en.wikipedia.org/wiki/Government_intervention_during_the_subprime_mortgage_crisis;
+United States;12;2007;9;2008;Decentralized;;;;;;AIG;;;;;;;;;
+United States;12;2007;;;Decentralized;;;;;;;;;;;;;;TARP;
+United States;;1905;;;;BB;;;;;Resolution Trust Corporation (RTC);;;;;;;;http://ftp.iza.org/pp10.pdf;
+Uruguay;1;2002;6;2002;Centralised;stabil fund;Y;;;;Fondo para la Fortificación del Sistema Bancario (FFSB);SOE;N;-;;;;;;
+Uruguay;1;2002;8;2002;Centralised;stabil fund;Y;;;;Fund for the Stabilization of the Banking System (FESB);SOE;Y;Fondo para la Fortificación del Sistema Bancario (FFSB);6;2002;extended;;;
+Uruguay;1;2002;;2003;Centralised;AMC;?;;;;Fondos de Recuperación de Patrimonio Bancario;SOE;N;-;;;;;;
+Vietnam;11;1997;0;2000;(DE)Centralised;;;;;;internal BB for 4 SOCBs;;;;;;;;;
+Vietnam;11;1997;6;2003;(DE)Centralised;AMC;NPL of different institutitons (not only banks);Y;-;-;Debt and Asset Trading Corporation (DATC);SOE;N;-;;;;http://www.datc.com.vn/#;;
+;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;
+ADDITIONAL;;;;;;;;;;;;;;;;;;;;
+Norway;;;3;1991;decentralized;;;;;;Government Bank Insurance Fund;;;;;;;;http://www.esri.go.jp/jp/workshop/020320/session4_prf_kroszner1.pdf;http://fic.wharton.upenn.edu/fic/papers/98/9805.pdf
+Norway;;;11;1991;;;;;;;Government Bank Investment Fund;;;;;;;;;
+Hungary;;;0;1992;both;;;;;;Credit Consolidation Fund ;;;;;;;;;
+Hungary;;;7;1995;;;;;;1999;Risk Kft;;;;;;;;;
+Hungary;;;;1991;;;;Y;;;MBFM Rt;;;;;;;;;
+Ukraine;;;;;centralised;;;;;;Bank Recovery Unit (BRU);;;;;;;;;
+Spain;;;;;;;;;;;bailout of bankia?;;;;;;;;;
+Portugal;;;;;;;;;;;;;;;;;;;;
+Chile;;;;;;;;;;;bad loans transfered to CB but but had to buy them back and were responsible for recovering bad loans;;;;;;;;;
+Macedonia;;;;1994;;;;Y;;;Bank Rehabilitation Agency (BRA);;;;;;;;;
+Poland;;;;;decentralized;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;
+BANK GUARANTEE SCHEMES / GUARANTEE FUNDS;;;;;;;;;;;;;;;;;;;;;;;
+Country;Y/N;mth;year ;name;;other;www;www2;;;;;;;;;;;;;;;
+Denmark;Y;;;;;;;;;;;;;;;;;;;;;;
+Japan;Y;;;Deposit Insurance Corporation;;;;;;;;;;;;;;;;;;;
+Thailand;Y;8;2008;Deposit Protection Agency;;;;;;;;;;;;;;;;;;;
+Turkey;Y;7;1983;Savings Deposit Fund Insurance;;governed by BRSA;http://www.tmsf.org.tr/idari.hukuki.yapi.tr;governed by BRSA;;;;;;;;;;;;;;;
+Uruguay;Y;12;2002;Fondo de Garantía de Depósito Bancario;;;;;;;;;;;;;;;;;;;
+United States;Y;;1905;Federal Deposit Insurance Corporation (FDIC);;;http://www.fdic.gov/;http://en.wikipedia.org/wiki/Federal_Deposit_Insurance_Corporation;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;

@@ -1,7 +1,7 @@
 ############ 
 # Merge Cleaned Up AMC Database Data (Repeated Survival Time Version)
 # Christopher Gandrud
-# Updated 30 July 2012
+# Updated 1 August 2012
 ############
 
 # Load required packages
@@ -14,6 +14,7 @@ setwd("/git_repositories/amcData/MainData/CleanedPartial/")
 
 # Load data
 lv <- read.csv("LvData.csv") 
+lvAllCrises <- read.csv("LVCrisisDummyData.csv")
 uds <- read.csv("UdsData.csv")
 dpi <- read.csv("DpiData.csv")
 amc <- read.csv("amcStartData.csv")
@@ -21,6 +22,7 @@ wdi <- read.csv("WDIData.csv")
 imf <- read.csv("IMFData.csv")
 
 # Remove missing id variables
+lv <- lv[!is.na(lv$imfcode), ]
 lv <- lv[!is.na(lv$imfcode), ]
 uds <- uds[!is.na(uds$imfcode), ]
 dpi <- dpi[!is.na(dpi$imfcode), ]
@@ -66,6 +68,20 @@ amcCountryYear <- merge(amcCountryYear, wdi, union("imfcode", "year"), all = TRU
 # Merge with IMF Dreher Data
 amcCountryYear <- merge(amcCountryYear, imf, union("imfcode", "year"), all = TRUE)
 
+# Merge with LV crisis year dummies
+amcCountryYear <- merge(amcCountryYear, lvAllCrises, union("imfcode", "year"), all = TRUE)
+
+# Change missing to 0 for crisis year dummies
+vars <- c("SystemicCrisis",
+          "CurrencyCrisis.y",
+          "SovereignDefault",
+          "SovereignDebtRestructuring"
+          )
+
+for (i in vars){
+  amcCountryYear[[i]][is.na(amcCountryYear[[i]])] <- 0
+}
+
 # Clean up merge
 amcCountryYear <- amcCountryYear[amcCountryYear$year >= 1980, ]
 amcCountryYear <- amcCountryYear[!is.na(amcCountryYear$year), ]
@@ -74,11 +90,10 @@ amcCountryYear$AMCDummy[is.na(amcCountryYear$AMCDummy)] <- 0
 amcCountryYear <- amcCountryYear[!duplicated(amcCountryYear[, 1:2], fromLast=FALSE), ]
 
 vars <- c("country", "imfcode", "year", "UDS", "yrcurnt", "govfrac", "execrlc", 
-          "ElectionYear", "CrisisYear", "AMCDummy", "GDPperCapita", "NPLwdi", 
-          "CurrentAccount", "IMFDreher", "CrisisDate", "CrisisDateSystemic", "CurrencyCrisis", 
-          "YearCurrencyCrisis", "SovereignCrisis", "YearSovereignCrisis", 
-          "CreditBoom", "CreditorRights", "CreditorRightsIndex", "DepositIns", 
-          "YearDICreated", "DICoverageLimit", "DICoverageRatio", "DepositFreeze", 
+          "ElectionYear", "SystemicCrisis", "CurrencyCrisis.y", "SovereignDefault", 
+          "SovereignDebtRestructuring", "AMCDummy", "GDPperCapita", "NPLwdi", "CurrentAccount", 
+          "IMFDreher", "CrisisDate", "CreditBoom", "CreditorRights", "CreditorRightsIndex", 
+          "DepositIns", "YearDICreated", "DICoverageLimit", "DICoverageRatio", "DepositFreeze", 
           "DateDepositFreeze", "DurationDepositFreeze", "TimeDepositsFreeze", 
           "BankHoliday", "DateBankHoliday", "DurationBankHoliday", "BankGuaranteee", 
           "DateBankGuaranteeStart", "DateBankGuaranteeEnd", "BankGuaranteeDuration", 
@@ -92,6 +107,8 @@ vars <- c("country", "imfcode", "year", "UDS", "yrcurnt", "govfrac", "execrlc",
           "AMCType")
 
 amcCountryYear <- amcCountryYear[, vars]
+
+amcCountryYear <- rename(amcCountryYear, c(CurrencyCrisis.y = "CurrencyCrisis"))
 
 amcCountryYear <- amcCountryYear[order(amcCountryYear$country),]
 

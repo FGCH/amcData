@@ -1,12 +1,14 @@
 ######### 
 # Make amcData Data Set
 # Christopher Gandrud
-# Updated 30 July 2012
+# Updated 1 August 2012
 #########
 
 # Run clean up files
 setwd("/git_repositories/amcData/SourceCode/DataCreation/CleanIndividualData/")
   source("AddAMCLVStartYears.R")
+setwd("/git_repositories/amcData/SourceCode/DataCreation/CleanIndividualData/")
+source("AddLVFullCrisisYears.R")
 setwd("/git_repositories/amcData/SourceCode/DataCreation/CleanIndividualData/")
   source("AddLV.R")
 setwd("/git_repositories/amcData/SourceCode/DataCreation/CleanIndividualData/")

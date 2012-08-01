@@ -1,7 +1,7 @@
 ######### 
 # Exploritory AMC Analysis with amcCountryYear dataset
 # Christopher Gandrud
-# Updated 30 July 2012
+# Updated 1 August 2012
 #########
 
 # Load required packages
