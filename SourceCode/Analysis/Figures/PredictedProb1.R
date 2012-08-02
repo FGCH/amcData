@@ -37,7 +37,7 @@ Model.GovSim <- sim(Model, x = Model.GovSet)
 
 #### IMF Graph ####
 # Extract expected values from simulations for IMF
-
+## Note: I decided not to make this at this point.
 
 #### GovFrac Graph ####
 # Extract expected values from simulations for GovFrac
