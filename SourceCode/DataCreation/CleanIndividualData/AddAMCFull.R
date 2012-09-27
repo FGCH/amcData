@@ -22,9 +22,9 @@ setwd("/git_repositories/amcData/BaseFiles/AMCFull/")
 AMCFull <- read.csv("AMCFull.csv")
 
 # Drop source variable and notes
-AMCFull <- AMCFull[, 1:18]
+AMCFull <- AMCFull[, 1:21]
 
-# Drop A6, A7, F6, F7
+# Drop A6, A7, F6, F7 (no countries were observed to have more than 5 AMCs)
 AMCFull$A6 <- AMCFull$A7 <- AMCFull$F6 <- AMCFull$F7 <- NULL
 
 # Rename imfcode IMFCode
