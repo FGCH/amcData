@@ -7,7 +7,7 @@ The AMC Full Data Set was gathered largely by Grzegorz Wolszczak.
 
 The file `AMCFull.csv` in this folder was converted from a Microsoft Excel file available at:
 
-<https://www.dropbox.com/s/eo7njzgi689ows6/List_of_countries_2012.09.24.xls>
+<https://www.dropbox.com/s/thr7v5yeip7f2fj/List_of_countries_2012.09.26.xls>
 
 This file contains details about how the data was originally coded.
 

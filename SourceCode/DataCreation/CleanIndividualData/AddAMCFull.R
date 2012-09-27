@@ -1,7 +1,7 @@
 ############ 
 # Clean Up AMCFull Data
 # Christopher Gandrud
-# Updated 26 September 2012
+# Updated 27 September 2012
 ############
 
 ## The source code in this file cleans up the raw AMCFull.csv file.
