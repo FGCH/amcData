@@ -14,6 +14,7 @@
 # Load packages
 library(reshape)
 library(devtools)
+library(xtable)
 
 # Set working directory and load the data.
 setwd("/git_repositories/amcData/BaseFiles/AMCFull/")
@@ -42,14 +43,52 @@ AMCFull <- merge(x = AMCFull, y = Countries, by = union("IMFCode", "year"), all 
 AMC <- subset(AMCFull, year == 2012 | !is.na(AMCFull$Data))
 AMC <- AMC[!is.na(AMC$country.x), ]
 
-#### Create Standardized AMC Variables ####
-# NEED TO DO BASED ON G.'S RESPONSE #
+# Remove Countries object
+rm(Countries)
 
-
-#### Final clean then save ####
 # Rename country.x country
 AMC <- rename(AMC, c(country.x = "country"))
 
+#### Clean key variables ####
+# Create variables assuming NA = no AMC exists
+AMC$NumAMCOpNoNA <- AMC$NumAMCOp
+AMC$NumAMCOpNoNA[is.na(AMC$NumAMCOpNoNA)] <- 0
+
+AMC$NumAMCCountryNoNA <- AMC$NumAMCCountry
+AMC$NumAMCCountryNoNA[is.na(AMC$NumAMCCountryNoNA)] <- 0
+
+AMC$NumAMCCountryLagNoNA <- AMC$NumAMCCountryLag
+AMC$NumAMCCountryLagNoNA[is.na(AMC$NumAMCCountryLagNoNA)] <- 0
+
+#### Final clean then save ####
 # Drop now extraneous variables
-AMC <- AMC[, c("IMFCode", "country", "year", )]
+AMC <- AMC[, c("IMFCode", "country", "year", 
+               "AMCType", "NumAMCOpNoNA", "NumAMCCountryNoNA", "NumAMCCountryLagNoNA", 
+               "F1", "F2",  "F3", "F4", "F5")]
+
+#### Create variable descriptions ####
+ColNames <- names(AMC[, c("AMCType", "NumAMCOpNoNA", "NumAMCCountryNoNA", "NumAMCCountryLagNoNA", 
+                          "F1", "F2",  "F3", "F4", "F5")])
+Description <- c("Whether the AMC is centralized or decentralised",
+                 "How many AMCs are operating in a given year (assume missing = 0)",
+                 "How many AMCs have been opened since 1980 up to and including a given year (assume missing = 0)",
+                 "How many AMCs have been opened since 1980 up to, but not including a given year (assume missing = 0)",
+                 "Governance type of 1st AMC.",
+                 "Governance type of 2nd AMC.",
+                 "Governance type of 3rd AMC.",
+                 "Governance type of 4th AMC.",
+                 "Governance type of 5th AMC.")
+Date <- Date()
+Source <- paste("Gathered by authors, with research assistance provided by Grzegorz Wolszczak.")
+
+VarList <- cbind(ColNames, Description, Source)
+
+VarList <- xtable(VarList)
+
+AMCTable <- print(VarList, type = "html")
+
+cat("# Full AMC Data Set Description\n\n\n", Date, AMCTable, file = "/git_repositories/amcData/MainData/VariableDescriptions/AMCFull.md")
+
+# Save data file 
+write.table(AMC, file = "/git_repositories/amcData/MainData/CleanedPartial/AMCFull.csv", sep = ",", row.names = FALSE)
 

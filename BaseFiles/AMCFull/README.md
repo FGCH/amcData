@@ -29,9 +29,7 @@ The vast majority of the documents that were used to find and code AMCs are avai
 
 Variables A1-A7 record which AMC it is per country.
 
-Variables F1-F7 give more details about what type of AMC it is, primarily if it is a stand alone institution or run through another body.
-
-We used the following codes for these variables:
+Variables F1-F7 give more details about what type of AMC it is, primarily if it is a stand alone institution or run through another body. We used the following codes for these variables:
 
 ### Variables F1-F7 codes
 

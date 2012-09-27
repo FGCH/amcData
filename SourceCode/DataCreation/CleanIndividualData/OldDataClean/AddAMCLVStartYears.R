@@ -50,9 +50,9 @@ VarList <- cbind(ColNames, Description, Source)
 
 VarList <- xtable(VarList)
 
-DpiVariableTable <- print(VarList, type = "html")
+AMCStartYearsTable <- print(VarList, type = "html")
 
-cat("# AMC Start Years Data Set Description\n\n\n", DpiVariableTable, file = "/git_repositories/amcData/MainData/VariableDescriptions/AMCStartYears.md")
+cat("# AMC Start Years Data Set Description\n\n\n", AMCStartYearsTable, file = "/git_repositories/amcData/MainData/VariableDescriptions/AMCStartYears.md")
 
-# Save file 
+# Save data file 
 write.table(amcStart, file = "/git_repositories/amcData/MainData/CleanedPartial/amcStartData.csv", sep = ",")
