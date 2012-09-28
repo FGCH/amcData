@@ -47,7 +47,7 @@ TempYear4 <- rename(TempYear4, c(temp = "year"))
 lv <- rbind(lv, TempYear1, TempYear2, TempYear4)
 
 # Tidy up workspace
-rm(TempYear1, TempYear2, TempYear3, TempYear4, TempYear5, i, temp)
+rm(TempYear1, TempYear2, TempYear3, TempYear4, i, temp)
 
 # Merge with UDS
 amcCountryYear <- merge(lv, uds, union("imfcode", "year"), all = TRUE)

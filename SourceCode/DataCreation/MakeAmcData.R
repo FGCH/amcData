@@ -5,7 +5,7 @@
 #########
 
 # Install required packages
-## Based on https://gist.github.com/3710171
+## Code based on https://gist.github.com/3710171
 ## See also http://bit.ly/PbabKd
 doInstall <- FALSE  # Change to FALSE if you don't want packages installed.
 toInstall <- c("WDI", "countrycode", "devtools", "reshape", "gdata", "xtable")
@@ -27,10 +27,10 @@ setwd("/git_repositories/amcData/SourceCode/DataCreation/CleanIndividualData/")
 setwd("/git_repositories/amcData/SourceCode/DataCreation/CleanIndividualData/")
   source("AddDreherIMF.R")
 
-# Create merged data sets 
-## Country-Crisis data
-setwd("/git_repositories/amcData/SourceCode/DataCreation/Merge/")
-  source("MergeCrisis.R")
+# Create merged data set
 ## Country-Year data
 setwd("/git_repositories/amcData/SourceCode/DataCreation/Merge/")
   source("MergeSurvival.R")
+
+# Tidy workspace
+rm(list = setdiff(ls(), "amcCountryYear"))
