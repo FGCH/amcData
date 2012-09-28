@@ -116,6 +116,8 @@ vars <- c("country", "imfcode", "year", "UDS", "yrcurnt", "govfrac", "execrlc",
 
 amcCountryYear <- amcCountryYear[, vars]
 
+amcCountryYear<- amcCountryYear[!is.na(amcCountryYear$country),]
+
 # Order data
 amcCountryYear <- amcCountryYear[order(amcCountryYear$country),]
 
