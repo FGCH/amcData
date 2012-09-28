@@ -1,4 +1,4 @@
-"IMFCode","country","year","AMCType","NumAMCOpNoNA","NumAMCCountryNoNA","NumAMCCountryLagNoNA","F1","F2","F3","F4","F5"
+"imfcode","country","year","AMCType","NumAMCOpNoNA","NumAMCCountryNoNA","NumAMCCountryLagNoNA","F1","F2","F3","F4","F5"
 111,"UNITED STATES",1980,NA,0,0,0,"","","","",""
 111,"UNITED STATES",1981,"None",0,0,0,"","","","",""
 111,"UNITED STATES",1982,"None",0,0,0,"","","","",""

@@ -28,16 +28,13 @@ AMCFull <- AMCFull[, 1:21]
 # Drop A6, A7, F6, F7 (no countries were observed to have more than 5 AMCs)
 AMCFull$A6 <- AMCFull$A7 <- AMCFull$F6 <- AMCFull$F7 <- NULL
 
-# Rename imfcode IMFCode
-AMCFull <- rename(AMCFull, c(imfcode = "IMFCode"))
-
 #### Keep valid jurisdiction-years (see: https://github.com/christophergandrud/JurisdictionYear) ####
 
 # Run CountriesJurisdictions.R
-source_url("https://raw.github.com/christophergandrud/JurisdictionYear/master/CountriesJurisdictions.R")
+source_url("http://bit.ly/Pbcfls")
 
 # Merge AMCFull and Countries
-AMCFull <- merge(x = AMCFull, y = Countries, by = union("IMFCode", "year"), all = TRUE)
+AMCFull <- merge(x = AMCFull, y = Countries, by = union("imfcode", "year"), all = TRUE)
 
 # Keep valid plus 2012
 AMC <- subset(AMCFull, year == 2012 | !is.na(AMCFull$Data))
@@ -62,7 +59,7 @@ AMC$NumAMCCountryLagNoNA[is.na(AMC$NumAMCCountryLagNoNA)] <- 0
 
 #### Final clean then save ####
 # Drop now extraneous variables
-AMC <- AMC[, c("IMFCode", "country", "year", 
+AMC <- AMC[, c("imfcode", "country", "year", 
                "AMCType", "NumAMCOpNoNA", "NumAMCCountryNoNA", "NumAMCCountryLagNoNA", 
                "F1", "F2",  "F3", "F4", "F5")]
 
@@ -78,7 +75,7 @@ Description <- c("Whether the AMC is centralized or decentralised",
                  "Governance type of 3rd AMC.",
                  "Governance type of 4th AMC.",
                  "Governance type of 5th AMC.")
-Date <- Date()
+Date <- date()
 Source <- paste("Gathered by authors, with research assistance provided by Grzegorz Wolszczak.")
 
 VarList <- cbind(ColNames, Description, Source)
