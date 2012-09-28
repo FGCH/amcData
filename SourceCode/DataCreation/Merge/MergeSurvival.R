@@ -17,7 +17,7 @@ lv <- read.csv("LvData.csv")
 lvAllCrises <- read.csv("LVCrisisDummyData.csv")
 uds <- read.csv("UdsData.csv")
 dpi <- read.csv("DpiData.csv")
-amc <- read.csv("amcStartData.csv")
+amc <- read.csv("AMCFull.csv")
 wdi <- read.csv("WDIData.csv")
 imf <- read.csv("IMFData.csv")
 
@@ -44,7 +44,10 @@ TempYear3 <- rename(TempYear3, c(temp = "year"))
 TempYear4 <- remove.vars(TempYear4, names = "year")
 TempYear4 <- rename(TempYear4, c(temp = "year"))
 
-lv <- rbind(lv, TempYear1, TempYear2, TempYear3, TempYear4)
+lv <- rbind(lv, TempYear1, TempYear2, TempYear4)
+
+# Tidy up workspace
+rm(TempYear1, TempYear2, TempYear3, TempYear4, TempYear5, i, temp)
 
 # Merge with UDS
 amcCountryYear <- merge(lv, uds, union("imfcode", "year"), all = TRUE)
@@ -56,8 +59,10 @@ amcCountryYear <- merge(amcCountryYear, dpi, union("imfcode", "year"), all = TRU
   amcCountryYear <- remove.vars(amcCountryYear, names = "country.y")
   amcCountryYear <- rename(amcCountryYear, c(country.x = "country"))
 
-# Merge with AMC Start Year
-amc <- rename(amc, c(AMCStartYear = "year"))
+# Merge with AMCFull Data
+## Remove old AMCType, AMC variabls from LV from the data set, due to inclusion of more comprehensive data from AMCFull
+amcCountryYear <- remove.vars(amcCountryYear, names = c("AMCType", "AMC"))
+
 amcCountryYear <- merge(amcCountryYear, amc, union("imfcode", "year"), all = TRUE)
   amcCountryYear <- remove.vars(amcCountryYear, names = "country.y")
   amcCountryYear <- rename(amcCountryYear, c(country.x = "country"))
@@ -69,11 +74,14 @@ amcCountryYear <- merge(amcCountryYear, wdi, union("imfcode", "year"), all = TRU
 amcCountryYear <- merge(amcCountryYear, imf, union("imfcode", "year"), all = TRUE)
 
 # Merge with LV crisis year dummies
+## Remove old AMCType variable from LV
+amcCountryYear <- remove.vars(amcCountryYear, names = "CurrencyCrisis")
+
 amcCountryYear <- merge(amcCountryYear, lvAllCrises, union("imfcode", "year"), all = TRUE)
 
 # Change missing to 0 for crisis year dummies
 vars <- c("SystemicCrisis",
-          "CurrencyCrisis.y",
+          "CurrencyCrisis",
           "SovereignDefault",
           "SovereignDebtRestructuring"
           )
@@ -86,12 +94,11 @@ for (i in vars){
 amcCountryYear <- amcCountryYear[amcCountryYear$year >= 1980, ]
 amcCountryYear <- amcCountryYear[!is.na(amcCountryYear$year), ]
 
-amcCountryYear$AMCDummy[is.na(amcCountryYear$AMCDummy)] <- 0
 amcCountryYear <- amcCountryYear[!duplicated(amcCountryYear[, 1:2], fromLast=FALSE), ]
 
 vars <- c("country", "imfcode", "year", "UDS", "yrcurnt", "govfrac", "execrlc", 
-          "ElectionYear", "SystemicCrisis", "CurrencyCrisis.y", "SovereignDefault", 
-          "SovereignDebtRestructuring", "AMCDummy", "GDPperCapita", "NPLwdi", "CurrentAccount", 
+          "ElectionYear", "SystemicCrisis", "CurrencyCrisis", "SovereignDefault", 
+          "SovereignDebtRestructuring", "GDPperCapita", "NPLwdi", "CurrentAccount", 
           "IMFDreher", "CrisisDate", "CreditBoom", "CreditorRights", "CreditorRightsIndex", 
           "DepositIns", "YearDICreated", "DICoverageLimit", "DICoverageRatio", "DepositFreeze", 
           "DateDepositFreeze", "DurationDepositFreeze", "TimeDepositsFreeze", 
@@ -99,19 +106,23 @@ vars <- c("country", "imfcode", "year", "UDS", "yrcurnt", "govfrac", "execrlc",
           "DateBankGuaranteeStart", "DateBankGuaranteeEnd", "BankGuaranteeDuration", 
           "BankGuaranteeCoverage", "EmergencyLending", "DateEmergencyLending", 
           "PeakLendingSupport", "BankRestructuring", "Nationalizations", 
-          "AssetPurchases", "AMC", "Recap", "RecapCosts", "RecoveryDummy", 
+          "AssetPurchases", "Recap", "RecapCosts", "RecoveryDummy", 
           "RecoveryProceeds", "GovRecapCosts", "DepositorLosses", "DepositorLosesSeverity", 
           "MonetaryPolicyIndex", "AverageReserveChange", "FiscalPolicyIndex", 
           "IncreasePublicDebt", "IMFProgram", "YearIMFProgram", "PeakNPLs", 
           "NetFiscalCosts", "GrossFiscalCosts", "FiveYearRecovery", "OutputLoss", 
-          "AMCType")
+          "AMCType", "NumAMCOpNoNA", "NumAMCCountryNoNA", "NumAMCCountryLagNoNA",
+          "F1", "F2", "F3", "F4", "F5")
 
 amcCountryYear <- amcCountryYear[, vars]
 
-amcCountryYear <- rename(amcCountryYear, c(CurrencyCrisis.y = "CurrencyCrisis"))
-
+# Order data
 amcCountryYear <- amcCountryYear[order(amcCountryYear$country),]
 
+# Tidy workspace
+rm(amc, dpi, imf, lv, lvAllCrises, uds, wdi, i, vars)
+
+# Save data
 write.table(amcCountryYear, file = "/git_repositories/amcData/MainData/amcCountryYear.csv", sep = ",", row.names = FALSE)
 
 

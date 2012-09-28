@@ -1,12 +1,19 @@
 ######### 
 # Make amcData Data Set
 # Christopher Gandrud
-# Updated 1 August 2012
+# Updated 28 September 2012
 #########
+
+# Install required packages
+## Based on https://gist.github.com/3710171
+## See also http://bit.ly/PbabKd
+doInstall <- FALSE  # Change to FALSE if you don't want packages installed.
+toInstall <- c("WDI", "countrycode", "devtools", "reshape", "gdata", "xtable")
+if(doInstall){install.packages(toInstall, repos = "http://cran.us.r-project.org")}
 
 # Run clean up files
 setwd("/git_repositories/amcData/SourceCode/DataCreation/CleanIndividualData/")
-  source("AddAMCLVStartYears.R")
+  source("AddAMCFull.R")
 setwd("/git_repositories/amcData/SourceCode/DataCreation/CleanIndividualData/")
 source("AddLVFullCrisisYears.R")
 setwd("/git_repositories/amcData/SourceCode/DataCreation/CleanIndividualData/")
