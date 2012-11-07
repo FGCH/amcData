@@ -188,5 +188,8 @@ CrisisVariableTable <- print(VarList, type = "html")
 
 cat("# Variables Labels and Variable Descriptions for Laeven & Valencia (2012) Crisis Start Year Data\n ### See: <http://www.imf.org/external/pubs/cat/longres.aspx?sk=26015.0>\n\n", CrisisVariableTable, file = "/git_repositories/amcData/MainData/VariableDescriptions/LVCrisisDummyVariableDescriptions.md")
 
+# Add country name variable
+crisis$country <- countrycode(crisis$imfcode, origin = "imf", destination = "country.name")
+
 # Save file
 write.table(crisis, file = "/git_repositories/amcData/MainData/CleanedPartial/LVCrisisDummyData.csv", sep = ",")

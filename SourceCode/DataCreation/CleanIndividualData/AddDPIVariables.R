@@ -1,7 +1,7 @@
 ############ 
 # Clean Up Database of Political Institutions (2010) (DPI) Data
 # Christopher Gandrud
-# Updated 17 July 2012
+# Updated 7 November 2012
 ############
 
 # Set working directory and load the data.
@@ -17,10 +17,10 @@ library(xtable)
 dpiLong <- read.dta("DPI2010_stata9.dta")
 
 # Keep specific variables
-dpi <- dpiLong[, c("countryname", "year", "yrcurnt", "govfrac", "execrlc")] 
+dpi <- dpiLong[, c("countryname", "year", "yrcurnt", "govfrac", "execrlc", "checks", "polariz")] 
 
 # Change missing value code from -999 to NA
-dpiMissing <- c("yrcurnt", "govfrac", "execrlc")
+dpiMissing <- c("yrcurnt", "govfrac", "execrlc", "checks", "polariz")
 
 for (u in dpiMissing){
   dpi[[u]][dpi[[u]] == -999] <- NA
@@ -40,12 +40,11 @@ dpi$execrlc[dpi$execrlc == 3] <- "Left"
 dpi$imfcode <- countrycode(dpi$countryname, origin = "country.name", destination = "imf")
 
 # Rename countryname
-
 dpi <- rename(dpi, c(countryname = "country"))
 
 # Create variable descriptions
-ColNames <- names(dpi[, c(-1, -2, -7)])
-Description <- c("Years left in the chief executive's current term", "Government party fractionalization", "Chief executive's conomic policy orientation", "Year of an executive election (created from yrcurnt = 0)")
+ColNames <- names(dpi[, c(-1, -2, -9)])
+Description <- c("Years left in the chief executive's current term", "Government party fractionalization", "Chief executive's conomic policy orientation", "Number of veto players", "Veto player polarization", "Year of an executive election (created from yrcurnt = 0)")
 Source <- c("DPI (2010)")
 
 VarList <- cbind(ColNames, Description, Source)

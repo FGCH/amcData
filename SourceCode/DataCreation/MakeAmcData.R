@@ -1,7 +1,7 @@
 ######### 
 # Make amcData Data Set
 # Christopher Gandrud
-# Updated 28 September 2012
+# Updated 7 November 2012
 #########
 
 # Install required packages
@@ -15,7 +15,7 @@ if(doInstall){install.packages(toInstall, repos = "http://cran.us.r-project.org"
 setwd("/git_repositories/amcData/SourceCode/DataCreation/CleanIndividualData/")
   source("AddAMCFull.R")
 setwd("/git_repositories/amcData/SourceCode/DataCreation/CleanIndividualData/")
-source("AddLVFullCrisisYears.R")
+  source("AddLVFullCrisisYears.R")
 setwd("/git_repositories/amcData/SourceCode/DataCreation/CleanIndividualData/")
   source("AddLV.R")
 setwd("/git_repositories/amcData/SourceCode/DataCreation/CleanIndividualData/")

@@ -1,7 +1,7 @@
 ############ 
 # Merge Cleaned Up AMC Database Data (Repeated Survival Time Version)
 # Christopher Gandrud
-# Updated 28 Septemeber 2012
+# Updated 7 November 2012
 ############
 
 # Load required packages
@@ -78,6 +78,8 @@ amcCountryYear <- merge(amcCountryYear, imf, union("imfcode", "year"), all = TRU
 amcCountryYear <- remove.vars(amcCountryYear, names = "CurrencyCrisis")
 
 amcCountryYear <- merge(amcCountryYear, lvAllCrises, union("imfcode", "year"), all = TRUE)
+amcCountryYear <- remove.vars(amcCountryYear, names = "country.y")
+amcCountryYear <- rename(amcCountryYear, c(country.x = "country"))
 
 # Change missing to 0 for crisis year dummies
 vars <- c("SystemicCrisis",
@@ -96,7 +98,14 @@ amcCountryYear <- amcCountryYear[!is.na(amcCountryYear$year), ]
 
 amcCountryYear <- amcCountryYear[!duplicated(amcCountryYear[, 1:2], fromLast=FALSE), ]
 
-vars <- c("country", "imfcode", "year", "UDS", "yrcurnt", "govfrac", "execrlc", 
+# Remove old country name (missing for some data sets)
+amcCountryYear <- remove.vars(amcCountryYear, names = "country")
+
+# Add iso-2 codes & Country Name
+amcCountryYear$ISOCode <- countrycode(amcCountryYear$imfcode, origin = "imf", destination = "iso2c")
+amcCountryYear$country <- countrycode(amcCountryYear$imfcode, origin = "imf", destination = "country.name")
+
+vars <- c("country", "ISOCode", "imfcode", "year", "UDS", "yrcurnt", "govfrac", "execrlc", 
           "ElectionYear", "SystemicCrisis", "CurrencyCrisis", "SovereignDefault", 
           "SovereignDebtRestructuring", "GDPperCapita", "NPLwdi", "CurrentAccount", 
           "IMFDreher", "CrisisDate", "CreditBoom", "CreditorRights", "CreditorRightsIndex", 
@@ -116,7 +125,7 @@ vars <- c("country", "imfcode", "year", "UDS", "yrcurnt", "govfrac", "execrlc",
 
 amcCountryYear <- amcCountryYear[, vars]
 
-amcCountryYear<- amcCountryYear[!is.na(amcCountryYear$country),]
+amcCountryYear<- amcCountryYear[!is.na(amcCountryYear$imfcode),]
 
 # Order data
 amcCountryYear <- amcCountryYear[order(amcCountryYear$country),]
