@@ -1,7 +1,7 @@
 ############ 
 # Clean Up AMCFull Data
 # Christopher Gandrud
-# Updated 28 September 2012
+# Updated 8 November 2012
 ############
 
 ## The source code in this file cleans up the raw AMCFull.csv file.
@@ -56,6 +56,12 @@ AMC$NumAMCCountryNoNA[is.na(AMC$NumAMCCountryNoNA)] <- 0
 
 AMC$NumAMCCountryLagNoNA <- AMC$NumAMCCountryLag
 AMC$NumAMCCountryLagNoNA[is.na(AMC$NumAMCCountryLagNoNA)] <- 0
+
+AMC$F1[AMC$F1 == ""] <- NA
+AMC$F2[AMC$F2 == ""] <- NA
+AMC$F3[AMC$F3 == ""] <- NA
+AMC$F4[AMC$F4 == ""] <- NA
+AMC$F5[AMC$F5 == ""] <- NA
 
 #### Final clean then save ####
 # Drop now extraneous variables
