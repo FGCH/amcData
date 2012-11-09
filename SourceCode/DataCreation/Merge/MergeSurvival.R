@@ -1,12 +1,12 @@
 ############ 
 # Merge Cleaned Up AMC Database Data (Repeated Survival Time Version)
 # Christopher Gandrud
-# Updated 7 November 2012
+# Updated 9 November 2012
 ############
 
 # Load required packages
-library(reshape)
-library(gdata)
+require(reshape)
+require(gdata)
 
 ## ID variable is imfcode
 
@@ -120,8 +120,8 @@ vars <- c("country", "ISOCode", "imfcode", "year", "UDS", "yrcurnt", "govfrac", 
           "MonetaryPolicyIndex", "AverageReserveChange", "FiscalPolicyIndex", 
           "IncreasePublicDebt", "IMFProgram", "YearIMFProgram", "PeakNPLs", 
           "NetFiscalCosts", "GrossFiscalCosts", "FiveYearRecovery", "OutputLoss", 
-          "AMCType", "NumAMCOpNoNA", "NumAMCCountryNoNA", "NumAMCCountryLagNoNA",
-          "F1", "F2", "F3", "F4", "F5")
+          "AMCType", "AMCAnyCreated", "NumAMCOpNoNA", "NumAMCCountryNoNA", 
+          "NumAMCCountryLagNoNA", "F1", "F2", "F3", "F4", "F5")
 
 amcCountryYear <- amcCountryYear[, vars]
 

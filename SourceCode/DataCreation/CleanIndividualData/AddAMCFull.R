@@ -15,6 +15,7 @@
 library(reshape)
 library(devtools)
 library(xtable)
+library(gdata)
 
 # Set working directory and load the data.
 setwd("/git_repositories/amcData/BaseFiles/AMCFull/")
@@ -45,6 +46,7 @@ rm(Countries)
 
 # Rename country.x country
 AMC <- rename(AMC, c(country.x = "country"))
+AMC <- remove.vars(AMC, names = "country.y")
 
 #### Clean key variables ####
 # Create variables assuming NA = no AMC exists
@@ -63,16 +65,33 @@ AMC$F3[AMC$F3 == ""] <- NA
 AMC$F4[AMC$F4 == ""] <- NA
 AMC$F5[AMC$F5 == ""] <- NA
 
+#### Create event data ####
+# Create event variable
+EventData <- AMC[, c("country", "NumAMCOpNoNA")]
+EventData <- subset(EventData, !is.na(NumAMCOpNoNA))
+EventData <- subset(EventData, NumAMCOpNoNA != 0)
+EventData <- unique(EventData[c("country", "NumAMCOpNoNA")])
+EventData <- rename(EventData, c(NumAMCOpNoNA = "AMCAnyCreated"))
+EventData$AMCAnyCreated <- 1
+
+# Merge with main data
+AMC <- merge(AMC, EventData, by = "row.names", all = TRUE)
+AMC <- rename(AMC, c(country.x = "country"))
+AMC <- remove.vars(AMC, names = "country.y")
+
+# Recode NA to 0
+AMC$AMCAnyCreated[is.na(AMC$AMCAnyCreated) & !is.na(AMC$NumAMCOpNoNA)] <- 0
+
 #### Final clean then save ####
 # Drop now extraneous variables
 AMC <- AMC[, c("imfcode", "country", "year", 
-               "AMCType", "NumAMCOpNoNA", "NumAMCCountryNoNA", "NumAMCCountryLagNoNA", 
-               "F1", "F2",  "F3", "F4", "F5")]
+               "AMCType", "AMCAnyCreated", "NumAMCOpNoNA", "NumAMCCountryNoNA", 
+               "NumAMCCountryLagNoNA", "F1", "F2",  "F3", "F4", "F5")]
 
 #### Create variable descriptions ####
-ColNames <- names(AMC[, c("AMCType", "NumAMCOpNoNA", "NumAMCCountryNoNA", "NumAMCCountryLagNoNA", 
-                          "F1", "F2",  "F3", "F4", "F5")])
-Description <- c("Whether the AMC is centralized or decentralised",
+ColNames <- names(AMC[, c("AMCType", "AMCAnyCreated", "NumAMCOpNoNA", "NumAMCCountryNoNA",
+                          "NumAMCCountryLagNoNA", "F1", "F2",  "F3", "F4", "F5")])
+Description <- c("Whether the AMC is centralized or decentralised", "The year any AMCs were created in a given country.",
                  "How many AMCs are operating in a given year (assume missing = 0)",
                  "How many AMCs have been opened since 1980 up to and including a given year (assume missing = 0)",
                  "How many AMCs have been opened since 1980 up to, but not including a given year (assume missing = 0)",
