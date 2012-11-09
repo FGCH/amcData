@@ -1,16 +1,15 @@
 #############
-# AMC Late October 2012 Data Explore
+# AMC Basic Map Over Time
 # Christopher Gandrud
-# 7 November 2012
+# 9 November 2012
 #############
 
 # Load libraries
 library(RCurl)
-library(countrycode)
 library(googleVis)
 library(reshape)
 
-setwd("~/Desktop/TestSlideshow/")
+setwd("/git_repositories/amc-site/BaseMaps/")
 
 # Load most recent data
 URL <- "https://raw.github.com/christophergandrud/amcData/master/MainData/amcCountryYear.csv"
@@ -26,7 +25,9 @@ MapAMC <- function(y){
                       TempMap <-  gvisGeoMap(subset(Full, year == yearTemp & TotalAmcCreated != 0), 
                                               locationvar = "ISOCode", numvar = "TotalAmcCreated",
                                               options = list(
-                                                              colors = "[0xECE7F2, 0xA6BDDB, 0x2B8CBE]"
+                                                              colors = "[0xECE7F2, 0xA6BDDB, 0x2B8CBE]",
+                                                              width = "780px",
+                                                              height = "500px"
                                                             ))
   print(TempMap, file = paste("AMCMap", yearTemp, ".html", sep = ""), tag = "chart")
 }
