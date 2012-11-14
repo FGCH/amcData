@@ -29,7 +29,7 @@ dpi <- dpi[!is.na(dpi$imfcode), ]
 wdi <- wdi[!is.na(wdi$imfcode), ]
 imf <- imf[!is.na(imf$imfcode), ]
 
-# Create Crisis 5 year data (crisis year + 4)
+# Create Crisis 5 year data (crisis year + 4), LV Constricted Crises
 for (i in 1:4){
   temp <- lv$year + i
   assign(paste("TempYear", i, sep = ""), cbind(lv, temp))
