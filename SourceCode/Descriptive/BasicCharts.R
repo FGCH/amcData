@@ -55,7 +55,8 @@ ggplot(data = FirstYearNotNa, aes(AMCType)) +
 # Created During Crisis (onset year + 2) & Not
 # Crisis Creation Variable (1 no crisis, 2 crisis)
 FirstYearNotNa$CrisisCreated <- FALSE
-FirstYearNotNa$CrisisCreated[FirstYearNotNa$AMCAnyCreate == 1 & FirstYearNotNa$SystemicCrisisLag3 == 1] <- TRUE
+FirstYearNotNa$CrisisCreated[FirstYearNotNa$AMCAnyCreate == 1 & 
+                               FirstYearNotNa$SystemicCrisisLag3 == 1] <- TRUE
 
 ggplot(data = FirstYearNotNa, aes(AMCType)) +
   facet_grid(.~ CrisisCreated) +
@@ -101,11 +102,42 @@ ggplot(data = FirstYearNotNa, aes(CurrentAccount)) +
   geom_density(aes(line = AMCType, color = AMCType)) +
   theme_bw()
 
+#### Cumulative Count ####
+TypeColors <- c("#E6AB02", "#1B9E77")
+
+# Number operating by type
+SumOp <- ddply(NotNaAMCType, .(year, AMCType), function(x) sum(x$NumAMCOpNoNA))
+SumOp <- subset(SumOp, AMCType !=  "?")
+SumOp <- subset(SumOp, AMCType !=  "None")
+
+ggplot(data = SumOp, aes(year, V1)) +
+        geom_vline(xintercept = c(1991, 1997, 2008), linetype = "dashed", size = 0.5) +
+        geom_line(aes(color = AMCType), size = 2, alpha = I(0.9)) +
+        scale_color_manual(values = TypeColors) +
+        scale_x_continuous(limits = c(1980, 2011)) +
+        xlab("") + ylab("Number Operating\n") +
+        theme_bw(base_size = 15)
+
+# Number Created by type
+SumCreated <- ddply(NotNaAMCType, .(year, AMCType), function(x) sum(x$NumAMCCountryNoNA))
+SumCreated <- subset(SumCreated, AMCType !=  "?")
+SumCreated <- subset(SumCreated, AMCType !=  "None")
+
+ggplot(data = SumCreated, aes(year, V1)) +
+  geom_line(aes(color = AMCType)) +
+  xlab("") + ylab("Number Created\n") +
+  theme_bw(base_size = 15)
 
 
-# Create AMC Year Type
-## Subset data
-First <- NotNaAMCType[, c("country", "year", "F1")]
-First <- 
-FirstT <- table(First$year, First$F1)
-FirstT <- data.frame(FirstT)
+# Number Created by type & Crisis
+SumOpCrisis <- ddply(NotNaAMCType, .(year, AMCType, SystemicCrisisLag3), function(x) sum(x$NumAMCOpNoNA))
+SumOpCrisis <- subset(SumOpCrisis, AMCType !=  "?")
+SumOpCrisis <- subset(SumOpCrisis, AMCType !=  "None")
+SumOpCrisis$SystemicCrisisLag3[is.na(SumOpCrisis$SystemicCrisisLag3)] <- 0
+
+ggplot(data = SumOpCrisis, aes(year, V1)) +
+  geom_line(aes(color = AMCType, linetype = as.factor(SystemicCrisisLag3))) +
+  xlab("") + ylab("Number Operating\n") +
+  scale_x_continuous(limits = c(1980, 2010)) + # No crisis data later
+  theme_bw(base_size = 15)
+
