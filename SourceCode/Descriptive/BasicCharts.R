@@ -1,7 +1,7 @@
 #############
 # AMC Data Explore Early November
 # Christopher Gandrud
-# 14 November 2012
+# 15 November 2012
 #############
 
 # Load libraries
@@ -17,7 +17,7 @@ URL <- "https://raw.github.com/christophergandrud/amcData/master/MainData/amcCou
 AMC <- getURL(URL)
 AMC <- read.csv(textConnection(AMC))
 
-#### Create lagged crisis variable (Crisis onset year + 3) ####
+#### Create lagged crisis variable (Crisis onset year -3) ####
 # Create individual year lags
 AMCLag <- ddply(AMC, .(country), transform, SCL1 = c(NA, SystemicCrisis[-length(SystemicCrisis)]))
 AMCLag <- ddply(AMCLag, .(country), transform, SCL2 = c(NA, SCL1[-length(SCL1)]))
@@ -30,17 +30,23 @@ detach(AMCLag)
 # Remove old lag variables
 AMCLag$SCL1 <- AMCLag$SCL2 <- NULL
 
-#### Create Election Year -1 lag ####
-AMCLag <- ddply(AMCLag, .(country), transform, ElectionYear1 = c(ElectionYear[1:nrow(ElectionYear)-1], NA))
+#### Create Election Year +1 lag ####
+lg<-function(x)c(x[2:(length(x))], NA)
+AMCLag <- ddply(AMCLag, .(country), transform, ElectionYear1 = lg(ElectionYear))
+AMCLag$ElectionYear1[AMCLag$ElectionYear1 == 2] <- "NoElection"
+AMCLag$ElectionYear1[AMCLag$ElectionYear1 == 1] <- "Election"
 
+#### Remove (De)centralised category
+AMCLag$AMCType[AMCLag$AMCType == "(De)centralised"] <- "Decentralised"
 
-# Remove NA in AMC Type & Capture only an AMC's first year
+#### Remove NA in AMC Type & Capture only an AMC's first year ####
 AMCLag$AMCType[AMCLag$AMCType == ""] <- NA
 NotNaAMCType <- subset(AMCLag, !is.na(AMCType) | AMCType != "None")
 
 NotNaAMCType <- ddply(NotNaAMCType, .(country), transform, NotFirstYear = duplicated(NumAMCOpNoNA))
 FirstYearNotNa <- subset(NotNaAMCType, NumAMCOpNoNA != 0 & NotFirstYear == FALSE)
 
+#### Graphs ####
 # Basic graph of AMC types
 ggplot(data = FirstYearNotNa, aes(AMCType)) +
       geom_bar() +
@@ -55,6 +61,14 @@ ggplot(data = FirstYearNotNa, aes(AMCType)) +
   facet_grid(.~ CrisisCreated) +
   geom_bar() +
   theme_bw()
+
+# Election the previous year
+# Facited by ElectionYear & Crisis Created
+ggplot(data = FirstYearNotNa, aes(AMCType)) +
+  facet_grid(.~ ElectionYear1) +
+  geom_bar() +
+  theme_bw()
+
 
 # Facited by ElectionYear & Crisis Created
 ggplot(data = FirstYearNotNa, aes(AMCType)) +
@@ -81,6 +95,13 @@ ggplot(data = FirstYearNotNa, aes(UDS)) +
 ggplot(data = FirstYearNotNa, aes(log(GDPperCapita))) +
   geom_density(aes(line = AMCType, color = AMCType)) +
   theme_bw()
+
+# Current account density
+ggplot(data = FirstYearNotNa, aes(CurrentAccount)) +
+  geom_density(aes(line = AMCType, color = AMCType)) +
+  theme_bw()
+
+
 
 # Create AMC Year Type
 ## Subset data
