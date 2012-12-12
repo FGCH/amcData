@@ -1,5 +1,5 @@
 # AMC Full Data Set
-## Updated 27 September 2012
+## Updated 12 December 2012
 
 This data set includes the universe of *public bodies created to acquire and dispose of distressed assets*. These are commonly referred to as asset management companies or bad banks. 
 
@@ -13,7 +13,9 @@ This file contains details about how the data was originally coded.
 
 The vast majority of the documents that were used to find and code AMCs are available at: 
 
-<https://www.dropbox.com/sh/i5pvrwva2uaelmz/sZ9PQ5jpca>
+<https://www.dropbox.com/sh/i5pvrwva2uaelmz/sZ9PQ5jpca>.
+
+The data file in this directory also includes sources for each AMC we identified.
 
 ---
 ## Table of Data Collection Codes
