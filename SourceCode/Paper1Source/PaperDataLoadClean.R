@@ -4,6 +4,9 @@
 # 13 December 2012
 #############
 
+# Depends on: 
+# library(devtools)
+# source_url("https://raw.github.com/christophergandrud/amcData/master/SourceCode/Paper1Source/LoadRPackages.R")
 
 # Load most recent data
 URL <- "https://raw.github.com/christophergandrud/amcData/master/MainData/amcCountryYear.csv"
@@ -24,7 +27,7 @@ detach(AMCLag)
 AMCLag$SCL1 <- AMCLag$SCL2 <- NULL
 
 #### Create Election Year +1 lag ####
-lg<-function(x)c(x[2:(length(x))], NA)
+lg <- function(x)c(x[2:(length(x))], NA)
 AMCLag <- ddply(AMCLag, .(country), transform, ElectionYear1 = lg(ElectionYear))
 AMCLag$ElectionYear1[AMCLag$ElectionYear1 == 2] <- "NoElection"
 AMCLag$ElectionYear1[AMCLag$ElectionYear1 == 1] <- "Election"

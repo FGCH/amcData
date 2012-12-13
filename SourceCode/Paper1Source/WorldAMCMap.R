@@ -6,7 +6,7 @@
 
 # Depends on: 
 # library(devtools)
-# 
+# source_url("https://raw.github.com/christophergandrud/amcData/master/SourceCode/Paper1Source/LoadRPackages.R")
 
 # Join data to country polygon data 
 MapAMCData <- joinCountryData2Map(subset(AMC, year == 2011 & NumAMCCountryNoNA != 0), 
