@@ -1,7 +1,7 @@
 #############
 # AMC Paper: AMCs operating graph
 # Christopher Gandrud
-# 13 December 2012
+# 14 December 2012
 #############
 
 # Depends on: 
