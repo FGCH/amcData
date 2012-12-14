@@ -2,7 +2,7 @@
  See: <http://go.worldbank.org/2EAGGLRZ40>
 
  <!-- html table generated in R 2.15.2 by xtable 1.7-0 package -->
-<!-- Fri Dec 14 10:13:00 2012 -->
+<!-- Fri Dec 14 10:15:24 2012 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> ColNames </TH> <TH> Description </TH> <TH> Source </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> yrcurnt </TD> <TD> Years left in the chief executive's current term </TD> <TD> DPI (2010) </TD> </TR>
