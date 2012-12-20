@@ -36,6 +36,6 @@ OperatingTypePlot <- ggplot(data = SumOp, aes(year, V1)) +
 				        scale_x_continuous(limits = c(1980, 2011)) +
 				        xlab("") + ylab("Number of Countries\n") +
 				        theme_bw(base_size = 15)
-print(OperaratingTypePlot)
+print(OperatingTypePlot)
 
 #grid.arrange(OperatingAllPlot, OperatingTypePlot, ncol = 2)
