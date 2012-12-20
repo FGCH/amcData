@@ -11,6 +11,7 @@ doInstall <- FALSE  # Change to FALSE if you don't want packages installed.
 toInstall <- c("apsrtable",
                "devtools",
                "ggplot2",
+               "gridExtra",
                "MASS",
                "plyr",
                "RColorBrewer",
