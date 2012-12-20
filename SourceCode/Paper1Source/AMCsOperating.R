@@ -1,7 +1,7 @@
 #############
 # AMC Paper: AMCs operating graph
 # Christopher Gandrud
-# 20 December 2012
+# 21 December 2012
 #############
 
 # Depends on: 
@@ -30,7 +30,7 @@ SumOp <- ddply(SumOp, .(year, AMCType), function(x) sum(x$Marker))
 
 OperatingTypePlot <- ggplot(data = SumOp, aes(year, V1)) +
 				        geom_vline(xintercept = c(1991, 1997, 2008), size = 0.5, color = "#DEDEDE") +
-				        geom_line(aes(color = AMCType, linetype = AMCType), size = 2, alpha = I(0.9)) +
+				        geom_line(aes(color = AMCType, linetype = AMCType), size = 1, alpha = I(0.9)) +
                 scale_color_discrete(name = "") +
                 scale_linetype_discrete(name = "") +
 				        scale_x_continuous(limits = c(1980, 2011)) +
