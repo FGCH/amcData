@@ -2,7 +2,7 @@
  ### See: <http://www.imf.org/external/pubs/cat/longres.aspx?sk=26015.0>
 
  <!-- html table generated in R 2.15.2 by xtable 1.7-0 package -->
-<!-- Wed Dec 19 17:35:16 2012 -->
+<!-- Thu Dec 20 13:22:11 2012 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> ColNames </TH> <TH> Description </TH> <TH> Source </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> CurrencyCrisis </TD> <TD> Systemic banking crisis starty year </TD> <TD> Laeven &amp  Valencia (2012) </TD> </TR>
