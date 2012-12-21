@@ -1,6 +1,8 @@
-library(msm)
-library(crrSC)
-
+#############
+# AMC Paper: Heatmap
+# Christopher Gandrud
+# 21 December 2012
+#############
 
 # Depends on: 
 # library(devtools)

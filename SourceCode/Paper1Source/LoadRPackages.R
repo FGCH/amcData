@@ -1,7 +1,7 @@
 #############
 # AMC Paper: Install and load necessary packages
 # Christopher Gandrud
-# 13 December 2012
+# 21 December 2012
 #############
 
 # Install & load required packages
@@ -13,6 +13,7 @@ toInstall <- c("apsrtable",
                "ggplot2",
                "gridExtra",
                "MASS",
+               "msm",
                "plyr",
                "RColorBrewer",
                "RCurl",
