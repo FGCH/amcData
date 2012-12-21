@@ -33,7 +33,7 @@ OperatingTypePlot <- ggplot(data = SumOp, aes(year, V1)) +
 				        geom_line(aes(color = AMCType, linetype = AMCType), size = 1, alpha = I(0.9)) +
                 scale_color_discrete(name = "") +
                 scale_linetype_discrete(name = "") +
-				        scale_x_continuous(limits = c(1980, 2011)) +
+				        scale_x_continuous(limits = c(1980, 2012)) +
 				        xlab("") + ylab("Number of Countries\n") +
 				        theme_bw(base_size = 15)
 print(OperatingTypePlot)
