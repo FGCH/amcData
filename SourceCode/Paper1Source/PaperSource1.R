@@ -9,12 +9,6 @@ library(plyr)
 library(foreign)
 library(RCurl)
 
-devtools::source_url("https://raw.github.com/christophergandrud/amcData/master/SourceCode/Paper1Source/PaperDataLoadClean.R")
-
-# Depends on: 
-# library(devtools)
-# devtools::source_url("https://raw.github.com/christophergandrud/amcData/master/SourceCode/Paper1Source/LoadRPackages.R")
-
 # Load most recent data
 URL <- "https://raw.github.com/christophergandrud/amcData/master/MainData/amcCountryYear.csv"
 AMC <- getURL(URL)
@@ -50,7 +44,7 @@ NotNaAMCType <- ddply(NotNaAMCType, .(country), transform, NotFirstYear = duplic
 FirstYearNotNa <- subset(NotNaAMCType, NumAMCOpNoNA != 0 & NotFirstYear == FALSE)
 
 ## Save to csv ##
-write.csv(FirstYearNotNa, file = "~/Dropbox/AMCPaper1/TempData/FirstYearNotNa.csv")
+save(FirstYearNotNa, file = "~/Dropbox/AMCPaper1/TempData/FirstYearNotNa.RData")
 
 #### Create State Variable
 # Create fstatus variable from AMCType

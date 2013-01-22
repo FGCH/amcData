@@ -9,7 +9,8 @@
 # source_url("https://raw.github.com/christophergandrud/amcData/master/SourceCode/Paper1Source/LoadRPackages.R")
 # source_url("https://raw.github.com/christophergandrud/amcData/master/SourceCode/Paper1Source/PaperDataLoadClean.R")
 
-library(ggplo2)
+library(msm)
+library(ggplot2)
 
 # Create transition matrix
 StateTable <- statetable.msm(state = AMCStatus, subject = ISOCode, data = AMCLag)
@@ -32,6 +33,7 @@ ggplot(StateTableDF, aes(Var2, Var1)) +
                       geom_tile(aes(fill = Freq)) +
                       geom_text(aes(label = Freq)) +
                       scale_fill_gradient2(low = "white", high = "red", name = "") +
+                      guides(fill = FALSE) +
                       xlab("\nAfter") + ylab("Before\n") +
-                      theme_bw()
+                      theme_bw(base_size = 15)
 dev.off()
