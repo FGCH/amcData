@@ -1,12 +1,19 @@
 #############
-# AMC Paper: Paper Data Load and Clearn
+# AMC Paper: Data Load and Clean
 # Christopher Gandrud
-# 13 December 2012
+# 22 January 2013
 #############
+
+library(devtools)
+library(plyr)
+library(foreign)
+library(RCurl)
+
+devtools::source_url("https://raw.github.com/christophergandrud/amcData/master/SourceCode/Paper1Source/PaperDataLoadClean.R")
 
 # Depends on: 
 # library(devtools)
-# source_url("https://raw.github.com/christophergandrud/amcData/master/SourceCode/Paper1Source/LoadRPackages.R")
+# devtools::source_url("https://raw.github.com/christophergandrud/amcData/master/SourceCode/Paper1Source/LoadRPackages.R")
 
 # Load most recent data
 URL <- "https://raw.github.com/christophergandrud/amcData/master/MainData/amcCountryYear.csv"
@@ -41,3 +48,19 @@ NotNaAMCType <- subset(AMCLag, !is.na(AMCType) | AMCType != "None")
 
 NotNaAMCType <- ddply(NotNaAMCType, .(country), transform, NotFirstYear = duplicated(NumAMCOpNoNA))
 FirstYearNotNa <- subset(NotNaAMCType, NumAMCOpNoNA != 0 & NotFirstYear == FALSE)
+
+## Save to csv ##
+write.csv(FirstYearNotNa, file = "~/Dropbox/AMCPaper1/TempData/FirstYearNotNa.csv")
+
+#### Create State Variable
+# Create fstatus variable from AMCType
+## 1 = No AMC
+## 2 = Centralised AMC
+## 3 = Decentralised AMC
+
+AMCLag$AMCStatus <- 1
+AMCLag$AMCStatus[AMCLag$AMCType == "Centralised"] <-2
+AMCLag$AMCStatus[AMCLag$AMCType == "Decentralised"] <-3
+
+#### Save to Stata dta format ####
+write.dta(AMCLag, file = "~/Dropbox/AMCPaper1/TempData/AMCMainData.dta")

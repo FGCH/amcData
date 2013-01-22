@@ -1,7 +1,7 @@
 #############
 # AMC Paper: Heatmap
 # Christopher Gandrud
-# 21 December 2012
+# 22 January 2013
 #############
 
 # Depends on: 
@@ -9,15 +9,7 @@
 # source_url("https://raw.github.com/christophergandrud/amcData/master/SourceCode/Paper1Source/LoadRPackages.R")
 # source_url("https://raw.github.com/christophergandrud/amcData/master/SourceCode/Paper1Source/PaperDataLoadClean.R")
 
-
-# Create fstatus variable from AMCType
-## 1 = No AMC
-## 2 = Centralised AMC
-## 3 = Decentralised AMC
-
-AMCLag$AMCStatus <- 1
-AMCLag$AMCStatus[AMCLag$AMCType == "Centralised"] <-2
-AMCLag$AMCStatus[AMCLag$AMCType == "Decentralised"] <-3
+library(ggplo2)
 
 # Create transition matrix
 StateTable <- statetable.msm(state = AMCStatus, subject = ISOCode, data = AMCLag)
@@ -35,10 +27,11 @@ StateTableDF <- data.frame(StateTable)
 StateTableDF <- subset(StateTableDF, Var1 != Var2)
 
 ### Create heatmap
-StateTablePlot <- ggplot(StateTableDF, aes(Var2, Var1)) +
+pdf(file = "~/Dropbox/AMCPaper1/figure/TransitionMatrix.pdf")
+ggplot(StateTableDF, aes(Var2, Var1)) +
                       geom_tile(aes(fill = Freq)) +
                       geom_text(aes(label = Freq)) +
                       scale_fill_gradient2(low = "white", high = "red", name = "") +
                       xlab("\nAfter") + ylab("Before\n") +
                       theme_bw()
-print(StateTablePlot)
+dev.off()

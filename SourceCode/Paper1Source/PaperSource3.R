@@ -9,6 +9,8 @@
 # source_url("https://raw.github.com/christophergandrud/amcData/master/SourceCode/Paper1Source/LoadRPackages.R")
 # source_url("https://raw.github.com/christophergandrud/amcData/master/SourceCode/Paper1Source/PaperDataLoadClean.R")
 
+library(plyr)
+library(ggplot2)
 
 # Number Operating
 SumOp <- subset(NotNaAMCType, AMCType !=  "?")
@@ -27,8 +29,8 @@ SumOp <- subset(SumOp, AMCType !=  "None")
 SumOp$Marker[SumOp$NumAMCOpNoNA >= 1] <- 1
 SumOp <- ddply(SumOp, .(year, AMCType), function(x) sum(x$Marker))
 
-
-OperatingTypePlot <- ggplot(data = SumOp, aes(year, V1)) +
+pdf(file = "~/Dropbox/AMCPaper1/figure/OperatingAMCs.pdf")
+ggplot(data = SumOp, aes(year, V1)) +
 				        geom_vline(xintercept = c(1991, 1997, 2008), size = 0.5, color = "#DEDEDE") +
 				        geom_line(aes(color = AMCType, linetype = AMCType), size = 1, alpha = I(0.9)) +
                 scale_color_discrete(name = "") +
@@ -36,6 +38,6 @@ OperatingTypePlot <- ggplot(data = SumOp, aes(year, V1)) +
 				        scale_x_continuous(limits = c(1980, 2012)) +
 				        xlab("") + ylab("Number of Countries\n") +
 				        theme_bw(base_size = 15)
-print(OperatingTypePlot)
+dev.off()
 
 #grid.arrange(OperatingAllPlot, OperatingTypePlot, ncol = 2)

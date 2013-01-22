@@ -1,0 +1,6 @@
+# Have Git ignore Files # 
+#########################
+
+*.dta
+*.Rout
+*.log
