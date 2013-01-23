@@ -37,3 +37,6 @@ ggplot(StateTableDF, aes(Var2, Var1)) +
                       xlab("\nAfter") + ylab("Before\n") +
                       theme_bw(base_size = 15)
 dev.off()
+
+#### Save StateTableDF for use in the paper ####
+save(StateTableDF, file = "~/Dropbox/AMCPaper1/TempData/StateTable.RData")

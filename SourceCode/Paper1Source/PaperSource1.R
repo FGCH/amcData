@@ -48,13 +48,13 @@ save(FirstYearNotNa, file = "~/Dropbox/AMCPaper1/TempData/FirstYearNotNa.RData")
 
 #### Create State Variable
 # Create fstatus variable from AMCType
-## 1 = No AMC
-## 2 = Centralised AMC
-## 3 = Decentralised AMC
+## 0 = No AMC
+## 1 = Centralised AMC
+## 2 = Decentralised AMC
 
-AMCLag$AMCStatus <- 1
-AMCLag$AMCStatus[AMCLag$AMCType == "Centralised"] <-2
-AMCLag$AMCStatus[AMCLag$AMCType == "Decentralised"] <-3
+AMCLag$AMCStatus <- 0
+AMCLag$AMCStatus[AMCLag$AMCType == "Centralised"] <- 1
+AMCLag$AMCStatus[AMCLag$AMCType == "Decentralised"] <- 2
 
 #### Save to Stata dta format ####
 write.dta(AMCLag, file = "~/Dropbox/AMCPaper1/TempData/AMCMainData.dta")
