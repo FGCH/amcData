@@ -17,17 +17,20 @@ Data$year1980 <- Data$year - 1980
 
 Data$Crisis32 <- tvc(Data, b = "SystemicCrisisLag3", tvar = "year1980", tfunc = "pow", pow = 2)
 
-Data$IMFt <- tvc(Data, "IMFDreher", "year1980")
+Data$UDSt <- tvc(Data, "UDS", "year1980", "log")
 
 M1 <- coxph(Surv(year1980, AMCAnyCreated) ~ IMFDreher + SystemicCrisisLag3 + Crisis32 +
               cluster(imfcode) + strata(AMCStatus, NumAMCCountryNoNA), 
               data = Data)
 
-M1 <- coxme(Surv(year1980, AMCAnyCreated) ~ IMFDreher + SystemicCrisisLag3 + Crisis32 +
-              (1 | country) + strata(AMCStatus, NumAMCCountryNoNA), 
+M1 <- coxme(Surv(year1980, AMCAnyCreated) ~ UDS + UDSt + IMFDreher + 
+              SystemicCrisisLag3 + Crisis32 +
+              (1 | imfcode) + strata(AMCStatus, NumAMCCountryNoNA), 
             data = Data)
 
 summary(M1)
+
+print(M1)
 
 BHm1 <- basehaz(M1)
 
