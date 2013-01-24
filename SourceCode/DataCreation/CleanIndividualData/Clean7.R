@@ -8,6 +8,7 @@
 library(WDI)
 library(countrycode)
 library(reshape)
+library(xtable)
 
 # Download select indicators from the World Bank's website. Indicators include:
 ## GDP per capita (constant 2000 US$)

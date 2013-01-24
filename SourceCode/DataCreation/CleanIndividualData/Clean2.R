@@ -5,16 +5,17 @@
 ############
 
 # Set working directory and load the data.
-setwd("/git_repositories/amcData/BaseFiles/DPI2010/")
+setwd("/git_repositories/amcData/BaseFiles/DPI2012/")
 
 # Load required packages
 library(foreign)
 library(countrycode)
 library(xtable)
+library(reshape)
 
 # Download zipped data from the IMF's DPI website: http://go.worldbank.org/2EAGGLRZ40
 # Open DPI2010_stata9.dta file
-dpiLong <- read.dta("DPI2010_stata9.dta")
+dpiLong <- read.dta("DPI2012.dta")
 
 # Keep specific variables
 dpi <- dpiLong[, c("countryname", "year", "yrcurnt", "govfrac", "execrlc", "checks", "polariz")] 
@@ -45,7 +46,7 @@ dpi <- rename(dpi, c(countryname = "country"))
 # Create variable descriptions
 ColNames <- names(dpi[, c(-1, -2, -9)])
 Description <- c("Years left in the chief executive's current term", "Government party fractionalization", "Chief executive's conomic policy orientation", "Number of veto players", "Veto player polarization", "Year of an executive election (created from yrcurnt = 0)")
-Source <- c("DPI (2010)")
+Source <- c("DPI (2012)")
 
 VarList <- cbind(ColNames, Description, Source)
 

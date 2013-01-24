@@ -7,6 +7,7 @@
 # Load required packages
 library(reshape)
 library(countrycode)
+library(xtable)
 
 # Load data
 # IMF stand-by aggreement

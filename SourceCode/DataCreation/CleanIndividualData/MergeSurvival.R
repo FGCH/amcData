@@ -7,6 +7,7 @@
 # Load required packages
 require(reshape)
 require(gdata)
+require(countrycode)
 
 ## ID variable is imfcode
 
