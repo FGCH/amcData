@@ -1,7 +1,7 @@
 ############ 
 # Merge Cleaned Up AMC Database Data (Repeated Survival Time Version)
 # Christopher Gandrud
-# Updated 9 November 2012
+# Updated 9 February 2013
 ############
 
 # Load required packages
@@ -108,7 +108,7 @@ amcCountryYear$country <- countrycode(amcCountryYear$imfcode, origin = "imf", de
 
 vars <- c("country", "ISOCode", "imfcode", "year", "UDS", "yrcurnt", "govfrac", "execrlc", 
           "ElectionYear", "SystemicCrisis", "CurrencyCrisis", "SovereignDefault", 
-          "SovereignDebtRestructuring", "GDPperCapita", "NPLwdi", "CurrentAccount", 
+          "SovereignDebtRestructuring", "GDPperCapita", "NPLwdi", "CurrentAccount", "IMFCredits", 
           "IMFDreher", "CrisisDate", "CreditBoom", "CreditorRights", "CreditorRightsIndex", 
           "DepositIns", "YearDICreated", "DICoverageLimit", "DICoverageRatio", "DepositFreeze", 
           "DateDepositFreeze", "DurationDepositFreeze", "TimeDepositsFreeze", 

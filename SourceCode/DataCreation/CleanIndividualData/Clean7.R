@@ -1,7 +1,7 @@
 ############ 
 # Download and Cean Up World Bank Development Indicator data
 # Christopher Gandrud
-# Updated 30 July 2012
+# Updated 9 February 2013
 ############
 
 # Load required packages
@@ -14,22 +14,23 @@ library(xtable)
 ## GDP per capita (constant 2000 US$)
 ## Bank nonperforming loans to total gross loans (%)
 ## Current account balance (% of GDP)
-wdi <- WDI(country = "all", indicator = c("NY.GDP.PCAP.KD", "FB.AST.NPER.ZS", "BN.CAB.XOKA.GD.ZS"), start = 1980, end = 2011)
+wdi <- WDI(country = "all", indicator = c("NY.GDP.PCAP.KD", "FB.AST.NPER.ZS", "BN.CAB.XOKA.GD.ZS", "DT.DOD.DIMF.CD"), start = 1980)
 
 # Clean up
 wdi$imfcode <- countrycode(wdi$iso2c, origin = "iso2c", destination = "imf")
 
 wdi <- rename(wdi, c(NY.GDP.PCAP.KD = "GDPperCapita", 
                      FB.AST.NPER.ZS = "NPLwdi", 
-                     BN.CAB.XOKA.GD.ZS = "CurrentAccount"
+                     BN.CAB.XOKA.GD.ZS = "CurrentAccount",
+                     DT.DOD.DIMF.CD = "IMFCredits"
                      ))
 
-wdi <- wdi[, 3:7]
+wdi <- wdi[, 3:8]
 
 # Create variable description
-ColNames <- names(wdi[, 2:4])
-Description <- c("GDP per capita (constant 2000 US$)", "Bank nonperforming loans to total gross loans (%)", "Current account balance (% of GDP)")
-Source <- c("World Bank Development Indicators (July 2012")
+ColNames <- names(wdi[, 2:5])
+Description <- c("GDP per capita (constant 2000 US$)", "Bank nonperforming loans to total gross loans (%)", "Current account balance (% of GDP)", "Use of IMF credit (DOD, current US$)")
+Source <- c("World Bank Development Indicators (February 2013")
 
 VarList <- cbind(ColNames, Description, Source)
 

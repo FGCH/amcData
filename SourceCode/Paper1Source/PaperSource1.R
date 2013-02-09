@@ -1,7 +1,7 @@
 #############
 # AMC Paper: Data Load and Clean
 # Christopher Gandrud
-# 24 January 2013
+# 25 January 2013
 #############
 
 library(devtools)
@@ -26,6 +26,22 @@ detach(AMCLag)
 
 # Remove old lag variables
 AMCLag$SCL1 <- AMCLag$SCL2 <- NULL
+
+#### Create lagged crisis variable (Crisis onset year +5) ####
+# Create individual year lags
+AMCLag <- ddply(AMCLag, .(country), transform, SCL1 = c(NA, SystemicCrisis[-length(SystemicCrisis)]))
+AMCLag <- ddply(AMCLag, .(country), transform, SCL2 = c(NA, SCL1[-length(SCL1)]))
+AMCLag <- ddply(AMCLag, .(country), transform, SCL3 = c(NA, SCL1[-length(SCL2)]))
+AMCLag <- ddply(AMCLag, .(country), transform, SCL4 = c(NA, SCL1[-length(SCL3)]))
+
+# Create combined lagged variable
+attach(AMCLag)
+AMCLag$SystemicCrisisLag5 <- SystemicCrisis + SCL1 + SCL2 + SCL3 + SCL4
+
+
+# Remove old lag variables
+SCL1 <- SCL2 <- SCL3 <- SCL4 <- SCL5 <- NULL
+detach(AMCLag)
 
 #### Create lagged IMF variable (IMF onset year +2) ####
 # Create individual year lags
