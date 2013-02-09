@@ -30,7 +30,7 @@ wdi <- wdi[, 3:8]
 # Create variable description
 ColNames <- names(wdi[, 2:5])
 Description <- c("GDP per capita (constant 2000 US$)", "Bank nonperforming loans to total gross loans (%)", "Current account balance (% of GDP)", "Use of IMF credit (DOD, current US$)")
-Source <- c("World Bank Development Indicators (February 2013")
+Source <- c("World Bank Development Indicators (February 2013)")
 
 VarList <- cbind(ColNames, Description, Source)
 
