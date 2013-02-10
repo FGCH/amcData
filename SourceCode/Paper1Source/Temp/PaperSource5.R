@@ -1,7 +1,7 @@
 ################
 # Stratified Cox Regression
 # Christopher Gandrud
-# 9 February 2013
+# 10 February 2013
 ################
 
 #### Create State Variable
@@ -10,7 +10,6 @@
 ## 1 = Centralised AMC
 ## 2 = Decentralised AMC
 
-library(foreign)
 library(simPH) # Note need to install with the following code: devtools::install_github("simPH", "christophergandrud")
 library(survival)
 library(coxme)
@@ -23,7 +22,8 @@ Data <- AMCLag
 
 Data$year1980 <- Data$year - 1980
 
-Data$CrisisLag3T <- tvc(Data, b = "SystemicCrisisLag3", tvar = "year1980", tfun = "power", pow = 3)
+Data$CrisisLag3T <- tvc(Data, b = "SystemicCrisisLag3", 
+                        tvar = "year1980", tfun = "power", pow = 3)
 Data$CrisisLag5T <- tvc(Data, b = "SystemicCrisisLag5", tvar = "year1980", tfun = "linear")
 
 Data$IMFt <- tvc(Data, "IMFDreher", "year1980", "log")
@@ -32,17 +32,15 @@ Data$IMFCreditsT <- tvc(Data, "IMFCreditsDummy", "year1980", "log")
 Data$AMCStatusNA <- Data$AMCStatus
 Data$AMCStatusNA[Data$AMCStatus == 0] <- NA
 
-M1 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + 
-              IMFCreditsDummyLag3 + GDPperCapita +
-              pspline(govfrac) + 
-              cluster(imfcode) + strata(AMCStatusNA), 
-              data = Data)
+M1 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 +
+              IMFCreditsDummyLag3 + govfrac + pspline(GDPperCapita) + 
+              cluster(imfcode) + strata(AMCStatusNA), data = Data)
 
 summary(M1)
 cox.zph(M1)
 
 # Plot govfrac spline
-termplot(M1, term = 4, ylabs = "Log Hazard", se = TRUE, rug = TRUE)
+termplot(M1, term = 3, ylabs = "Log Hazard", se = TRUE, rug = TRUE)
 
 M2 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + 
               factor(execrlc) + pspline(govfrac) + 
@@ -55,7 +53,7 @@ cox.zph(M2)
 # Plot govfrac spline
 termplot(M2, term = 3, ylabs = "Log Hazard", se = TRUE, rug = TRUE)
 
-simFitLin <- coxsimLinear(M1, b = "IMFCreditsDummyLag3", qi = "Hazard Rate", ci = "95")
+simFitLin <- coxsimLinear(M1, b = "SystemicCrisisLag3", qi = "Hazard Rate", ci = "95")
 gglinear(simFitLin, qi = "Hazard Rate")
 
 simFit1 <- coxsimtvc(M1, b = "SystemicCrisisLag3", btvc = "Crisis32", 

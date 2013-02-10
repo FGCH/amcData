@@ -60,10 +60,10 @@ AMCLag$IMFL1 <- AMCLag$IMFL2 <- NULL
 
 #### Create lagged IMF Credits Variable (Simmons et al. 2006) ####
 
-# Create dummy variable
-AMCLag$IMFCreditsDummy[is.na(AMCLag$IMFCredits)] <- NA
-AMCLag$IMFCreditsDummy[AMCLag$IMFCredits == 0] <- 0
-AMCLag$IMFCreditsDummy[AMCLag$IMFCredits > 1] <- 1
+# Create dummy variable assume missing is 0 (assumes sample is exhaustive through 2011)
+AMCLag$IMFCreditsDummy <- 0
+AMCLag$IMFCreditsDummy[AMCLag$year >= 2012] <- NA
+AMCLag$IMFCreditsDummy[AMCLag$IMFCredits >= 1] <- 1
 
 # Create individual year lags
 AMCLag <- ddply(AMCLag, .(country), transform, IMFCL1 = c(NA, IMFCreditsDummy[-length(IMFCreditsDummy)]))

@@ -108,7 +108,7 @@ amcCountryYear$country <- countrycode(amcCountryYear$imfcode, origin = "imf", de
 
 vars <- c("country", "ISOCode", "imfcode", "year", "UDS", "yrcurnt", "govfrac", "execrlc", 
           "ElectionYear", "SystemicCrisis", "CurrencyCrisis", "SovereignDefault", 
-          "SovereignDebtRestructuring", "GDPperCapita", "NPLwdi", "CurrentAccount", "IMFCredits", 
+          "SovereignDebtRestructuring", "GDPperCapita", "NPLwdi", "CurrentAccount", "IMFCredits", "PortfolioEquity", 
           "IMFDreher", "CrisisDate", "CreditBoom", "CreditorRights", "CreditorRightsIndex", 
           "DepositIns", "YearDICreated", "DICoverageLimit", "DICoverageRatio", "DepositFreeze", 
           "DateDepositFreeze", "DurationDepositFreeze", "TimeDepositsFreeze", 
