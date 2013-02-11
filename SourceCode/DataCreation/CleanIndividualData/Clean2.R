@@ -1,7 +1,7 @@
 ############ 
-# Clean Up Database of Political Institutions (2010) (DPI) Data
+# Clean Up Database of Political Institutions (2012) (DPI) Data
 # Christopher Gandrud
-# Updated 7 November 2012
+# Updated 11 February 2013
 ############
 
 # Set working directory and load the data.

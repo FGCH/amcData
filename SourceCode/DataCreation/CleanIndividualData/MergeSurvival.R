@@ -1,7 +1,7 @@
 ############ 
 # Merge Cleaned Up AMC Database Data (Repeated Survival Time Version)
 # Christopher Gandrud
-# Updated 9 February 2013
+# Updated 11 February 2013
 ############
 
 # Load required packages
@@ -106,7 +106,7 @@ amcCountryYear <- remove.vars(amcCountryYear, names = "country")
 amcCountryYear$ISOCode <- countrycode(amcCountryYear$imfcode, origin = "imf", destination = "iso2c")
 amcCountryYear$country <- countrycode(amcCountryYear$imfcode, origin = "imf", destination = "country.name")
 
-vars <- c("country", "ISOCode", "imfcode", "year", "UDS", "yrcurnt", "govfrac", "execrlc", 
+vars <- c("country", "ISOCode", "imfcode", "year", "UDS", "yrcurnt", "govfrac", "execrlc", "checks", "polariz",
           "ElectionYear", "SystemicCrisis", "CurrencyCrisis", "SovereignDefault", 
           "SovereignDebtRestructuring", "GDPperCapita", "NPLwdi", "CurrentAccount", "IMFCredits", "PortfolioEquity", 
           "IMFDreher", "CrisisDate", "CreditBoom", "CreditorRights", "CreditorRightsIndex", 

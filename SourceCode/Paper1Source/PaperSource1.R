@@ -1,7 +1,7 @@
 #############
 # AMC Paper: Data Load and Clean
 # Christopher Gandrud
-# 9 February 2013
+# 10 February 2013
 #############
 
 library(devtools)

@@ -1,7 +1,7 @@
 ################
 # Stratified Cox Regression
 # Christopher Gandrud
-# 10 February 2013
+# 11 February 2013
 ################
 
 #### Create State Variable
@@ -33,14 +33,14 @@ Data$AMCStatusNA <- Data$AMCStatus
 Data$AMCStatusNA[Data$AMCStatus == 0] <- NA
 
 M1 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 +
-              IMFCreditsDummyLag3 + govfrac + pspline(GDPperCapita) + 
-              cluster(imfcode) + strata(AMCStatusNA), data = Data)
+              pspline(GDPperCapita) + IMFCreditsDummy + govfrac +
+              cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
 summary(M1)
 cox.zph(M1)
 
 # Plot govfrac spline
-termplot(M1, term = 3, ylabs = "Log Hazard", se = TRUE, rug = TRUE)
+termplot(M1, term = 2, ylabs = "Log Hazard", se = TRUE, rug = TRUE)
 
 M2 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + 
               factor(execrlc) + pspline(govfrac) + 
@@ -53,7 +53,7 @@ cox.zph(M2)
 # Plot govfrac spline
 termplot(M2, term = 3, ylabs = "Log Hazard", se = TRUE, rug = TRUE)
 
-simFitLin <- coxsimLinear(M1, b = "SystemicCrisisLag3", qi = "Hazard Rate", ci = "95")
+simFitLin <- coxsimLinear(M1, b = "IMFCreditsDummy", qi = "Hazard Rate", ci = "95")
 gglinear(simFitLin, qi = "Hazard Rate")
 
 simFit1 <- coxsimtvc(M1, b = "SystemicCrisisLag3", btvc = "Crisis32", 
