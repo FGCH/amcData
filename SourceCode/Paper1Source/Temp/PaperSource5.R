@@ -26,11 +26,15 @@ Data$CrisisLag3T <- tvc(Data, b = "SystemicCrisisLag3",
                         tvar = "year1980", tfun = "power", pow = 3)
 Data$CrisisLag5T <- tvc(Data, b = "SystemicCrisisLag5", tvar = "year1980", tfun = "linear")
 
-Data$IMFt <- tvc(Data, "IMFDreher", "year1980", "log")
+Data$IMFt <- tvc(Data, "IMFDreher", "year1980", "linear")
 Data$IMFCreditsT <- tvc(Data, "IMFCreditsDummy", "year1980", "log")
 
 Data$AMCStatusNA <- Data$AMCStatus
 Data$AMCStatusNA[Data$AMCStatus == 0] <- NA
+
+M1 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + polariz*checks + 
+              IMFCreditsDummyLag3 + pspline(GDPperCapita) +
+              cluster(imfcode) + strata(NumAMCCountryNoNA, NumAMCCountryNoNA), data = Data)
 
 M1 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 +
               pspline(GDPperCapita) + IMFCreditsDummy + govfrac +

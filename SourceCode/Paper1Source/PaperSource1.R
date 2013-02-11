@@ -5,14 +5,14 @@
 #############
 
 library(devtools)
+library(repmis)
 library(plyr)
 library(foreign)
 library(RCurl)
 
 # Load most recent data
-URL <- "https://raw.github.com/christophergandrud/amcData/master/MainData/amcCountryYear.csv"
-AMC <- getURL(URL)
-AMC <- read.csv(textConnection(AMC))
+AMC <- source_GitHubData("https://raw.github.com/christophergandrud/amcData/master/MainData/amcCountryYear.csv")
+
 
 #### Create lagged crisis variable (Crisis onset year +2) ####
 # Create individual year lags
