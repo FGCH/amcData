@@ -59,7 +59,6 @@ AMCLag$IMFDreherLag3[AMCLag$IMFDreherLag3 >= 1] <- 1
 AMCLag$IMFL1 <- AMCLag$IMFL2 <- NULL
 
 #### Create lagged IMF Credits Variable (Simmons et al. 2006) ####
-
 # Create dummy variable assume missing is 0 (assumes sample is exhaustive through 2011)
 AMCLag$IMFCreditsDummy <- 0
 AMCLag$IMFCreditsDummy[AMCLag$year >= 2012] <- NA
@@ -79,6 +78,10 @@ AMCLag$IMFCreditsDummyLag3[AMCLag$IMFCreditsDummyLag3 >= 1] <- 1
 
 # Remove old lag variables
 AMCLag$IMFCL1 <- AMCLag$IMFCL2 <- NULL
+
+#### Create IMFCreditsGDP Variable ####
+AMCLag$IMFCredits[is.na(AMCLag$IMFCredits)] <- 0
+AMCLag$IMFCreditsGDP <- AMCLag$IMFCredits/AMCLag$GDPCurrentUSD * 100
 
 #### Create Election Year +1 lag ####
 lg <- function(x)c(x[2:(length(x))], NA)

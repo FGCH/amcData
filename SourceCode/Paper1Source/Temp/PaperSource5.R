@@ -20,25 +20,30 @@ load("AMCMainData.RData")
 
 Data <- AMCLag
 
+# Set 1980 to 0
 Data$year1980 <- Data$year - 1980
 
+# Time Interactions
 Data$CrisisLag3T <- tvc(Data, b = "SystemicCrisisLag3", 
                         tvar = "year1980", tfun = "power", pow = 3)
 Data$CrisisLag5T <- tvc(Data, b = "SystemicCrisisLag5", tvar = "year1980", tfun = "linear")
-
 Data$IMFt <- tvc(Data, "IMFDreher", "year1980", "linear")
 Data$IMFCreditsT <- tvc(Data, "IMFCreditsDummy", "year1980", "log")
 
+# Fail variable clean up
 Data$AMCStatusNA <- Data$AMCStatus
 Data$AMCStatusNA[Data$AMCStatus == 0] <- NA
 
-M1 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + polariz*checks + 
-              IMFCreditsDummyLag3 + pspline(GDPperCapita) +
-              cluster(imfcode) + strata(NumAMCCountryNoNA, NumAMCCountryNoNA), data = Data)
+# Centralised AMC Creation variable
+Data$AMCCent <- 0
+Data$AMCCent[Data$AMCStatus == 2 & Data$AMCAnyCreated == 1] <- 1
 
 M1 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 +
-              pspline(GDPperCapita) + IMFCreditsDummy + govfrac +
+              CurrentAccount + checks*polariz + 
               cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
+
+M1 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + pspline(UDS) + GDPperCapita +
+              cluster(imfcode), +strata(NumAMCCountryNoNA), data = Data)
 
 summary(M1)
 cox.zph(M1)
