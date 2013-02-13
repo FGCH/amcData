@@ -1,6 +1,6 @@
 # Variable Label and Variable Description for World Bank Development Indictors
  See: http://data.worldbank.org/ <!-- html table generated in R 2.15.2 by xtable 1.7-0 package -->
-<!-- Wed Feb 13 10:40:46 2013 -->
+<!-- Wed Feb 13 11:36:05 2013 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> ColNames </TH> <TH> Description </TH> <TH> Source </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> GDPCurrentUSD </TD> <TD> GDP (current US$) </TD> <TD> World Bank Development Indicators (February 2013) </TD> </TR>
@@ -11,4 +11,9 @@
   <TR> <TD align="right"> 6 </TD> <TD> PortfolioEquity </TD> <TD> Portfolio equity, net inflows (BoP, current US$) </TD> <TD> World Bank Development Indicators (February 2013) </TD> </TR>
   <TR> <TD align="right"> 7 </TD> <TD> CashSurplusDeficit </TD> <TD> Cash surplus/deficit (% of GDP) </TD> <TD> World Bank Development Indicators (February 2013) </TD> </TR>
   <TR> <TD align="right"> 8 </TD> <TD> ClaimsOnGov </TD> <TD> Claims on central government (annual growth as % of broad money) </TD> <TD> World Bank Development Indicators (February 2013) </TD> </TR>
+  <TR> <TD align="right"> 9 </TD> <TD> CentGovDebt </TD> <TD> Central government debt, total (% of GDP) </TD> <TD> World Bank Development Indicators (February 2013) </TD> </TR>
+  <TR> <TD align="right"> 10 </TD> <TD> ShortExternDebtAll </TD> <TD> External debt stocks, short-term (DOD, current US$) </TD> <TD> World Bank Development Indicators (February 2013) </TD> </TR>
+  <TR> <TD align="right"> 11 </TD> <TD> ExternPrivateDebt </TD> <TD> External debt stocks, private nonguaranteed (PNG) (DOD, current US$) </TD> <TD> World Bank Development Indicators (February 2013) </TD> </TR>
+  <TR> <TD align="right"> 12 </TD> <TD> ExternPublicDebt </TD> <TD> External debt stocks, public and publicly guaranteed (PPG) (DOD, current US$) </TD> <TD> World Bank Development Indicators (February 2013) </TD> </TR>
+  <TR> <TD align="right"> 13 </TD> <TD> ExternDebtTotal </TD> <TD> External debt stocks, total (DOD, current US$) </TD> <TD> World Bank Development Indicators (February 2013) </TD> </TR>
    </TABLE>
