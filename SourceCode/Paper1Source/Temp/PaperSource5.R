@@ -1,7 +1,7 @@
 ################
 # Stratified Cox Regression
 # Christopher Gandrud
-# 11 February 2013
+# 12 February 2013
 ################
 
 #### Create State Variable
@@ -38,18 +38,26 @@ Data$AMCStatusNA[Data$AMCStatus == 0] <- NA
 Data$AMCCent <- 0
 Data$AMCCent[Data$AMCStatus == 2 & Data$AMCAnyCreated == 1] <- 1
 
+M1 <- coxph(Surv(year1980, AMCAnyCreated) ~ CashSurplusDeficit + cluster(imfcode), data = Data)
+
 M1 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 +
-              CurrentAccount + checks*polariz + 
+              CurrentAccount + polariz*checks +
               cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-M1 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + pspline(UDS) + GDPperCapita +
-              cluster(imfcode), +strata(NumAMCCountryNoNA), data = Data)
+M1 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + polariz*checks +
+              cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
+
+M1 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + polariz*checks + pspline(UDS) + pspline(GDPperCapita) + cluster(imfcode), data = Data)
 
 summary(M1)
 cox.zph(M1)
 
+# coxsimInteract test
+Sim1 <- coxsimInteract(M1, b1 = "polariz", b2 = "checks", qi = "Marginal Effect", X2 = c(1:5))
+gginteract(Sim1, qi = "Marginal Effect", smoother = "lm")
+
 # Plot govfrac spline
-termplot(M1, term = 2, ylabs = "Log Hazard", se = TRUE, rug = TRUE)
+termplot(M1, term = 3, ylabs = "Log Hazard", se = TRUE, rug = TRUE)
 
 M2 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + 
               factor(execrlc) + pspline(govfrac) + 
