@@ -1,7 +1,7 @@
 ############ 
 # Download and Cean Up World Bank Development Indicator data
 # Christopher Gandrud
-# Updated 13 February 2013
+# Updated 15 February 2013
 ############
 
 # Load required packages
@@ -20,7 +20,7 @@ wdi <- WDI(country = "all", indicator = c("NY.GDP.MKTP.CD", "NY.GDP.PCAP.KD", "F
 										  "GC.DOD.TOTL.GD.ZS", "DT.DOD.DSTC.CD", "DT.DOD.DPNG.CD", "DT.DOD.DPPG.CD",
 										  "DT.DOD.DECT.CD", "FI.RES.TOTL.CD"
 										  ), 
-			start = 1980)
+			start = 1980, end = 2012)
 
 # Clean up
 wdi$imfcode <- countrycode(wdi$iso2c, origin = "iso2c", destination = "imf")

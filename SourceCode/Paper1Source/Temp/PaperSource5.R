@@ -36,9 +36,7 @@ Data$AMCStatusNA[Data$AMCStatus == 0] <- NA
 
 # Centralised AMC Creation variable
 Data$AMCCent <- 0
-Data$AMCCent[Data$AMCStatus == 2 & Data$AMCAnyCreated == 1] <- 1
-
-M1 <- coxph(Surv(year1980, AMCAnyCreated) ~ CashSurplusDeficit + cluster(imfcode), data = Data)
+Data$AMCCent[Data$AMCStatusNA == 1 & Data$AMCAnyCreated == 1] <- 1
 
 M1 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 +
               CurrentAccount + polariz*checks +
@@ -48,6 +46,8 @@ M1 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + polariz*checks +
               cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
 M1 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + polariz*checks + pspline(UDS) + pspline(GDPperCapita) + cluster(imfcode), data = Data)
+
+M1 <- coxph(Surv(year1980, AMCCent) ~ pspline(UDS) + cluster(imfcode), data = Data)
 
 summary(M1)
 cox.zph(M1)

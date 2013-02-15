@@ -1,7 +1,7 @@
 #############
 # AMC Paper: Data Load and Clean
 # Christopher Gandrud
-# 10 February 2013
+# 13 February 2013
 #############
 
 library(devtools)
@@ -78,10 +78,6 @@ AMCLag$IMFCreditsDummyLag3[AMCLag$IMFCreditsDummyLag3 >= 1] <- 1
 
 # Remove old lag variables
 AMCLag$IMFCL1 <- AMCLag$IMFCL2 <- NULL
-
-#### Create IMFCreditsGDP Variable ####
-AMCLag$IMFCredits[is.na(AMCLag$IMFCredits)] <- 0
-AMCLag$IMFCreditsGDP <- AMCLag$IMFCredits/AMCLag$GDPCurrentUSD * 100
 
 #### Create Election Year +1 lag ####
 lg <- function(x)c(x[2:(length(x))], NA)
