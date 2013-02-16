@@ -1,7 +1,7 @@
 ############ 
 # Download and Cean Up World Bank Development Indicator data
 # Christopher Gandrud
-# Updated 15 February 2013
+# Updated 16 February 2013
 ############
 
 # Load required packages
@@ -47,7 +47,7 @@ wdi <- rename(wdi, c(NY.GDP.MKTP.CD = "GDPCurrentUSD",
 
 # wdi <- wdi[, 3:22]
 
-# Create variable description
+#### Create variable description ####
 ColNames <- names(wdi[, 4:21])
 
 Description <- c("GDP (current US$)", 
@@ -73,9 +73,9 @@ VarList <- cbind(ColNames, Description, Source)
 
 VarList <- xtable(VarList)
 
-DpiVariableTable <- print(VarList, type = "html")
+WDIVariableTable <- print(VarList, type = "html")
 
-cat("# Variable Label and Variable Description for World Bank Development Indictors\n See: http://data.worldbank.org/", DpiVariableTable, file = "/git_repositories/amcData/MainData/VariableDescriptions/WDIVariableDescription.md")
+cat("# Variable Label and Variable Description for World Bank Development Indictors\n See: http://data.worldbank.org/", WDIVariableTable, file = "/git_repositories/amcData/MainData/VariableDescriptions/WDIVariableDescription.md")
 
 # Save file
 write.table(wdi, file = "/git_repositories/amcData/MainData/CleanedPartial/WDIData.csv", sep = ",")

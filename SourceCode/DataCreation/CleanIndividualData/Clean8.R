@@ -6,6 +6,7 @@
 
 # Load packages
 library(countrycode)
+library(xtable)
 
 # Load FillIn function
 devtools::source_gist("4959237")
@@ -66,7 +67,66 @@ LADebtSur <- LADebtSur[, c("iso2c", "year", "cashsurdefimf")]
 WDIComb <- FillIn(WDIComb, LADebtSur, Var1 = "CashSurplusDeficit", 
 				  Var2 = "cashsurdefimf")
 
+#### Merge with data from the Asian Development Bank ####
+# Data downloaded from: https://sdbs.adb.org
+# Variable Name: Overall budgetary surplus/deficit, as % of GDP
+ADBDebtSur <- read.csv("ADBCashSurDef.csv")
+
+# Clean up
+ADBDebtSur <- ADBDebtSur[, c(-1, -2, -4, -5)]
+ADBDebtSur <- reshape2::melt(ADBDebtSur, id.vars = c("country"))
+names(ADBDebtSur) <- c("country", "year", "ADBOveralDeficit")
+ADBDebtSur$year <- as.numeric(gsub("X", "", ADBDebtSur$year))
+ADBDebtSur$ADBOveralDeficit[ADBDebtSur$ADBOveralDeficit == "... "] <- NA
+ADBDebtSur$ADBOveralDeficit <- as.numeric(ADBDebtSur$ADBOveralDeficit)
+ADBDebtSur <- ADBDebtSur[order(ADBDebtSur$country, ADBDebtSur$year), ]
+ADBDebtSur$iso2c <- countrycode(ADBDebtSur$country, "country.name", "iso2c")
+ADBDebtSur <- ADBDebtSur[, c("iso2c", "year", "ADBOveralDeficit")]
+
+# Use ADBDebtSur to fill in WDI CashSurplusDeficit
+WDIComb <- FillIn(WDIComb, ADBDebtSur, Var1 = "CashSurplusDeficit",
+				  Var2 = "ADBOveralDeficit")
+
+#### Merge CentGovDebt with data from the OCED ####
+# Data downloaded from: http://stats.oecd.org/
+# Variable Name: Total central government debt (% GDP)
+OECDDebt <- read.csv("OECDCentGovDebt.csv")
+
+# Clean up
+OECDDebt <- reshape2::melt(OECDDebt, id.vars = c("country"))
+names(OECDDebt) <- c("country", "year", "CentDebt")
+OECDDebt$year <- as.numeric(gsub("X", "", OECDDebt$year))
+OECDDebt$CentDebt[OECDDebt$CentDebt == ".."] <- NA
+OECDDebt$CentDebt <- as.numeric(OECDDebt$CentDebt)
+OECDDebt <- OECDDebt[order(OECDDebt$country, OECDDebt$year), ]
+OECDDebt$iso2c <- countrycode(OECDDebt$country, "country.name", "iso2c")
+OECDDebt <- OECDDebt[, c("iso2c", "year", "CentDebt")]
+
+# Use CentDebt to fill in WDI CentGovDebt
+WDIComb <- FillIn(WDIComb, OECDDebt, Var1 = "CentGovDebt", Var2 = "CentDebt")
+
+#### Create Variable descriptions ####
+
+ColNames <- c("CashSurplusDeficit", "CentGovDebt",  "IMFCreditsGDP", "PortfolioEquityGDP", "ShortExternDebtAllGDP", "ExternPrivateDebtGDP", "ExternPublicDebtGDP", "ExternDebtTotalGDP", "TotalReservesGDP")
+
+Description <- c("WDI variable updated with data from Eurostat, Hallerberg LA, and Asian Development Bank.", 
+	"WDI variable updated with data from the OECD",
+	"Transformed as percent GDP using WDI GDPCurrentUSD",
+	"Transformed as percent GDP using WDI GDPCurrentUSD",
+	"Transformed as percent GDP using WDI GDPCurrentUSD",
+	"Transformed as percent GDP using WDI GDPCurrentUSD",
+	"Transformed as percent GDP using WDI GDPCurrentUSD",
+	"Transformed as percent GDP using WDI GDPCurrentUSD",
+	"Transformed as percent GDP using WDI GDPCurrentUSD")
+
+Varlist <- cbind(ColNames, Description)
+Varlist <- xtable(Varlist)
+WDIFillTable <- print(Varlist, type = "html")
+
+cat("# World Bankd Development Indicator variable changes.",
+	WDIFillTable, file = "/git_repositories/amcData/MainData/VariableDescriptions/WDIVariableTransformations.md")
+
 
 #### Save File ####
-# write.table(wdi, file = "/git_repositories/amcData/MainData/CleanedPartial/WDIDataProcessed.csv", sep = ",")
+write.table(WDIComb, file = "/git_repositories/amcData/MainData/CleanedPartial/WDIDataProcessed.csv", sep = ",")
 
