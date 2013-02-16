@@ -19,7 +19,7 @@ lvAllCrises <- read.csv("LVCrisisDummyData.csv")
 uds <- read.csv("UdsData.csv")
 dpi <- read.csv("DpiData.csv")
 amc <- read.csv("AMCFull.csv")
-wdi <- read.csv("WDIData.csv")
+wdi <- read.csv("WDIDataProcessed.csv")
 imf <- read.csv("IMFData.csv")
 
 # Remove missing id variables
