@@ -1,7 +1,7 @@
 ################
 # Stratified Cox Regression
 # Christopher Gandrud
-# 12 February 2013
+# 16 February 2013
 ################
 
 #### Create State Variable
@@ -38,8 +38,19 @@ Data$AMCStatusNA[Data$AMCStatus == 0] <- NA
 Data$AMCCent <- 0
 Data$AMCCent[Data$AMCStatusNA == 1 & Data$AMCAnyCreated == 1] <- 1
 
+# Decentralised AMC Creation variable
+Data$AMCDecent <- 0
+Data$AMCDecent[Data$AMCStatusNA == 2 & Data$AMCAnyCreated == 1] <- 1
+
 M1 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 +
               CurrentAccount + polariz*checks +
+              cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
+
+M2 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 +
+              CashSurplusDeficit +
+              cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
+
+M2 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + pspline(GDPCurrentUSD) + polariz*checks +
               cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
 M1 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + polariz*checks +

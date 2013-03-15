@@ -18,6 +18,6 @@ MapAMCData <- joinCountryData2Map(subset(AMC, year == 2011 & NumAMCCountryNoNA !
 # Create world map
 pdf(file = "~/Dropbox/AMCPaper1/figure/TotalMap.pdf")
 mapCountryData(MapAMCData, nameColumnToPlot = "NumAMCCountryNoNA", numCats = 6, catMethod = c(1, 2, 3, 4, 5, 6),
-                         colourPalette = brewer.pal(6, "GnBu"),
+                         colourPalette = brewer.pal(6, "Oranges"),
                          mapTitle = "")
 dev.off()

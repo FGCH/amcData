@@ -1,10 +1,9 @@
 #############
 # AMC Paper: Data Load and Clean
 # Christopher Gandrud
-# 13 February 2013
+# 16 February 2013
 #############
 
-library(devtools)
 library(repmis)
 library(plyr)
 library(foreign)

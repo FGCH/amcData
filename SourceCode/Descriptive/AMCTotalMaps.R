@@ -5,16 +5,14 @@
 #############
 
 # Load libraries
-library(RCurl)
+library(repmis)
 library(googleVis)
 library(reshape)
 
 setwd("/git_repositories/amc-site/BaseMaps/")
 
 # Load most recent data
-URL <- "https://raw.github.com/christophergandrud/amcData/master/MainData/amcCountryYear.csv"
-Full <- getURL(URL)
-Full <- read.csv(textConnection(Full))
+Full <- source_GitHubData("https://raw.github.com/christophergandrud/amcData/master/MainData/amcCountryYear.csv")
 
 # Clean for mapping 
 Full <- rename(Full, c(NumAMCCountryNoNA = "TotalAmcCreated"))
@@ -34,6 +32,6 @@ MapAMC <- function(y){
 
 #### Apply function to create maps ####
 # Vector of years for maps
-Years <- c(1980, 1985, 1990, 1995, 2000, 2005, 2011)
+Years <- c(1980, 1985, 1990, 1995, 2000, 2005, 2012)
 
 lapply(Years, MapAMC)
