@@ -106,7 +106,7 @@ amcCountryYear <- remove.vars(amcCountryYear, names = "country")
 amcCountryYear$ISOCode <- countrycode(amcCountryYear$imfcode, origin = "imf", destination = "iso2c")
 amcCountryYear$country <- countrycode(amcCountryYear$imfcode, origin = "imf", destination = "country.name")
 
-vars <- c("country", "ISOCode", "imfcode", "year", "UDS", "yrcurnt", "govfrac", "execrlc", "checks", "polariz",
+vars <- c("country", "ISOCode", "imfcode", "year", "UDS", "polity2", "yrcurnt", "govfrac", "execrlc", "checks", "polariz",
           "ElectionYear", "SystemicCrisis", "CurrencyCrisis", "SovereignDefault", 
           "SovereignDebtRestructuring", "GDPCurrentUSD", "GDPperCapita", "CapToAssetswdi", "NPLwdi", "CreditInfo",
           "DomesticCredit", "CreditBurCoverange", "CurrentAccount", "IMFCreditsGDP", "PortfolioEquityGDP", 

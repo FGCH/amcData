@@ -43,8 +43,8 @@ Data$AMCDecent <- 0
 Data$AMCDecent[Data$AMCStatusNA == 2 & Data$AMCAnyCreated == 1] <- 1
 
 M1 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 +
-              CurrentAccount + polariz*checks +
-              cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
+              UDS + polariz*checks +
+              cluster(ISOCode) + strata(NumAMCCountryNoNA), data = Data)
 
 M2 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 +
               CashSurplusDeficit +
@@ -64,7 +64,7 @@ summary(M1)
 cox.zph(M1)
 
 # coxsimInteract test
-Sim1 <- coxsimInteract(M1, b1 = "polariz", b2 = "checks", qi = "Marginal Effect", X2 = c(1:5))
+Sim1 <- coxsimInteract(M1, b1 = "polariz", b2 = "checks", qi = "Marginal Effect", X2 = c(1:5), ci = "90")
 gginteract(Sim1, qi = "Marginal Effect", smoother = "lm")
 
 # Plot govfrac spline
