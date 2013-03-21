@@ -1,7 +1,7 @@
 ################
 # Stratified Cox Regression with Interactions
 # Christopher Gandrud
-# 20 March 2013
+# 21 March 2013
 ################
 
 #### Create State Variable
@@ -22,9 +22,6 @@ Data <- AMCLag
 # Set 1980 to 0
 Data$year1980 <- Data$year - 1980
 
-# Set 1980 to 0
-Data$year1980 <- Data$year - 1980
-
 # Fail variable clean up
 Data$AMCStatusNA <- Data$AMCStatus
 Data$AMCStatusNA[Data$AMCStatus == 0] <- NA
@@ -37,19 +34,31 @@ Data$AMCCent[Data$AMCStatus == 1 & Data$AMCAnyCreated == 1] <- 1
 Data$AMCDecent <- 0
 Data$AMCDecent[Data$AMCStatus == 2 & Data$AMCAnyCreated == 1] <- 1
 
+DataSub <- subset(Data, year < 2003)
+
 # Models
-M1 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + pspline(checks) +
-              cluster(imfcode), data = Data)
+M1 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + 
+              polariz*checks + GDPperCapita +
+              cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
+
+cox.zph(M1)
+
+M2 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + 
+			polariz*checks + GDPperCapita +
+            cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
 
-M2 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + CurrentAccount + 
+M2 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + 
+              polariz*checks + TotalReservesGDP + 
+              cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
+
+M3 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
               polariz*checks +
               cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-
 # Marginal Effects Graphs
 ## Centralised
-Sim1 <- coxsimInteract(M2, b1 = "polariz", b2 = "checks", qi = "Marginal Effect", X2 = c(1:7))
-gginteract(Sim1, qi = "Marginal Effect", smoother = "lm",
+Sim1 <- coxsimInteract(M1, b1 = "polariz", b2 = "checks", qi = "Marginal Effect", X2 = c(1:7))
+gginteract(Sim1, qi = "Marginal Effect", smoother ="lm",
            ylab = "Marginal Effect of Polarization\n",
            xlab = "\nChecks")
