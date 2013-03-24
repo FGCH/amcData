@@ -1,6 +1,6 @@
 "country","year","yrcurnt","govfrac","execrlc","checks","polariz","ElectionYear","imfcode"
-"1","South Sudan",2011,NA,NA,NA,1,0,NA,732
-"2","South Sudan",2012,NA,0.616532623767853,NA,1,0,NA,732
+"1","South Sudan",2011,NA,NA,NA,1,0,NA,733
+"2","South Sudan",2012,NA,0.616532623767853,NA,1,0,NA,733
 "3","Turk Cyprus",1975,NA,NA,NA,NA,NA,NA,423
 "4","Turk Cyprus",1976,0,NA,NA,1,0,"ElectionYear",423
 "5","Turk Cyprus",1977,4,0,"Right",3,0,"NotElectionYear",423

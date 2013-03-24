@@ -1,8 +1,8 @@
 # Variables Labels and Variable Descriptions for Laeven & Valencia's (2012) Restructuring Data
  ### See: <http://www.imf.org/external/pubs/cat/longres.aspx?sk=26015.0>
 
- <!-- html table generated in R 2.15.2 by xtable 1.7-0 package -->
-<!-- Sun Feb 10 16:38:05 2013 -->
+ <!-- html table generated in R 2.15.3 by xtable 1.7-1 package -->
+<!-- Sun Mar 24 17:28:28 2013 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> ColNames </TH> <TH> Description </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> country </TD> <TD> Country </TD> </TR>

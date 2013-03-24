@@ -1,15 +1,13 @@
 #############
-# Fill in wholes from WDI (gathered with Clean7.R)
+# Fill in holes from WDI (gathered with Clean7.R)
 # Christopher Gandrud
-# 16 February 2013
+# 24 March 2013
 #############
 
 # Load packages
 library(countrycode)
 library(xtable)
-
-# Load FillIn function
-devtools::source_gist("4959237")
+library(DataCombine) # Install using: devtools::install_github("DataCombine", "christophergandrud")
 
 # Load data created from Clean7.R
 WDIData <- read.csv("/git_repositories/amcData/MainData/CleanedPartial/WDIData.csv")
@@ -82,6 +80,7 @@ ADBDebtSur$ADBOveralDeficit <- as.numeric(ADBDebtSur$ADBOveralDeficit)
 ADBDebtSur <- ADBDebtSur[order(ADBDebtSur$country, ADBDebtSur$year), ]
 ADBDebtSur$iso2c <- countrycode(ADBDebtSur$country, "country.name", "iso2c")
 ADBDebtSur <- ADBDebtSur[, c("iso2c", "year", "ADBOveralDeficit")]
+ADBDebtSur <- ADBDebtSur[!duplicated(ADBDebtSur[, c("iso2c", "year")]), ]
 
 # Use ADBDebtSur to fill in WDI CashSurplusDeficit
 WDIComb <- FillIn(WDIComb, ADBDebtSur, Var1 = "CashSurplusDeficit",
