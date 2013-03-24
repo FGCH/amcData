@@ -73,6 +73,10 @@ MA8 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 +
               TotalReservesGDP + UDS + polariz*checks + log(GDPperCapita) +
               cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data) 
 
+MA9 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + 
+              TotalReservesGDP + UDS + polariz*checks + log(GDPCurrentUSD) +
+              cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data) 
+
 
 #### Centralised Created ##############################
 
@@ -106,6 +110,10 @@ MC7 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 +
 
 MC8 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + 
               UDS + log(GDPperCapita) +
+              cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data) 
+
+MC9 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + 
+              UDS + log(GDPCurrentUSD) +
               cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data) 
 
 
@@ -143,17 +151,21 @@ MD8 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 +
               TotalReservesGDP + log(GDPperCapita) +
               cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
+MD9 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
+              TotalReservesGDP + log(GDPCurrentUSD) +
+              cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
+
 ################
 # Show Results #
 ################
 
 ##################### Any AMC results tables ######################
-MANames <- c("A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8")
+MANames <- c("A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9")
 CoefNamesMA <- c("Crisis 3 yr. Lag", "Reserves/GDP", "UDS", "Polity 2", 
 					"Polarise", "Checks", "Polarise*Checks", "Election Year",
-					"IMF Stand-By", "Log GDP/Capita")
+					"IMF Stand-By", "Log GDP/Capita", "Log Total GDP")
 
-AnyTable <- apsrtable(MA1, MA2, MA3, MA4, MA5, MA6, MA7, MA8,
+AnyTable <- apsrtable(MA1, MA2, MA3, MA4, MA5, MA6, MA7, MA8, MA9,
 						model.names = MANames,
 						coef.names = CoefNamesMA,
 						stars = "default",
@@ -164,12 +176,12 @@ AnyTable <- apsrtable(MA1, MA2, MA3, MA4, MA5, MA6, MA7, MA8,
 #cat(AnyTable, file =  "~/Dropbox/AMCPaper1/table/AnyTable.tex")
 
 ##################### Centralised AMC results tables ######################
-MCNames <- c("B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8")
+MCNames <- c("B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9")
 CoefNamesMC <- c("Crisis 3 yr. Lag", "Reserves/GDP", "UDS", "Polity 2", 
 					"Polarise", "Checks", "Polarise*Checks", "Election Year",
-					"IMF Stand-By", "Log GDP/Capita")
+					"IMF Stand-By", "Log GDP/Capita", "Log Total GDP")
 
-CentTable <- apsrtable(MC1, MC2, MC3, MC4, MC5, MC6, MC7, MC8,
+CentTable <- apsrtable(MC1, MC2, MC3, MC4, MC5, MC6, MC7, MC8, MC9,
 						model.names = MCNames,
 						coef.names = CoefNamesMC,
 						stars = "default",
@@ -186,8 +198,8 @@ CoefNamesMD <- c("Crisis 3 yr. Lag", "Reserves/GDP", "UDS", "Polity 2",
 					"IMF Stand-By", "Log GDP/Capita")
 
 DeCentTable <- apsrtable(MD1, MD2, MD3, MD4, MD5, MD6, MD7, MD8,
-						model.names = MCNames,
-						coef.names = CoefNamesMC,
+						model.names = MDNames,
+						coef.names = CoefNamesMD,
 						stars = "default",
 						Sweave = TRUE,
 						col.hspace = "0.5cm",
@@ -196,7 +208,7 @@ DeCentTable <- apsrtable(MD1, MD2, MD3, MD4, MD5, MD6, MD7, MD8,
 #cat(DeCentTable, file =  "~/Dropbox/AMCPaper1/table/DeCentTable.tex")
 
 ##################### Reserves Hazard Ratios Effect #########
-Sim1 <- coxsimLinear(MA5, b = "TotalReservesGDP", qi = "Hazard Ratio",
+Sim1 <- coxsimLinear(MA9, b = "TotalReservesGDP", qi = "Hazard Ratio",
 						Xj = seq(0, 94, 2))
 
 pdf(file = "~/Dropbox/AMCPaper1/figure/ReservesCentHazardRatio.pdf")
@@ -216,11 +228,11 @@ dev.off()
 ##################### Polarization/Checks Marginal Effect #########
 
 # Simulate Marginal Effects
-Sim2 <- coxsimInteract(MA5, b1 = "polariz", b2 = "checks", qi = "Marginal Effect", X2 = c(1:7))
+Sim3 <- coxsimInteract(MA9, b1 = "polariz", b2 = "checks", qi = "Marginal Effect", X2 = c(1:7))
 
 # Plot and save
 pdf(file = "~/Dropbox/AMCPaper1/figure/PolChecksMarg.pdf")
-gginteract(Sim2, qi = "Marginal Effect", smoother ="loess",
+gginteract(Sim3, qi = "Marginal Effect", smoother ="loess",
            ylab = "Marginal Effect of Polarization\n",
            xlab = "\nChecks")
 dev.off()
