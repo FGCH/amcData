@@ -1,7 +1,7 @@
 ############ 
 # Merge Cleaned Up AMC Database Data (Repeated Survival Time Version)
 # Christopher Gandrud
-# Updated 24 March 2013
+# Updated 31 March 2013
 ############
 
 # Load required packages
@@ -21,6 +21,7 @@ dpi <- read.csv("DpiData.csv")
 amc <- read.csv("AMCFull.csv")
 wdi <- read.csv("WDIDataProcessed.csv")
 imf <- read.csv("IMFData.csv")
+own <- read.csv("CvHBankOwners.csv")
 
 # Remove missing id variables
 lv <- lv[!is.na(lv$imfcode), ]
@@ -29,6 +30,7 @@ uds <- uds[!is.na(uds$imfcode), ]
 dpi <- dpi[!is.na(dpi$imfcode), ]
 wdi <- wdi[!is.na(wdi$imfcode), ]
 imf <- imf[!is.na(imf$imfcode), ]
+own <- own[!is.na(own$imfcode), ]
 
 # Create Crisis 5 year data (crisis year + 4), LV Constricted Crises
 for (i in 1:4){
@@ -74,6 +76,9 @@ amcCountryYear <- merge(amcCountryYear, wdi, union("imfcode", "year"), all = TRU
 # Merge with IMF Dreher Data
 amcCountryYear <- merge(amcCountryYear, imf, union("imfcode", "year"), all = TRUE)
 
+# Merge CvH Bank Ownership Data
+amcCountryYear <- merge(amcCountryYear, own, union("imfcode", "year"), all = TRUE)
+
 # Merge with LV crisis year dummies
 ## Remove old AMCType variable from LV
 amcCountryYear <- remove.vars(amcCountryYear, names = "CurrencyCrisis")
@@ -108,7 +113,7 @@ amcCountryYear$country <- countrycode(amcCountryYear$imfcode, origin = "imf", de
 
 vars <- c("country", "ISOCode", "imfcode", "year", "UDS", "polity2", "yrcurnt", "govfrac", "execrlc", "checks", "polariz",
           "ElectionYear", "SystemicCrisis", "CurrencyCrisis", "SovereignDefault", 
-          "SovereignDebtRestructuring", "GDPCurrentUSD", "GDPperCapita", "CapToAssetswdi", "NPLwdi", "CreditInfo",
+          "SovereignDebtRestructuring", "CvHOwnPerc", "GDPCurrentUSD", "GDPperCapita", "CapToAssetswdi", "NPLwdi", "CreditInfo",
           "DomesticCredit", "CreditBurCoverange", "CurrentAccount", "IMFCreditsGDP", "PortfolioEquityGDP", 
           "CashSurplusDeficit", "ClaimsOnGov", "CentGovDebt", "ShortExternDebtAllGDP", "ExternPrivateDebtGDP", "ExternPublicDebtGDP", 
           "ExternDebtTotalGDP", "TotalReservesGDP",

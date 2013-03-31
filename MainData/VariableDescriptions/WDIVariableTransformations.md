@@ -1,5 +1,5 @@
 # World Bankd Development Indicator variable changes. <!-- html table generated in R 2.15.3 by xtable 1.7-1 package -->
-<!-- Sun Mar 24 17:55:10 2013 -->
+<!-- Sun Mar 31 18:00:53 2013 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> ColNames </TH> <TH> Description </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> CashSurplusDeficit </TD> <TD> WDI variable updated with data from Eurostat, Hallerberg LA, and Asian Development Bank. </TD> </TR>

@@ -1,6 +1,6 @@
 # Variable Label and Variable Description for World Bank Development Indictors
  See: http://data.worldbank.org/ <!-- html table generated in R 2.15.3 by xtable 1.7-1 package -->
-<!-- Sun Mar 24 17:31:08 2013 -->
+<!-- Sun Mar 31 18:00:49 2013 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> ColNames </TH> <TH> Description </TH> <TH> Source </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> GDPCurrentUSD </TD> <TD> GDP (current US$) </TD> <TD> World Bank Development Indicators (February 2013) </TD> </TR>
