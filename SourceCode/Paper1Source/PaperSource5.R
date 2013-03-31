@@ -211,7 +211,8 @@ DeCentTable <- apsrtable(MD1, MD2, MD3, MD4, MD5, MD6, MD7, MD8,
 Sim1 <- coxsimLinear(MA9, b = "TotalReservesGDP", qi = "Hazard Ratio",
 						Xj = seq(0, 94, 2))
 
-pdf(file = "~/Dropbox/AMCPaper1/figure/ReservesCentHazardRatio.pdf")
+png(file = "~/Dropbox/AMCPaper1/figure/ReservesCentHazardRatio.png")
+# pdf(file = "~/Dropbox/AMCPaper1/figure/ReservesCentHazardRatio.pdf")
 gglinear(Sim1, qi = "Hazard Ratio", smoother = "loess",
             xlab = "\n Reserves/GDP (%)")
 dev.off()
@@ -220,7 +221,8 @@ dev.off()
 Sim2 <- coxsimLinear(MC8, b = "UDS", qi = "Hazard Ratio",
 						Xj = seq(-2, 2, 0.1))
 
-pdf(file = "~/Dropbox/AMCPaper1/figure/UDSHazardRatio.pdf")
+png(file = "~/Dropbox/AMCPaper1/figure/UDSHazardRatio.png")
+# pdf(file = "~/Dropbox/AMCPaper1/figure/UDSHazardRatio.pdf")
 gglinear(Sim2, qi = "Hazard Ratio", smoother = "loess",
          xlab = "\n Unified Democracy Score")
 dev.off()
