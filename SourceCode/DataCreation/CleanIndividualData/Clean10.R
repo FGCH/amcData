@@ -55,7 +55,7 @@ CvHFinal <- CvHFinal[, c("imfcode", "year", "CvHOwnPerc")]
 ColNames <- "CvHOwnPerc"
 Description <- "Percentage of majority foreign owned banks"
 Date <- date()
-Source <- "<a href=\"http://www.dnb.nl/en/onderzoek-2/databases/index.jsp\">Stijn Claessens and Neeltje van Horen (2013)</a>"
+Source <- "Stijn Claessens and Neeltje van Horen (2013) (http://www.dnb.nl/en/onderzoek-2/databases/index.jsp)"
 
 VarList <- cbind(ColNames, Description, Source)
 
