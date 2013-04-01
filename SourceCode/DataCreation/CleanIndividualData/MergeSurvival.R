@@ -32,7 +32,7 @@ dpi <- dpi[!is.na(dpi$imfcode), ]
 wdi <- wdi[!is.na(wdi$imfcode), ]
 imf <- imf[!is.na(imf$imfcode), ]
 own <- own[!is.na(own$imfcode), ]
-inqual <- inqual[is.na(inqual$imfcode), ]
+inqual <- inqual[!is.na(inqual$imfcode), ]
 
 # Create Crisis 5 year data (crisis year + 4), LV Constricted Crises
 for (i in 1:4){
