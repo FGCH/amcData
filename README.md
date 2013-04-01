@@ -10,7 +10,7 @@ It includes the full source code and many of the source files used to construct 
 
 ## Analysis Data Files Replication
 
-If you download the repository you can use **R** (we used version 2.15.3) to recreate the data sets we use in the analyses with the `makefile`. It is in the *SourceCode/DataCreation/CleanIndividualData* folder.
+If you download the repository you can use **R** (we used version 2.15.3) to recreate the data sets we use in the analyses with the `makefile`. It is in the *SourceCode/DataCreation/CleanIndividualData* directory.
 
 
 ## Data Visualisations
