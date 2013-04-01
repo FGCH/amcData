@@ -61,9 +61,9 @@ VarList <- cbind(ColNames, Description, Source)
 
 VarList <- xtable(VarList)
 
-AMCTable <- print(VarList, type = "html")
+OwnTable <- print(VarList, type = "html")
 
-cat("# Foreign Bank Ownership\n\n\n", Date, AMCTable, file = "/git_repositories/amcData/MainData/VariableDescriptions/CvHBankOwnership.md")
+cat("# Foreign Bank Ownership\n\n\n", Date, OwnTable, file = "/git_repositories/amcData/MainData/VariableDescriptions/CvHBankOwnership.md")
 
 # Save data file 
 write.table(CvHFinal, file = "/git_repositories/amcData/MainData/CleanedPartial/CvHBankOwners.csv", sep = ",", row.names = FALSE)
