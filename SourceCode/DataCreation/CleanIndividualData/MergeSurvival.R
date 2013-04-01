@@ -22,6 +22,7 @@ amc <- read.csv("AMCFull.csv")
 wdi <- read.csv("WDIDataProcessed.csv")
 imf <- read.csv("IMFData.csv")
 own <- read.csv("CvHBankOwners.csv")
+inqual <- read.csv("InsQualKuncic.csv")
 
 # Remove missing id variables
 lv <- lv[!is.na(lv$imfcode), ]
@@ -31,6 +32,7 @@ dpi <- dpi[!is.na(dpi$imfcode), ]
 wdi <- wdi[!is.na(wdi$imfcode), ]
 imf <- imf[!is.na(imf$imfcode), ]
 own <- own[!is.na(own$imfcode), ]
+inqual <- inqual[is.na(inqual$imfcode), ]
 
 # Create Crisis 5 year data (crisis year + 4), LV Constricted Crises
 for (i in 1:4){
@@ -79,6 +81,9 @@ amcCountryYear <- merge(amcCountryYear, imf, union("imfcode", "year"), all = TRU
 # Merge CvH Bank Ownership Data
 amcCountryYear <- merge(amcCountryYear, own, union("imfcode", "year"), all = TRUE)
 
+# Merge Kuncic Institutional Quality Data
+amcCountryYear <- merge(amcCountryYear, inqual, union("imfcode", "year"), all = TRUE)
+
 # Merge with LV crisis year dummies
 ## Remove old AMCType variable from LV
 amcCountryYear <- remove.vars(amcCountryYear, names = "CurrencyCrisis")
@@ -113,7 +118,7 @@ amcCountryYear$country <- countrycode(amcCountryYear$imfcode, origin = "imf", de
 
 vars <- c("country", "ISOCode", "imfcode", "year", "UDS", "polity2", "yrcurnt", "govfrac", "execrlc", "checks", "polariz",
           "ElectionYear", "SystemicCrisis", "CurrencyCrisis", "SovereignDefault", 
-          "SovereignDebtRestructuring", "CvHOwnPerc", "GDPCurrentUSD", "GDPperCapita", "CapToAssetswdi", "NPLwdi", "CreditInfo",
+          "SovereignDebtRestructuring", "CvHOwnPerc", "legal_abs", "political_abs", "economic_abs", "GDPCurrentUSD", "GDPperCapita", "CapToAssetswdi", "NPLwdi", "CreditInfo",
           "DomesticCredit", "CreditBurCoverange", "CurrentAccount", "IMFCreditsGDP", "PortfolioEquityGDP", 
           "CashSurplusDeficit", "ClaimsOnGov", "CentGovDebt", "ShortExternDebtAllGDP", "ExternPrivateDebtGDP", "ExternPublicDebtGDP", 
           "ExternDebtTotalGDP", "TotalReservesGDP",

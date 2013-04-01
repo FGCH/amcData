@@ -40,7 +40,7 @@ VarList <- xtable(VarList)
 
 InsQualTable <- print(VarList, type = "html")
 
-cat("# Institutional Quality Composit Indicators\n\n\n", Date, InsQualTable, file = "/git_repositories/amcData/MainData/VariableDescriptions/InstQualityKucic.md")
+cat("# Institutional Quality Composit Indicators\n\n\n", Date, InsQualTable, file = "/git_repositories/amcData/MainData/VariableDescriptions/InstQualityKuncic.md")
 
 
 # Save data file 
