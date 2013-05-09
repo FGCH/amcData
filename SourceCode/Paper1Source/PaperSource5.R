@@ -1,7 +1,7 @@
 #############
 # Initial Paper Results
 # Christopher Gandrud
-# 2 April 2013
+# 9 May 2013
 #############
 
 ##### Set Up ####################################
@@ -14,7 +14,8 @@
 # Load packages
 library(survival)
 library(simPH) # Note need to install with the following code: devtools::install_github("simPH", "christophergandrud")
-library(texreg) # using custom build for coxph with clusters
+library(texreg)
+library(gridExtra)
 
 # Set Up
 setwd("~/Dropbox/AMCPaper1/TempData") 
@@ -246,35 +247,58 @@ Sim1 <- coxsimLinear(MA10, b = "CvHOwnPerc", qi = "Hazard Ratio",
                        Xj = seq(0, 100, 1))
 
 png(file = "~/Dropbox/AMCPaper1/figure/ForeignOwnersHazRatio.png")
-gglinear(Sim1, qi = "Hazard Ratio", smoother = "loess", xlab = "\nForeign Bank Ownership (%)")
+simGG(Sim1, smoother = "loess", xlab = "\nForeign Bank Ownership (%)")
 dev.off()
 
 ##################### Economic Institutions Hazard Ratios Effect #########
 Sim2 <- coxsimLinear(MA10, b = "economic_abs", qi = "Hazard Ratio",
-                       Xj = seq(0, 0.90, 0.01), ci = "90")
+                       Xj = seq(0, 0.90, 0.01), ci = 0.95)
 
 png(file = "~/Dropbox/AMCPaper1/figure/EconomicInstHazRatio.png")
-gglinear(Sim2, qi = "Hazard Ratio", smoother = "loess", xlab = "\nEconomic Institutional Quality")
+simGG(Sim2, smoother = "loess", 
+      xlab = "\nEconomic Institutional Quality")
 dev.off()
 
 ##################### UDS Hazard Ratios Effect #########
-Sim3 <- coxsimLinear(MD10, b = "UDS", qi = "Hazard Ratio",
-                     Xj = seq(-2, 2, 0.1), ci = "90")
+## Split up to give a better look at different ranges of fitted values.
 
-png(file = "~/Dropbox/AMCPaper1/figure/UDSHazardRatio.png")
+Sim3.1 <- coxsimLinear(MD10, b = "UDS", qi = "Hazard Ratio",
+                     Xj = seq(-2, 0, 0.05), ci = 0.9)
+
+Sim3.2 <- coxsimLinear(MD10, b = "UDS", qi = "Hazard Ratio",
+                       Xj = seq(0, 1, 0.05), ci = 0.9)
+
+Sim3.3 <- coxsimLinear(MD10, b = "UDS", qi = "Hazard Ratio",
+                       Xj = seq(1, 2, 0.05), ci = 0.9)
+
+UDS.1 <- simGG(Sim3.1, smoother = "loess",
+               xlab = "\n Unified Democracy Score") + 
+               scale_x_continuous(breaks = c(-2, -1, 0))
+
+UDS.2 <- simGG(Sim3.2, smoother = "loess",
+               xlab = "", ylab = "") +
+               scale_x_continuous(breaks = c(0, 0.5, 1))
+
+UDS.3 <- simGG(Sim3.3, smoother = "loess",
+               xlab = "", ylab = "") +
+               scale_x_continuous(breaks = c(1, 1.5, 2))
+
+png(file = "~/Dropbox/AMCPaper1/figure/UDSHazardRatio.png",
+    width = 1000)
 # pdf(file = "~/Dropbox/AMCPaper1/figure/UDSHazardRatio.pdf")
-gglinear(Sim3, qi = "Hazard Ratio", smoother = "loess",
-         xlab = "\n Unified Democracy Score")
+
+grid.arrange(UDS.1, UDS.2, UDS.3, ncol = 3)
 dev.off()
 
 ##################### Polarization/Checks Marginal Effect #########
 
 # Simulate Marginal Effects
-Sim4 <- coxsimInteract(MA10, b1 = "polariz", b2 = "checks", qi = "Marginal Effect", X2 = c(1:7))
+Sim4 <- coxsimInteract(MA10, b1 = "polariz", b2 = "checks", 
+                       qi = "Marginal Effect", X2 = c(1:7))
 
 # Plot and save
 pdf(file = "~/Dropbox/AMCPaper1/figure/PolChecksMarg.pdf")
-gginteract(Sim4, qi = "Marginal Effect", smoother ="loess",
+simGG(Sim4, smoother ="loess",
            ylab = "Marginal Effect of Polarization\n",
            xlab = "\nChecks")
-sudev.off()
+dev.off()
