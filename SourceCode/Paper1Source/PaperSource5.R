@@ -244,7 +244,7 @@ texreg(list(MD1, MD2, MD3, MD4, MD5, MD6, MD7, MD8, MD9, MD10),
 
 ##################### Foreign Ownership Hazard Ratios Effect #########
 Sim1 <- coxsimLinear(MA10, b = "CvHOwnPerc", qi = "Hazard Ratio",
-                       Xj = seq(0, 100, 1))
+                       Xj = seq(0, 100, 1), ci = 0.95)
 
 png(file = "~/Dropbox/AMCPaper1/figure/ForeignOwnersHazRatio.png")
 simGG(Sim1, smoother = "loess", xlab = "\nForeign Bank Ownership (%)")
