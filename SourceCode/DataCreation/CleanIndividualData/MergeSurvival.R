@@ -1,13 +1,14 @@
 ############ 
 # Merge Cleaned Up AMC Database Data (Repeated Survival Time Version)
 # Christopher Gandrud
-# Updated 31 March 2013
+# Updated 3 September 2013
 ############
 
 # Load required packages
 require(reshape)
 require(gdata)
 require(countrycode)
+require(DataCombine)
 
 ## ID variable is imfcode
 
@@ -23,6 +24,7 @@ wdi <- read.csv("WDIDataProcessed.csv")
 imf <- read.csv("IMFData.csv")
 own <- read.csv("CvHBankOwners.csv")
 inqual <- read.csv("InsQualKuncic.csv")
+mona <- read.csv("IMF_MONA.csv")
 
 # Remove missing id variables
 lv <- lv[!is.na(lv$imfcode), ]
@@ -103,6 +105,17 @@ for (i in vars){
   amcCountryYear[[i]][is.na(amcCountryYear[[i]])] <- 0
 }
 
+# Merge MONA Data
+amcCountryYear <- merge(amcCountryYear, mona, union("imfcode", "year"), all = TRUE)
+amcCountryYear$IMF.AMC[is.na(amcCountryYear$IMF.AMC) & amcCountryYear$year >= 1993] <- 0 # data only available from 1993
+
+# Create two year lag variable for IMF.AMC
+amcCountryYear <- slide(amcCountryYear, Var = "IMF.AMC", GroupVar = "imfcode", slideBy = 1)
+amcCountryYear <- slide(amcCountryYear, Var = "IMF.AMC", GroupVar = "imfcode", slideBy = 2)
+amcCountryYear$IMF.AMC <- amcCountryYear$IMF.AMC + amcCountryYear$IMF.AMC1 + amcCountryYear$IMF.AMC2
+amcCountryYear$IMF.AMC1 <- NULL
+amcCountryYear$IMF.AMC2 <- NULL
+
 # Clean up merge
 amcCountryYear <- amcCountryYear[amcCountryYear$year >= 1980, ]
 amcCountryYear <- amcCountryYear[!is.na(amcCountryYear$year), ]
@@ -132,7 +145,7 @@ vars <- c("country", "ISOCode", "imfcode", "year", "UDS", "polity2", "yrcurnt", 
           "AssetPurchases", "Recap", "RecapCosts", "RecoveryDummy", 
           "RecoveryProceeds", "GovRecapCosts", "DepositorLosses", "DepositorLosesSeverity", 
           "MonetaryPolicyIndex", "AverageReserveChange", "FiscalPolicyIndex", 
-          "IncreasePublicDebt", "IMFProgram", "YearIMFProgram", "PeakNPLs", 
+          "IncreasePublicDebt", "IMFProgram", "YearIMFProgram", "IMF.AMC", "PeakNPLs", 
           "NetFiscalCosts", "GrossFiscalCosts", "FiveYearRecovery", "OutputLoss", 
           "AMCType", "AMCAnyCreated", "NumAMCOpNoNA", "NumAMCCountryNoNA", 
           "NumAMCCountryLagNoNA", "F1", "F2", "F3", "F4", "F5")
@@ -145,7 +158,7 @@ amcCountryYear<- amcCountryYear[!is.na(amcCountryYear$imfcode),]
 amcCountryYear <- amcCountryYear[order(amcCountryYear$country),]
 
 # Tidy workspace
-rm(amc, dpi, imf, lv, lvAllCrises, uds, wdi, i, vars)
+rmExcept("amcCountryYear")
 
 # Save data
 write.table(amcCountryYear, file = "/git_repositories/amcData/MainData/amcCountryYear.csv", sep = ",", row.names = FALSE)

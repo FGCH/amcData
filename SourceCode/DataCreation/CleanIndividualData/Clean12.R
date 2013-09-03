@@ -68,4 +68,5 @@ CombStrip <- Comb[, c("imfcode", "year")]
 CombStrip$IMF.AMC <- 1
 
 # Save for merge
-write.csv(CombStrip, "/git_repositories/amcData/MainData/CleanedPartial/IMF_MONA.csv")
+write.csv(CombStrip, "/git_repositories/amcData/MainData/CleanedPartial/IMF_MONA.csv",
+          row.names = FALSE)
