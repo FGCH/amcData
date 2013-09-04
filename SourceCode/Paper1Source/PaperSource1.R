@@ -2,7 +2,7 @@
 # AMC Paper: Data Load and Clean
 # Christopher Gandrud
 # 16 February 2013
-#############
+##############
 
 library(repmis)
 library(plyr)

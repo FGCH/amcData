@@ -1,7 +1,7 @@
 #############
 # Initial Paper Results
 # Christopher Gandrud
-# 9 May 2013
+# 4 August 2013
 #############
 
 ##### Set Up ####################################
@@ -13,8 +13,9 @@
 
 # Load packages
 library(survival)
-library(simPH) # Note need to install with the following code: devtools::install_github("simPH", "christophergandrud")
+library(simPH)
 library(texreg)
+library(ggplot2)
 library(gridExtra)
 
 # Set Up
@@ -85,14 +86,14 @@ MA9 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 +
 
 MA10 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + 
                TotalReservesGDP + CvHOwnPerc + economic_abs + UDS + 
-               polariz*checks + log(GDPCurrentUSD) + 
+               polariz*checks + log(GDPCurrentUSD) + IMF.AMC +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data) 
 
 
 #### Centralised Created ##############################
 
 MC1 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + 
-               TotalReservesGDP +
+               TotalReservesGDP + 
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
 MC2 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + 
@@ -271,20 +272,19 @@ Sim3.2 <- coxsimLinear(MD10, b = "UDS", qi = "Hazard Ratio",
 Sim3.3 <- coxsimLinear(MD10, b = "UDS", qi = "Hazard Ratio",
                        Xj = seq(1, 2, 0.05), ci = 0.9)
 
-UDS.1 <- simGG(Sim3.1, smoother = "loess",
-               xlab = "\n Unified Democracy Score") + 
+UDS.1 <- simGG(Sim3.1, alpha = 0.3,
+               xlab = "\n Unified Democracy Score", ribbons = TRUE) +
                scale_x_continuous(breaks = c(-2, -1, 0))
 
-UDS.2 <- simGG(Sim3.2, smoother = "loess",
-               xlab = "", ylab = "") +
+UDS.2 <- simGG(Sim3.2, alpha = 0.3,
+               xlab = "", ylab = "", ribbons = TRUE) + 
                scale_x_continuous(breaks = c(0, 0.5, 1))
 
-UDS.3 <- simGG(Sim3.3, smoother = "loess",
-               xlab = "", ylab = "") +
+UDS.3 <- simGG(Sim3.3, alpha = 0.3,
+               xlab = "", ylab = "", ribbons = TRUE) + 
                scale_x_continuous(breaks = c(1, 1.5, 2))
 
-png(file = "~/Dropbox/AMCPaper1/figure/UDSHazardRatio.png",
-    width = 1000)
+pdf(file = "~/Dropbox/AMCPaper1/figure/UDSHazardRatio.pdf", width = 12, paper = "a4r")
 # pdf(file = "~/Dropbox/AMCPaper1/figure/UDSHazardRatio.pdf")
 
 grid.arrange(UDS.1, UDS.2, UDS.3, ncol = 3)
@@ -298,7 +298,6 @@ Sim4 <- coxsimInteract(MA10, b1 = "polariz", b2 = "checks",
 
 # Plot and save
 pdf(file = "~/Dropbox/AMCPaper1/figure/PolChecksMarg.pdf")
-simGG(Sim4, smoother ="loess",
-           ylab = "Marginal Effect of Polarization\n",
-           xlab = "\nChecks")
+simGG(Sim4, ylab = "Marginal Effect of Polarization\n",
+           xlab = "\nChecks", ribbons = TRUE, alpha = 0.4)
 dev.off()

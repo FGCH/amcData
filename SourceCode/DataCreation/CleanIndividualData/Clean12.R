@@ -1,7 +1,7 @@
 ############
 # MONA Data Filter
 # Christopher Gandrud
-# 3 September
+# 4 September
 ############
 
 # Load packages and functions
@@ -9,6 +9,7 @@ library(stringr)
 library(lubridate)
 library(countrycode)
 library(devtools)
+library(DataCombine)
 source_gist("6421551") # Load grepl.sub
 
 ## The original IMF Monitoring of Fund Arrangements database was downloaded from http://www.imf.org/external/np/pdr/mona/index.aspx. Accessed Fall 2013.
@@ -62,6 +63,13 @@ Comb <- Comb[!duplicated(Comb$ArrID), ]
 # Create IMF Code and year variables
 Comb$imfcode <- countrycode(Comb$CountryName, origin = "country.name", destination = "imf")
 Comb$year <- as.numeric(str_sub(Comb$ApprovalDate, -4, -1))
+
+# Creat conditions description data set
+CombDescript <- MoveFront(Comb, "imfcode")
+CombDescript <- MoveFront(CombDescript, "year")
+write.csv(CombDescript, 
+          "/git_repositories/amcData/BaseFiles/MONA/MONA_AMC_ConditionDescription.csv", 
+          row.names = FALSE)
 
 #### Stripped down merge variable #### 
 CombStrip <- Comb[, c("imfcode", "year")]
