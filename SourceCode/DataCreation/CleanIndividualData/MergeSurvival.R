@@ -1,7 +1,7 @@
 ############ 
 # Merge Cleaned Up AMC Database Data (Repeated Survival Time Version)
 # Christopher Gandrud
-# Updated 3 September 2013
+# Updated 12 September 2013
 ############
 
 # Load required packages
