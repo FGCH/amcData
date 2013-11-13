@@ -1,6 +1,5 @@
 # Load required packages
 
-# Load LoadandCite
-devtools::source_gist("4482567")
+library(repmis)
 
-LoadandCite(c("WDI", "countrycode", "devtools", "reshape", "gdata", "xtable"))
+LoadandCite(c("WDI", "countrycode", "DataCombine", "devtools", "reshape", "gdata", "xtable"))

@@ -10,7 +10,6 @@ library(lubridate)
 library(countrycode)
 library(devtools)
 library(DataCombine)
-source_gist("6421551") # Load grepl.sub
 
 ## The original IMF Monitoring of Fund Arrangements database was downloaded from http://www.imf.org/external/np/pdr/mona/index.aspx. Accessed Fall 2013.
 

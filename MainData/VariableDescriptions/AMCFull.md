@@ -1,8 +1,8 @@
 # Full AMC Data Set Description
 
 
- Thu Sep 12 18:01:32 2013 <!-- html table generated in R 3.0.1 by xtable 1.7-1 package -->
-<!-- Thu Sep 12 18:01:32 2013 -->
+ Wed Nov 13 11:17:51 2013 <!-- html table generated in R 3.0.2 by xtable 1.7-1 package -->
+<!-- Wed Nov 13 11:17:51 2013 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> ColNames </TH> <TH> Description </TH> <TH> Source </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> AMCType </TD> <TD> Whether the AMC is centralized or decentralised </TD> <TD> Gathered by authors, with research assistance provided by Grzegorz Wolszczak. </TD> </TR>
