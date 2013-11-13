@@ -1,7 +1,7 @@
 #############
 # AMC Basic Map Over Time
 # Christopher Gandrud
-# 9 November 2012
+# 13 September 2013
 #############
 
 # Load libraries
