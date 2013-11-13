@@ -1,7 +1,7 @@
 ##############
 # AMC Paper: Data Load and Clean
 # Christopher Gandrud
-# 16 February 2013
+# 13 November 2013
 ###############
 
 library(repmis)
@@ -95,7 +95,7 @@ NotNaAMCType <- ddply(NotNaAMCType, .(country), transform, NotFirstYear = duplic
 FirstYearNotNa <- subset(NotNaAMCType, NumAMCOpNoNA != 0 & NotFirstYear == FALSE)
 
 ## Save to .RData ##
-save(FirstYearNotNa, file = "~/Dropbox/AMCPaper1/TempData/FirstYearNotNa.RData")
+save(FirstYearNotNa, file = "~/Dropbox/AMCProject/TempData/FirstYearNotNa.RData")
 
 #### Create State Variable
 # Create fstatus variable from AMCType
@@ -108,4 +108,4 @@ AMCLag$AMCStatus[AMCLag$AMCType == "Centralised"] <- 1
 AMCLag$AMCStatus[AMCLag$AMCType == "Decentralised"] <- 2
 
 #### Save ####
-save(AMCLag, file = "~/Dropbox/AMCPaper1/TempData/AMCMainData.RData")
+save(AMCLag, file = "~/Dropbox/AMCProject/TempData/AMCMainData.RData")

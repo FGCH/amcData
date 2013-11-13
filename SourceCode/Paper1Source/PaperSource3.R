@@ -1,7 +1,7 @@
 #############
 # AMC Paper: AMCs operating graph
 # Christopher Gandrud
-# 21 December 2012
+# 13 November 2012
 #############
 
 # Depends on: 
@@ -29,7 +29,7 @@ SumOp <- subset(SumOp, AMCType !=  "None")
 SumOp$Marker[SumOp$NumAMCOpNoNA >= 1] <- 1
 SumOp <- ddply(SumOp, .(year, AMCType), function(x) sum(x$Marker))
 
-pdf(file = "~/Dropbox/AMCPaper1/figure/OperatingAMCs.pdf")
+pdf(file = "~/Dropbox/AMCProject/figure/OperatingAMCs.pdf")
 ggplot(data = SumOp, aes(year, V1)) +
 				        geom_vline(xintercept = c(1991, 1997, 2008), size = 0.5, color = "#DEDEDE") +
 				        geom_line(aes(color = AMCType, linetype = AMCType), size = 1, alpha = I(0.9)) +

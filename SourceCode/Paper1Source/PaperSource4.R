@@ -1,7 +1,7 @@
 #############
 # AMC Paper: Heatmap
 # Christopher Gandrud
-# 22 January 2013
+# 13 November 2013
 #############
 
 # Depends on: 
@@ -28,7 +28,7 @@ StateTableDF <- data.frame(StateTable)
 StateTableDF <- subset(StateTableDF, Var1 != Var2)
 
 ### Create heatmap
-pdf(file = "~/Dropbox/AMCPaper1/figure/TransitionMatrix.pdf")
+pdf(file = "~/Dropbox/AMCProject/figure/TransitionMatrix.pdf")
 ggplot(StateTableDF, aes(Var2, Var1)) +
                       geom_tile(aes(fill = Freq)) +
                       geom_text(aes(label = Freq)) +
@@ -39,4 +39,4 @@ ggplot(StateTableDF, aes(Var2, Var1)) +
 dev.off()
 
 #### Save StateTableDF for use in the paper ####
-save(StateTableDF, file = "~/Dropbox/AMCPaper1/TempData/StateTable.RData")
+save(StateTableDF, file = "~/Dropbox/AMCProject/TempData/StateTable.RData")

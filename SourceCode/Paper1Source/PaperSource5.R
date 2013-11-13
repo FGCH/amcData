@@ -1,7 +1,7 @@
 #############
 # Initial Paper Results
 # Christopher Gandrud
-# 4 August 2013
+# 13 November 2013
 #############
 
 ##### Set Up ####################################
@@ -19,7 +19,7 @@ library(ggplot2)
 library(gridExtra)
 
 # Set Up
-setwd("~/Dropbox/AMCPaper1/TempData") 
+setwd("~/Dropbox/AMCProject/TempData") 
 load("AMCMainData.RData")
 Data <- AMCLag
 
@@ -205,7 +205,7 @@ texreg(list(MA1, MA2, MA3, MA4, MA5, MA6, MA7, MA8, MA9, MA10),
       caption.above = TRUE,
       table = FALSE,
       use.packages = FALSE,
-      file = "~/Dropbox/AMCPaper1/table/AnyTable.tex"
+      file = "~/Dropbox/AMCProject/table/AnyTable.tex"
       )
 
 ##################### Centralised AMC results tables ######################
@@ -222,7 +222,7 @@ texreg(list(MC1, MC2, MC3, MC4, MC5, MC6, MC7, MC8, MC9, MC10),
         caption.above = TRUE,
         table = FALSE,
         use.packages = FALSE,
-        file =  "~/Dropbox/AMCPaper1/table/CentTable.tex"         
+        file =  "~/Dropbox/AMCProject/table/CentTable.tex"         
         )
 
 
@@ -240,14 +240,14 @@ texreg(list(MD1, MD2, MD3, MD4, MD5, MD6, MD7, MD8, MD9, MD10),
         caption.above = TRUE,
         table = FALSE,
         use.packages = FALSE,
-        file =  "~/Dropbox/AMCPaper1/table/DeCentTable.tex"         
+        file =  "~/Dropbox/AMCProject/table/DeCentTable.tex"         
         )
 
 ##################### Foreign Ownership Hazard Ratios Effect #########
 Sim1 <- coxsimLinear(MA10, b = "CvHOwnPerc", qi = "Hazard Ratio",
                        Xj = seq(0, 100, 1), ci = 0.95)
 
-pdf(file = "~/Dropbox/AMCPaper1/figure/ForeignOwnersHazRatio.pdf")
+pdf(file = "~/Dropbox/AMCProject/figure/ForeignOwnersHazRatio.pdf")
 simGG(Sim1, ribbons = TRUE, alpha = 0.3, xlab = "\nForeign Bank Ownership (%)")
 dev.off()
 
@@ -255,7 +255,7 @@ dev.off()
 Sim2 <- coxsimLinear(MA10, b = "economic_abs", qi = "Hazard Ratio",
                        Xj = seq(0, 0.90, 0.01), ci = 0.95)
 
-pdf(file = "~/Dropbox/AMCPaper1/figure/EconomicInstHazRatio.pdf")
+pdf(file = "~/Dropbox/AMCProject/figure/EconomicInstHazRatio.pdf")
 simGG(Sim2, ribbons = TRUE, alpha = 0.3,
       xlab = "\nEconomic Institutional Quality")
 dev.off()
@@ -284,7 +284,7 @@ UDS.3 <- simGG(Sim3.3, alpha = 0.3,
                xlab = "", ylab = "", ribbons = TRUE) + 
                scale_x_continuous(breaks = c(1, 1.5, 2))
 
-pdf(file = "~/Dropbox/AMCPaper1/figure/UDSHazardRatio.pdf", width = 12, paper = "a4r")
+pdf(file = "~/Dropbox/AMCProject/figure/UDSHazardRatio.pdf", width = 12, paper = "a4r")
   grid.arrange(UDS.1, UDS.2, UDS.3, ncol = 3)
 dev.off()
 
@@ -295,7 +295,7 @@ Sim4 <- coxsimInteract(MA10, b1 = "polariz", b2 = "checks",
                        qi = "Marginal Effect", X2 = c(1:7), ci = 0.95)
 
 # Plot and save
-pdf(file = "~/Dropbox/AMCPaper1/figure/PolChecksMarg.pdf")
+pdf(file = "~/Dropbox/AMCProject/figure/PolChecksMarg.pdf")
 simGG(Sim4, ylab = "Marginal Effect of Polarization\n",
            xlab = "\nChecks", smooth = "loess")
 dev.off()
