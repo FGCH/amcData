@@ -1,7 +1,7 @@
 #############
 # Initial Paper Results
 # Christopher Gandrud
-# 13 November 2013
+# 7 December 2013
 #############
 
 ##### Set Up ####################################
@@ -37,6 +37,9 @@ Data$AMCCent[Data$AMCStatus == 1 & Data$AMCAnyCreated == 1] <- 1
 # Centralised AMC Decent Creation variable
 Data$AMCDecent <- 0
 Data$AMCDecent[Data$AMCStatus == 2 & Data$AMCAnyCreated == 1] <- 1
+
+# Change the scale of economic_abs to ease interpretation 
+Data$economic_abs <- Data$economic_abs *100
 
 ##########
 # Models #
@@ -187,6 +190,10 @@ MD10 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 +
                log(GDPCurrentUSD) + 
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)  
 
+MD11 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
+                TotalReservesGDP + economic_abs*UDS + 
+                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data) 
+
 ################
 # Show Results #
 ################
@@ -227,16 +234,17 @@ texreg(list(MC1, MC2, MC3, MC4, MC5, MC6, MC7, MC8, MC9, MC10),
 
 
 ##################### DeCentralised AMC results tables ######################
-MDNames <- c("C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10")
+MDNames <- c("C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11")
 CoefNamesMD <- c("Crisis 3 yr. Lag", "Reserves/GDP", "Foreign Ownership", 
                  "Economic Inst.", "UDS",
                  "Polarise", "Checks", "Polarise*Checks", "Election Year",
-                 "IMF Stand-By", "GDP/Capita", "Log Total GDP")
+                 "IMF Stand-By", "GDP/Capita", "Log Total GDP", "Econ. Inst.*UDS")
 
-texreg(list(MD1, MD2, MD3, MD4, MD5, MD6, MD7, MD8, MD9, MD10),
+texreg(list(MD1, MD2, MD3, MD4, MD5, MD6, MD7, MD8, MD9, MD10, MD11),
        custom.model.names = MDNames,
        custom.coef.names = CoefNamesMD,
-       custom.note = "Log GDP/Capita not used because it violates the PHA. Robust standard errors in parentheses. {***}$p<0.001$, {**}$p<0.01$, {*}$p<0.05$",
+       stars = c(0.001, 0.01, 0.05, 0.1),
+       custom.note = "Log GDP/Capita not used because it violates the PHA. Robust standard errors in parentheses. {***}$p<0.001$, {**}$p<0.01$, {*}$p<0.05$, {$^.$}$p<0.1$",
         caption.above = TRUE,
         table = FALSE,
         use.packages = FALSE,
@@ -253,7 +261,7 @@ dev.off()
 
 ##################### Economic Institutions Hazard Ratios Effect #########
 Sim2 <- coxsimLinear(MA10, b = "economic_abs", qi = "Hazard Ratio",
-                       Xj = seq(0, 0.90, 0.01), ci = 0.95)
+                       Xj = seq(0, 90, 1), ci = 0.95)
 
 pdf(file = "~/Dropbox/AMCProject/figure/EconomicInstHazRatio.pdf")
 simGG(Sim2, ribbons = TRUE, alpha = 0.3,
@@ -272,6 +280,7 @@ Sim3.2 <- coxsimLinear(MD10, b = "UDS", qi = "Hazard Ratio",
 Sim3.3 <- coxsimLinear(MD10, b = "UDS", qi = "Hazard Ratio",
                        Xj = seq(1, 2, 0.05), ci = 0.9)
 
+######## Maybe remove if econ qual/democracy interaction stays
 UDS.1 <- simGG(Sim3.1, alpha = 0.3,
                xlab = "\n Unified Democracy Score", ribbons = TRUE) +
                scale_x_continuous(breaks = c(-2, -1, 0))
@@ -299,3 +308,17 @@ pdf(file = "~/Dropbox/AMCProject/figure/PolChecksMarg.pdf")
 simGG(Sim4, ylab = "Marginal Effect of Polarization\n",
            xlab = "\nChecks", smooth = "loess")
 dev.off()
+
+##################### Econ Inst. Quality/Democarcy Marginal Effect #########
+
+# Simulate Marginal Effects
+Sim5 <- coxsimInteract(MD11, b1 = 'economic_abs', b2 = 'UDS', 
+                       qi = 'Marginal Effect', X2 = seq(-2, 2, by = 0.1), ci = 0.9)
+
+# Plot and save
+pdf(file = "~/Dropbox/AMCProject/figure/QualDemMarg.pdf")
+simGG(Sim5, ylab = "Marginal Effect of Economic Institutional Quality\n",
+      xlab = "\nUnified Democracy Score", ribbon = TRUE)
+dev.off()
+
+
