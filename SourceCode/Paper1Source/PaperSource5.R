@@ -1,7 +1,7 @@
 #############
 # Initial Paper Results
 # Christopher Gandrud
-# 7 December 2013
+# 2 January 2014
 #############
 
 ##### Set Up ####################################
@@ -194,6 +194,10 @@ MD11 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 +
                 TotalReservesGDP + economic_abs*UDS + 
                 cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data) 
 
+MD11Plot <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
+                TotalReservesGDP + UDS*economic_abs + 
+                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data) 
+
 ################
 # Show Results #
 ################
@@ -312,13 +316,13 @@ dev.off()
 ##################### Econ Inst. Quality/Democarcy Marginal Effect #########
 
 # Simulate Marginal Effects
-Sim5 <- coxsimInteract(MD11, b1 = 'economic_abs', b2 = 'UDS', 
-                       qi = 'Marginal Effect', X2 = seq(-2, 2, by = 0.1), ci = 0.9)
+Sim5 <- coxsimInteract(MD11Plot, b1 = 'UDS', b2 = 'economic_abs', 
+                       qi = 'Marginal Effect', X2 = seq(0, 90, 1), ci = 0.95)
 
 # Plot and save
 pdf(file = "~/Dropbox/AMCProject/figure/QualDemMarg.pdf")
-simGG(Sim5, ylab = "Marginal Effect of Economic Institutional Quality\n",
-      xlab = "\nUnified Democracy Score", ribbon = TRUE)
+simGG(Sim5, ylab = "Marginal Effect of Unified Democracy Score\n",
+      xlab = "\nEconomic Institutional Quality", ribbon = TRUE, alpha = 0.3)
 dev.off()
 
 
