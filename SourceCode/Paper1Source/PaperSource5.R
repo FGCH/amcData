@@ -1,7 +1,7 @@
 #############
-# Initial Paper Results
+# Paper Results
 # Christopher Gandrud
-# 2 January 2014
+# 3 January 2014
 #############
 
 ##### Set Up ####################################
@@ -206,7 +206,7 @@ MD11Plot <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 +
 MANames <- c("A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10")
 CoefNamesMA <- c("Crisis 3 yr. Lag", "MONA IMF Condition", "Reserves/GDP", "Foreign Ownership", 
                  "Economic Inst.", "UDS",
-                 "Polarise", "Checks", "Polarise*Checks", "Election Year",
+                 "Polarise", "Checks", "Polarise*Checks", "Executive Election",
                  "IMF Stand-By", "Log GDP/Capita", "Log Total GDP")
 
 texreg(list(MA1, MA2, MA3, MA4, MA5, MA6, MA7, MA8, MA9, MA10),
@@ -223,7 +223,7 @@ texreg(list(MA1, MA2, MA3, MA4, MA5, MA6, MA7, MA8, MA9, MA10),
 MCNames <- c("B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10")
 CoefNamesMC <- c("Crisis 3 yr. Lag", "MONA IMF Condition", "Reserves/GDP", "Foreign Ownership", 
                  "Economic Inst.", "UDS",
-                 "Polarise", "Checks", "Polarise*Checks", "Election Year",
+                 "Polarise", "Checks", "Polarise*Checks", "Executive Election",
                  "IMF Stand-By", "Log GDP/Capita", "Log Total GDP")
 
 texreg(list(MC1, MC2, MC3, MC4, MC5, MC6, MC7, MC8, MC9, MC10),
@@ -241,7 +241,7 @@ texreg(list(MC1, MC2, MC3, MC4, MC5, MC6, MC7, MC8, MC9, MC10),
 MDNames <- c("C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11")
 CoefNamesMD <- c("Crisis 3 yr. Lag", "Reserves/GDP", "Foreign Ownership", 
                  "Economic Inst.", "UDS",
-                 "Polarise", "Checks", "Polarise*Checks", "Election Year",
+                 "Polarise", "Checks", "Polarise*Checks", "Executive Election",
                  "IMF Stand-By", "GDP/Capita", "Log Total GDP", "Econ. Inst.*UDS")
 
 texreg(list(MD1, MD2, MD3, MD4, MD5, MD6, MD7, MD8, MD9, MD10, MD11),
