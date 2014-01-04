@@ -157,44 +157,40 @@ MD3 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
 MD4 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
-               TotalReservesGDP + UDS +
-               cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
-
-MD5 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
                TotalReservesGDP + economic_abs + UDS + 
                polariz + checks +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MD6 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
+MD5 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
                TotalReservesGDP + economic_abs + UDS + 
                polariz*checks +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MD7 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
+MD6 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
                TotalReservesGDP + economic_abs + UDS + 
                as.factor(ElectionYear1) +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MD8 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
+MD7 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
                TotalReservesGDP + economic_abs + UDS + 
                IMFDreherLag3 +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MD9 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
+MD8 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
                TotalReservesGDP + economic_abs + UDS + 
                GDPperCapita +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data) 
 
-MD10 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
+MD9 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
                TotalReservesGDP + economic_abs + UDS + 
                log(GDPCurrentUSD) + 
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)  
 
-MD11 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
+MD10 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
                 TotalReservesGDP + economic_abs*UDS + 
                 cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data) 
 
-MD11Plot <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
+MD10Plot <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
                 TotalReservesGDP + UDS*economic_abs + 
                 cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data) 
 
@@ -212,7 +208,8 @@ CoefNamesMA <- c("Crisis 3 yr. Lag", "MONA IMF Condition", "Reserves/GDP", "Fore
 texreg(list(MA1, MA2, MA3, MA4, MA5, MA6, MA7, MA8, MA9, MA10),
       custom.model.names = MANames,
       custom.coef.names = CoefNamesMA,
-      custom.note = "Robust standard errors in parentheses. {***}$p<0.001$, {**}$p<0.01$, {*}$p<0.05$",
+      stars = c(0.001, 0.01, 0.05, 0.1),
+      custom.note = "Robust standard errors in parentheses. {***}$p<0.001$, {**}$p<0.01$, {*}$p<0.05$, {$^.$}$p<0.1$",
       caption.above = TRUE,
       table = FALSE,
       use.packages = FALSE,
@@ -229,7 +226,8 @@ CoefNamesMC <- c("Crisis 3 yr. Lag", "MONA IMF Condition", "Reserves/GDP", "Fore
 texreg(list(MC1, MC2, MC3, MC4, MC5, MC6, MC7, MC8, MC9, MC10),
        custom.model.names = MCNames,
        custom.coef.names = CoefNamesMC,
-       custom.note = "Robust standard errors in parentheses. {***}$p<0.001$, {**}$p<0.01$, {*}$p<0.05$",
+       stars = c(0.001, 0.01, 0.05, 0.1),
+       custom.note = "Robust standard errors in parentheses. {***}$p<0.001$, {**}$p<0.01$, {*}$p<0.05$, {$^.$}$p<0.1$",
         caption.above = TRUE,
         table = FALSE,
         use.packages = FALSE,
@@ -238,17 +236,17 @@ texreg(list(MC1, MC2, MC3, MC4, MC5, MC6, MC7, MC8, MC9, MC10),
 
 
 ##################### DeCentralised AMC results tables ######################
-MDNames <- c("C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11")
+MDNames <- c("C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10")
 CoefNamesMD <- c("Crisis 3 yr. Lag", "Reserves/GDP", "Foreign Ownership", 
                  "Economic Inst.", "UDS",
                  "Polarise", "Checks", "Polarise*Checks", "Executive Election",
                  "IMF Stand-By", "GDP/Capita", "Log Total GDP", "Econ. Inst.*UDS")
 
-texreg(list(MD1, MD2, MD3, MD4, MD5, MD6, MD7, MD8, MD9, MD10, MD11),
+texreg(list(MD1, MD2, MD3, MD4, MD5, MD6, MD7, MD8, MD9, MD10),
        custom.model.names = MDNames,
        custom.coef.names = CoefNamesMD,
        stars = c(0.001, 0.01, 0.05, 0.1),
-       custom.note = "Log GDP/Capita not used because it violates the PHA. Robust standard errors in parentheses. {***}$p<0.001$, {**}$p<0.01$, {*}$p<0.05$, {$^.$}$p<0.1$",
+       custom.note = "Log GDP/Capita not used because it violates the PHA, while its non-linear forms resulted in statistically insignificant results. Robust standard errors in parentheses. {***}$p<0.001$, {**}$p<0.01$, {*}$p<0.05$, {$^.$}$p<0.1$",
         caption.above = TRUE,
         table = FALSE,
         use.packages = FALSE,
@@ -316,7 +314,7 @@ dev.off()
 ##################### Econ Inst. Quality/Democarcy Marginal Effect #########
 
 # Simulate Marginal Effects
-Sim5 <- coxsimInteract(MD11Plot, b1 = 'UDS', b2 = 'economic_abs', 
+Sim5 <- coxsimInteract(MD10Plot, b1 = 'UDS', b2 = 'economic_abs', 
                        qi = 'Marginal Effect', X2 = seq(0, 90, 1), ci = 0.95)
 
 # Plot and save
