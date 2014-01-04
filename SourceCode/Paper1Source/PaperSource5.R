@@ -246,7 +246,7 @@ texreg(list(MD1, MD2, MD3, MD4, MD5, MD6, MD7, MD8, MD9, MD10),
        custom.model.names = MDNames,
        custom.coef.names = CoefNamesMD,
        stars = c(0.001, 0.01, 0.05, 0.1),
-       custom.note = "Log GDP/Capita not used because it violates the PHA, while its non-linear forms resulted in statistically insignificant results. Robust standard errors in parentheses. {***}$p<0.001$, {**}$p<0.01$, {*}$p<0.05$, {$^.$}$p<0.1$",
+       # custom.note = "Log GDP/Capita not used because it violates the PHA, \\\\ while its non-linear forms resulted in statistically insignificant results. \\\\ Robust standard errors in parentheses. {***}$p<0.001$, {**}$p<0.01$, {*}$p<0.05$, {$^.$}$p<0.1$", # added in the main text
         caption.above = TRUE,
         table = FALSE,
         use.packages = FALSE,
