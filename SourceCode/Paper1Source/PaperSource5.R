@@ -1,7 +1,7 @@
 #############
 # Paper Results
 # Christopher Gandrud
-# 7 January 2014
+# 8 January 2014
 #############
 
 ##### Set Up ####################################
@@ -52,6 +52,10 @@ Data$TotalReservesGDPLog <- log(Data$TotalReservesGDP + 1)
 # Rescale at the mean to ease hazard ratio interpretation
 Data$EconReScale <- Data$economic_abs - 50
 
+# Constrict sample to between 1990 and 2010
+Data <- subset(Data, year >= 1990)
+Data <- subset(Data, year <=2010)
+
 ##########
 # Models #
 ##########
@@ -99,8 +103,8 @@ MA9 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data) 
 
 MA10 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
-               TotalReservesGDPLog + CvHOwnPerc + EconReScale + polity2 + 
-               polariz*checks + GDPCurrentUSDLog + IMF.AMC +
+               TotalReservesGDPLog + CvHOwnPerc + EconReScale + polity2 +
+               polariz*checks + GDPCurrentUSDLog +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data) 
 
 
@@ -358,5 +362,5 @@ dev.off()
 pdf(file = "~/Dropbox/AMCProject/figure/PlotMatrix.pdf")
   Vars <- c('SystemicCrisisLag3', 'TotalReservesGDPLog', 'CvHOwnPerc', 'EconReScale',
             'polity2', 'polariz', 'checks', 'GDPperCapitaLog', 'GDPCurrentUSDLog')
-  plotmatrix(Data[, Vars])
+  corrgram(Data[, Vars], upper.panel=panel.pts, diag.panel=panel.minmax)
 dev.off()

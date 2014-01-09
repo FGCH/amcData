@@ -1,7 +1,7 @@
 ############ 
 # Download and Cean Up World Bank Development Indicator data
 # Christopher Gandrud
-# Updated 16 February 2013
+# Updated 8 January 2014
 ############
 
 # Load required packages
@@ -14,11 +14,12 @@ library(xtable)
 ## GDP per capita (constant 2000 US$)
 ## Bank nonperforming loans to total gross loans (%)
 ## Current account balance (% of GDP)
-wdi <- WDI(country = "all", indicator = c("NY.GDP.MKTP.CD", "NY.GDP.PCAP.KD", "FB.BNK.CAPA.ZS", "FB.AST.NPER.ZS", "IC.CRD.INFO.XQ", 
+wdi <- WDI(country = "all", indicator = c("NY.GDP.MKTP.CD", "NY.GDP.PCAP.KD", "FB.BNK.CAPA.ZS", 
+										  "FB.AST.NPER.ZS", "IC.CRD.INFO.XQ", 
 										  "FS.AST.DOMS.GD.ZS", "IC.CRD.PRVT.ZS", "BN.CAB.XOKA.GD.ZS", 
 										  "DT.DOD.DIMF.CD", "BX.PEF.TOTL.CD.WD", "GC.BAL.CASH.GD.ZS", "FM.AST.CGOV.ZG.M3", 
 										  "GC.DOD.TOTL.GD.ZS", "DT.DOD.DSTC.CD", "DT.DOD.DPNG.CD", "DT.DOD.DPPG.CD",
-										  "DT.DOD.DECT.CD", "FI.RES.TOTL.CD"
+										  "DT.DOD.DECT.CD", "FI.RES.TOTL.CD", 'GFDD.OI.06'
 										  ), 
 			start = 1980, end = 2012)
 
@@ -42,7 +43,8 @@ wdi <- rename(wdi, c(NY.GDP.MKTP.CD = "GDPCurrentUSD",
                      DT.DOD.DPNG.CD = "ExternPrivateDebt",
                      DT.DOD.DPPG.CD = "ExternPublicDebt",
                      DT.DOD.DECT.CD = "ExternDebtTotal",
-                     FI.RES.TOTL.CD = "TotalReserves"
+                     FI.RES.TOTL.CD = "TotalReserves",
+                     GFDD.OI.06 = "BankConcentration"
                      ))
 
 # wdi <- wdi[, 3:22]
@@ -64,10 +66,11 @@ Description <- c("GDP (current US$)",
 				 "External debt stocks, private nonguaranteed (PNG) (DOD, current US$)", 
 				 "External debt stocks, public and publicly guaranteed (PPG) (DOD, current US$)", 
 				 "External debt stocks, total (DOD, current US$)",
-				 "Total reserves (includes gold, current US$)"
+				 "Total reserves (includes gold, current US$)",
+				 "5-bank asset concentration"
 				 )
 
-Source <- c("World Bank Development Indicators (February 2013)")
+Source <- c("World Bank Development Indicators (January 2014)")
 
 VarList <- cbind(ColNames, Description, Source)
 
