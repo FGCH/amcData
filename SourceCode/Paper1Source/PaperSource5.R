@@ -1,7 +1,7 @@
 #############
 # Paper Results
 # Christopher Gandrud
-# 8 January 2014
+# 9 January 2014
 #############
 
 ##### Set Up ####################################
@@ -17,15 +17,12 @@ library(simPH)
 library(texreg)
 library(ggplot2)
 library(gridExtra)
-library(GGally)
+library(corrgram)
 
 # Set Up
 setwd("~/Dropbox/AMCProject/TempData") 
 load("AMCMainData.RData")
 Data <- AMCLag
-
-# Set 1980 to 0
-Data$year1980 <- Data$year - 1980
 
 # Fail variable clean up
 Data$AMCStatusNA <- Data$AMCStatus
@@ -53,105 +50,109 @@ Data$TotalReservesGDPLog <- log(Data$TotalReservesGDP + 1)
 Data$EconReScale <- Data$economic_abs - 50
 
 # Constrict sample to between 1990 and 2010
+## This is done because of high missingness rates outside of [1990, 2010]
 Data <- subset(Data, year >= 1990)
-Data <- subset(Data, year <=2010)
+Data <- subset(Data, year <= 2010)
+
+# Set 1990 to 0
+Data$year1990 <- Data$year - 1990
 
 ##########
 # Models #
 ##########
 
 #### Any Created ######################################
-MA1 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
+MA1 <- coxph(Surv(year1990, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
                TotalReservesGDPLog + 
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MA2 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
+MA2 <- coxph(Surv(year1990, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
                TotalReservesGDPLog + CvHOwnPerc +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MA3 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
+MA3 <- coxph(Surv(year1990, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
                TotalReservesGDPLog + CvHOwnPerc + EconReScale +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MA4 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
-               TotalReservesGDPLog + polity2 +
+MA4 <- coxph(Surv(year1990, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
+               TotalReservesGDPLog +CvHOwnPerc +  polity2 +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MA5 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
-               TotalReservesGDPLog + CvHOwnPerc + EconReScale + polity2 + 
+MA5 <- coxph(Surv(year1990, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
+               TotalReservesGDPLog + EconReScale + polity2 + 
                polariz + checks +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MA6 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
-               TotalReservesGDPLog + CvHOwnPerc + EconReScale + polity2 + 
+MA6 <- coxph(Surv(year1990, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
+               TotalReservesGDPLog + EconReScale + polity2 + 
                polariz*checks +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MA7 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
-               TotalReservesGDPLog + CvHOwnPerc + EconReScale + polity2 + 
+MA7 <- coxph(Surv(year1990, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
+               TotalReservesGDPLog + EconReScale + 
                polariz*checks + as.factor(ElectionYear1) +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MA8 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 +
-               TotalReservesGDPLog + CvHOwnPerc + EconReScale + polity2 + 
+MA8 <- coxph(Surv(year1990, AMCAnyCreated) ~ SystemicCrisisLag3 +
+               TotalReservesGDPLog + EconReScale + polity2 + 
                polariz*checks + IMFDreherLag3 +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MA9 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
-               TotalReservesGDPLog + CvHOwnPerc + EconReScale + polity2 + 
+MA9 <- coxph(Surv(year1990, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
+               TotalReservesGDPLog + EconReScale + polity2 + 
                polariz*checks + GDPperCapitaLog +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data) 
 
-MA10 <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
-               TotalReservesGDPLog + CvHOwnPerc + EconReScale + polity2 +
+MA10 <- coxph(Surv(year1990, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
+               TotalReservesGDPLog + EconReScale + polity2 +
                polariz*checks + GDPCurrentUSDLog +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data) 
 
 
 #### Centralised Created ##############################
 
-MC1 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + IMF.AMC +
-               TotalReservesGDPLog + 
+MC1 <- coxph(Surv(year1990, AMCCent) ~ SystemicCrisisLag3 + IMF.AMC +
+               TotalReservesGDPLog +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MC2 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + IMF.AMC +
+MC2 <- coxph(Surv(year1990, AMCCent) ~ SystemicCrisisLag3 + IMF.AMC +
                TotalReservesGDPLog + CvHOwnPerc +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MC3 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + IMF.AMC +
+MC3 <- coxph(Surv(year1990, AMCCent) ~ SystemicCrisisLag3 + IMF.AMC +
                TotalReservesGDPLog + EconReScale +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MC4 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + IMF.AMC +
+MC4 <- coxph(Surv(year1990, AMCCent) ~ SystemicCrisisLag3 + IMF.AMC +
                TotalReservesGDPLog + polity2 +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MC5 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + IMF.AMC +
+MC5 <- coxph(Surv(year1990, AMCCent) ~ SystemicCrisisLag3 + IMF.AMC +
                TotalReservesGDPLog + EconReScale + polity2 + 
                polariz + checks +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MC6 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + IMF.AMC +
+MC6 <- coxph(Surv(year1990, AMCCent) ~ SystemicCrisisLag3 + IMF.AMC +
                TotalReservesGDPLog + EconReScale + polity2 + 
                polariz*checks +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MC7 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + IMF.AMC +
-               TotalReservesGDPLog + EconReScale + polity2 + 
+MC7 <- coxph(Surv(year1990, AMCCent) ~ SystemicCrisisLag3 + IMF.AMC +
+               TotalReservesGDPLog + EconReScale +  
                as.factor(ElectionYear1) +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MC8 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + 
+MC8 <- coxph(Surv(year1990, AMCCent) ~ SystemicCrisisLag3 + 
                TotalReservesGDPLog + EconReScale + polity2 + 
                IMFDreherLag3 +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MC9 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + IMF.AMC +
+MC9 <- coxph(Surv(year1990, AMCCent) ~ SystemicCrisisLag3 + IMF.AMC +
                TotalReservesGDPLog + EconReScale + polity2 + 
                GDPperCapitaLog +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data) 
 
-MC10 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + IMF.AMC +
+MC10 <- coxph(Surv(year1990, AMCCent) ~ SystemicCrisisLag3 + IMF.AMC +
                TotalReservesGDPLog + EconReScale + polity2 + 
                GDPCurrentUSDLog +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)  
@@ -159,53 +160,55 @@ MC10 <- coxph(Surv(year1980, AMCCent) ~ SystemicCrisisLag3 + IMF.AMC +
 
 #### Decentralised Created ##############################
 
-MD1 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
-               TotalReservesGDPLog +
+MD1 <- coxph(Surv(year1990, AMCDecent) ~ SystemicCrisisLag3 + 
+               TotalReservesGDPLog + 
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MD2 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
+MD2 <- coxph(Surv(year1990, AMCDecent) ~ SystemicCrisisLag3 + 
                TotalReservesGDPLog + CvHOwnPerc +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MD3 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
+MD3 <- coxph(Surv(year1990, AMCDecent) ~ SystemicCrisisLag3 + 
                TotalReservesGDPLog + CvHOwnPerc + EconReScale +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MD4 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
+MD4 <- coxph(Surv(year1990, AMCDecent) ~ SystemicCrisisLag3 + 
                TotalReservesGDPLog + EconReScale + polity2 + 
                polariz + checks +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MD5 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
+MD5 <- coxph(Surv(year1990, AMCDecent) ~ SystemicCrisisLag3 + 
                TotalReservesGDPLog + EconReScale + polity2 + 
                polariz*checks +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MD6 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
-               TotalReservesGDPLog + EconReScale + polity2 + 
+MD6 <- coxph(Surv(year1990, AMCDecent) ~ SystemicCrisisLag3 + 
+               TotalReservesGDPLog + EconReScale +
                as.factor(ElectionYear1) +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MD7 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
-               TotalReservesGDPLog + EconReScale + polity2 + 
-               IMFDreherLag3 +
-               cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
+# IMFDreherLag3 violates cox PHA with no clear non-linear or time-varying interpretation
+## Possibly related to a dramatic constriction of the number of events
+#MD7 <- coxph(Surv(year1990, AMCDecent) ~ SystemicCrisisLag3 + 
+#               TotalReservesGDPLog + EconReScale + polity2 + 
+#               IMFDreherLag3 +
+#               cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
-MD8 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
+MD8 <- coxph(Surv(year1990, AMCDecent) ~ SystemicCrisisLag3 + 
                TotalReservesGDPLog + EconReScale + polity2 + 
-               GDPperCapita +
+               GDPperCapitaLog +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data) 
 
-MD9 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
+MD9 <- coxph(Surv(year1990, AMCDecent) ~ SystemicCrisisLag3 + 
                TotalReservesGDPLog + EconReScale + polity2 + 
                GDPCurrentUSDLog + 
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)  
 
-MD10 <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
+MD10 <- coxph(Surv(year1990, AMCDecent) ~ SystemicCrisisLag3 + 
                 TotalReservesGDPLog + EconReScale*polity2 + 
                 cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data) 
 
-MD10Plot <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 + 
+MD10Plot <- coxph(Surv(year1990, AMCDecent) ~ SystemicCrisisLag3 + 
                 TotalReservesGDPLog + polity2*EconReScale + 
                 cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data) 
 
@@ -217,7 +220,7 @@ MD10Plot <- coxph(Surv(year1980, AMCDecent) ~ SystemicCrisisLag3 +
 MANames <- c("A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10")
 CoefNamesMA <- c("Crisis 3 yr. Lag", "MONA IMF Condition", "Log Reserves/GDP", "Foreign Ownership", 
                  "Economic Inst.", "Polity",
-                 "Polarise", "Checks", "Polarise*Checks", "Executive Election",
+                 "Polarize", "Checks", "Polarize*Checks", "Executive Election",
                  "IMF Stand-By", "Log GDP/Capita", "Log Total GDP")
 
 texreg(list(MA1, MA2, MA3, MA4, MA5, MA6, MA7, MA8, MA9, MA10),
@@ -235,7 +238,7 @@ texreg(list(MA1, MA2, MA3, MA4, MA5, MA6, MA7, MA8, MA9, MA10),
 MCNames <- c("B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10")
 CoefNamesMC <- c("Crisis 3 yr. Lag", "MONA IMF Condition", "Log Reserves/GDP", "Foreign Ownership", 
                  "Economic Inst.", "Polity",
-                 "Polarise", "Checks", "Polarise*Checks", "Executive Election",
+                 "Polarize", "Checks", "Polarize*Checks", "Executive Election",
                  "IMF Stand-By", "Log GDP/Capita", "Log Total GDP")
 
 texreg(list(MC1, MC2, MC3, MC4, MC5, MC6, MC7, MC8, MC9, MC10),
@@ -251,17 +254,17 @@ texreg(list(MC1, MC2, MC3, MC4, MC5, MC6, MC7, MC8, MC9, MC10),
 
 
 ##################### DeCentralised AMC results tables ######################
-MDNames <- c("C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10")
+MDNames <- c("C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9")
 CoefNamesMD <- c("Crisis 3 yr. Lag", "Log Reserves/GDP", "Foreign Ownership", 
                  "Economic Inst.", "Polity",
-                 "Polarise", "Checks", "Polarise*Checks", "Executive Election",
-                 "IMF Stand-By", "GDP/Capita", "Log Total GDP", "Econ. Inst.*Polity")
+                 "Polarize", "Checks", "Polarize*Checks", "Executive Election",
+                 "Log GDP/Capita", "Log Total GDP", "Econ. Inst.*Polity")
 
-texreg(list(MD1, MD2, MD3, MD4, MD5, MD6, MD7, MD8, MD9, MD10),
+texreg(list(MD1, MD2, MD3, MD4, MD5, MD6, MD8, MD9, MD10),
        custom.model.names = MDNames,
        custom.coef.names = CoefNamesMD,
        stars = c(0.001, 0.01, 0.05, 0.1),
-       # custom.note = "Log GDP/Capita not used because it violates the PHA, \\\\ while its non-linear forms resulted in statistically insignificant results. \\\\ Robust standard errors in parentheses. {***}$p<0.001$, {**}$p<0.01$, {*}$p<0.05$, {$^.$}$p<0.1$", # added in the main text
+       # custom.note = # added in the main text
         caption.above = TRUE,
         table = FALSE,
         use.packages = FALSE,
@@ -269,7 +272,7 @@ texreg(list(MD1, MD2, MD3, MD4, MD5, MD6, MD7, MD8, MD9, MD10),
         )
 
 ##################### Foreign Ownership Hazard Ratios Effect #########
-Sim1 <- coxsimLinear(MA10, b = "CvHOwnPerc", qi = "Hazard Ratio",
+Sim1 <- coxsimLinear(MA4, b = "CvHOwnPerc", qi = "Hazard Ratio",
                        Xj = seq(0, 100, 1), ci = 0.95)
 
 pdf(file = "~/Dropbox/AMCProject/figure/ForeignOwnersHazRatio.pdf")
@@ -289,10 +292,10 @@ dev.off()
 ##################### Polity Hazard Ratios Effect #########
 ## Split up to give a better look at different ranges of fitted values.
 
-Sim3.1 <- coxsimLinear(MD9, b = "polity2", qi = "Hazard Ratio",
+Sim3.1 <- coxsimLinear(MD4, b = "polity2", qi = "Hazard Ratio",
                      Xj = seq(-10, 0, 0.05), ci = 0.95)
 
-Sim3.2 <- coxsimLinear(MD9, b = "polity2", qi = "Hazard Ratio",
+Sim3.2 <- coxsimLinear(MD4, b = "polity2", qi = "Hazard Ratio",
                        Xj = seq(0, 10, 0.05), ci = 0.95)
 
 
@@ -314,7 +317,7 @@ Sim4 <- coxsimInteract(MA10, b1 = "polariz", b2 = "checks",
                        qi = "Marginal Effect", X2 = c(1:7), ci = 0.95)
 
 Data$ChecksRe <- Data$checks - 3
-MA10Plot <- coxph(Surv(year1980, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
+MA10Plot <- coxph(Surv(year1990, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC +
                 TotalReservesGDPLog + CvHOwnPerc + EconReScale + UDS + 
                 ChecksRe*polariz + GDPCurrentUSDLog + IMF.AMC +
                 cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data) 
@@ -346,21 +349,23 @@ dev.off()
 ##################### Hazard Ratio #########
 Sim7 <- coxsimInteract(MD10, b1 = 'EconReScale', b2 = 'polity2', 
                        qi = 'Hazard Ratio', X1 = seq(16, 40, by = 0.5), 
-                       X2 = c(-2, 10), ci = 0.95, spin = TRUE)
+                       X2 = c(-5, 10), ci = 0.95, spin = FALSE)
 
 Sim7$X2 <- as.character(Sim7$X2)
-Sim7$X2[Sim7$X2 == '-2'] <- 'Lower (-2)'
+Sim7$X2[Sim7$X2 == '-5'] <- 'Lower (-5)'
 Sim7$X2[Sim7$X2 == '10'] <- 'High (10)'
 
-pdf(file = "~/Dropbox/AMCProject/figure/EconUDSHR.pdf")
+pdf(file = "~/Dropbox/AMCProject/figure/EconPolityHR.pdf")
   simGG(Sim7, xlab = "\nEconomic Institutional Quality", ribbons = TRUE,
-        leg.name = "Democracy (Polity)")
+        leg.name = "Democracy (Polity)") + 
+        scale_x_continuous(limits = c(16, 40), breaks = c(16, 25, 35, 40))
 dev.off()
 
 ############## Plot Matrix
 
 pdf(file = "~/Dropbox/AMCProject/figure/PlotMatrix.pdf")
-  Vars <- c('SystemicCrisisLag3', 'TotalReservesGDPLog', 'CvHOwnPerc', 'EconReScale',
+  Vars <- c('SystemicCrisis', 'SystemicCrisisLag3', 'IMF.AMC', 
+            'TotalReservesGDPLog', 'CvHOwnPerc', 'EconReScale',
             'polity2', 'polariz', 'checks', 'GDPperCapitaLog', 'GDPCurrentUSDLog')
   corrgram(Data[, Vars], upper.panel=panel.pts, diag.panel=panel.minmax)
 dev.off()

@@ -132,7 +132,7 @@ amcCountryYear$country <- countrycode(amcCountryYear$imfcode, origin = "imf", de
 vars <- c("country", "ISOCode", "imfcode", "year", "UDS", "polity2", "yrcurnt", "govfrac", "execrlc", "checks", "polariz",
           "ElectionYear", "SystemicCrisis", "CurrencyCrisis", "SovereignDefault", 
           "SovereignDebtRestructuring", "CvHOwnPerc", "legal_abs", "political_abs", "economic_abs", "GDPCurrentUSD", "GDPperCapita", "CapToAssetswdi", "NPLwdi", 'BankConcentration', "CreditInfo",
-          "DomesticCredit", "CreditBurCoverange", "CurrentAccount", "IMFCreditsGDP", "PortfolioEquityGDP", 
+          "DomesticCredit", "CreditBurCoverange", "CurrentAccount", "IMFCreditsGDP", "PortfolioEquityGDP", 'TradeOpen',
           "CashSurplusDeficit", "ClaimsOnGov", "CentGovDebt", "ShortExternDebtAllGDP", "ExternPrivateDebtGDP", "ExternPublicDebtGDP", 
           "ExternDebtTotalGDP", "TotalReservesGDP",
           "IMFDreher", "CrisisDate", "CreditBoom", "CreditorRights", "CreditorRightsIndex", 

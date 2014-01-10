@@ -1,6 +1,6 @@
 # Variable Label and Variable Description for World Bank Development Indictors
  See: http://data.worldbank.org/ <!-- html table generated in R 3.0.2 by xtable 1.7-1 package -->
-<!-- Wed Jan  8 13:56:33 2014 -->
+<!-- Fri Jan 10 11:26:21 2014 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> ColNames </TH> <TH> Description </TH> <TH> Source </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> GDPCurrentUSD </TD> <TD> GDP (current US$) </TD> <TD> World Bank Development Indicators (January 2014) </TD> </TR>
@@ -21,5 +21,6 @@
   <TR> <TD align="right"> 16 </TD> <TD> ExternPublicDebt </TD> <TD> External debt stocks, public and publicly guaranteed (PPG) (DOD, current US$) </TD> <TD> World Bank Development Indicators (January 2014) </TD> </TR>
   <TR> <TD align="right"> 17 </TD> <TD> ExternDebtTotal </TD> <TD> External debt stocks, total (DOD, current US$) </TD> <TD> World Bank Development Indicators (January 2014) </TD> </TR>
   <TR> <TD align="right"> 18 </TD> <TD> TotalReserves </TD> <TD> Total reserves (includes gold, current US$) </TD> <TD> World Bank Development Indicators (January 2014) </TD> </TR>
-  <TR> <TD align="right"> 19 </TD> <TD> GDPCurrentUSD </TD> <TD> 5-bank asset concentration </TD> <TD> World Bank Development Indicators (January 2014) </TD> </TR>
+  <TR> <TD align="right"> 19 </TD> <TD> BankConcentration </TD> <TD> 5-bank asset concentration </TD> <TD> World Bank Development Indicators (January 2014) </TD> </TR>
+  <TR> <TD align="right"> 20 </TD> <TD> TradeOpen </TD> <TD> Trade (% of GDP) </TD> <TD> World Bank Development Indicators (January 2014) </TD> </TR>
    </TABLE>

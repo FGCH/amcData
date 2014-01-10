@@ -5817,7 +5817,7 @@ imfcode,country,year,AMCType,NumAMCOp,NumAMCCountry,NumAMCCountryLag,A1C,A2C,A3C
 578,THAILAND,1998,None,,,,,,,,,,,,,,,,,,,
 578,THAILAND,1999,None,,,,,,,,,,,,,,,,,,,
 578,THAILAND,2000,None,,,,,,,,,,,,,,,,,,,
-578,THAILAND,2001,Centralised,1,,1,1,,,,,,,AMC,,,,,,,,
+578,THAILAND,2001,Centralised,1,1,,1,,,,,,,AMC,,,,,,,,
 578,THAILAND,2002,Centralised,1,1,1,1,,,,,,,AMC,,,,,,,,
 578,THAILAND,2003,Centralised,1,1,1,1,,,,,,,AMC,,,,,,,,
 578,THAILAND,2004,Centralised,1,1,1,1,,,,,,,AMC,,,,,,,,

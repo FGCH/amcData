@@ -1,7 +1,7 @@
 ############ 
-# Download and Cean Up World Bank Development Indicator data
+# Download and Clean Up World Bank Development Indicator data
 # Christopher Gandrud
-# Updated 8 January 2014
+# Updated 10 January 2014
 ############
 
 # Load required packages
@@ -19,7 +19,7 @@ wdi <- WDI(country = "all", indicator = c("NY.GDP.MKTP.CD", "NY.GDP.PCAP.KD", "F
 										  "FS.AST.DOMS.GD.ZS", "IC.CRD.PRVT.ZS", "BN.CAB.XOKA.GD.ZS", 
 										  "DT.DOD.DIMF.CD", "BX.PEF.TOTL.CD.WD", "GC.BAL.CASH.GD.ZS", "FM.AST.CGOV.ZG.M3", 
 										  "GC.DOD.TOTL.GD.ZS", "DT.DOD.DSTC.CD", "DT.DOD.DPNG.CD", "DT.DOD.DPPG.CD",
-										  "DT.DOD.DECT.CD", "FI.RES.TOTL.CD", 'GFDD.OI.06'
+										  "DT.DOD.DECT.CD", "FI.RES.TOTL.CD", 'GFDD.OI.06', 'NE.TRD.GNFS.ZS'
 										  ), 
 			start = 1980, end = 2012)
 
@@ -44,13 +44,14 @@ wdi <- rename(wdi, c(NY.GDP.MKTP.CD = "GDPCurrentUSD",
                      DT.DOD.DPPG.CD = "ExternPublicDebt",
                      DT.DOD.DECT.CD = "ExternDebtTotal",
                      FI.RES.TOTL.CD = "TotalReserves",
-                     GFDD.OI.06 = "BankConcentration"
+                     GFDD.OI.06 = "BankConcentration",
+                     NE.TRD.GNFS.ZS = 'TradeOpen'
                      ))
 
 # wdi <- wdi[, 3:22]
 
 #### Create variable description ####
-ColNames <- names(wdi[, 4:21])
+ColNames <- names(wdi[, 4:23])
 
 Description <- c("GDP (current US$)", 
 				 "GDP per capita (constant 2000 US$)", 
@@ -67,7 +68,8 @@ Description <- c("GDP (current US$)",
 				 "External debt stocks, public and publicly guaranteed (PPG) (DOD, current US$)", 
 				 "External debt stocks, total (DOD, current US$)",
 				 "Total reserves (includes gold, current US$)",
-				 "5-bank asset concentration"
+				 "5-bank asset concentration",
+				 "Trade (% of GDP)"
 				 )
 
 Source <- c("World Bank Development Indicators (January 2014)")
