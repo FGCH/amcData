@@ -15,7 +15,7 @@ library(reshape)
 library(DataCombine)
 
 # Download zipped data from the IMF's DPI website: http://go.worldbank.org/2EAGGLRZ40
-dpiLong <- read.dta("DPI2012.dta")
+dpiLong <- read.dta("DPI2012.dta", convert.dates = FALSE)
 
 # Keep specific variables
 dpi <- dpiLong[, c("countryname", "year", "yrcurnt", "govfrac", "execrlc", "checks", "polariz", 'percent1', 'percentl', 'prtyin')] 
