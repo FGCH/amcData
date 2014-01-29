@@ -1,7 +1,7 @@
 ############ 
 # Clean Up Unified Democracy Scores (2010) (UDS) and Polity IV
 # Christopher Gandrud
-# Updated 7 January 2014
+# Updated 29 January 2014
 ############
 
 # Load required packages
@@ -43,7 +43,7 @@ polityIV <- read.csv("p4v2012.csv")
 # Clean Polity data
 polityIV$imfcode <- countrycode(polityIV$country, origin = "country.name", 
                                 destination = "imf")
-polityIV <- polityIV[, c("imfcode", "year", "polity2")]
+polityIV <- polityIV[, c("imfcode", "year", "polity2", 'durable')]
 polityIV <- subset(polityIV, !is.na(imfcode))
 
 #### Merge Data Sets ####

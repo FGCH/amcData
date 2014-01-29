@@ -1,7 +1,7 @@
 ############ 
 # Merge Cleaned Up AMC Database Data (Repeated Survival Time Version)
 # Christopher Gandrud
-# Updated 27 January 2014
+# Updated 29 January 2014
 ############
 
 # Load required packages
@@ -133,8 +133,10 @@ amcCountryYear <- remove.vars(amcCountryYear, names = "country")
 amcCountryYear$ISOCode <- countrycode(amcCountryYear$imfcode, origin = "imf", destination = "iso2c")
 amcCountryYear$country <- countrycode(amcCountryYear$imfcode, origin = "imf", destination = "country.name")
 
-vars <- c("country", "ISOCode", "imfcode", "year", "UDS", "polity2", "yrcurnt", "govfrac", "execrlc", "checks", "polariz",
-          "ElectionYear", 'percent1', 'percentl', 'prtyin', 'W',  "SystemicCrisis", "CurrencyCrisis", "SovereignDefault", 
+vars <- c("country", "ISOCode", "imfcode", "year", "UDS", "polity2", 'durable',
+          "yrcurnt", "govfrac", "execrlc", "checks", "polariz",
+          "ElectionYear", 'percent1', 'percentl', 'prtyin', 'W', 'ModS',
+          "SystemicCrisis", "CurrencyCrisis", "SovereignDefault", 
           "SovereignDebtRestructuring", "CvHOwnPerc", "legal_abs", "political_abs", "economic_abs", "GDPCurrentUSD", "GDPperCapita", "CapToAssetswdi", "NPLwdi", 'BankConcentration', "CreditInfo",
           "DomesticCredit", "CreditBurCoverange", "CurrentAccount", "IMFCreditsGDP", "PortfolioEquityGDP", 'TradeOpen',
           "CashSurplusDeficit", "ClaimsOnGov", "CentGovDebt", "ShortExternDebtAllGDP", "ExternPrivateDebtGDP", "ExternPublicDebtGDP", 
