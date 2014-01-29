@@ -125,7 +125,7 @@ cat("\n\n# Notes on changes made to Laeven and Valencia (2012) data\n\n", Notes,
 
 
 # Save cleaned data file
-write.table(restruct, file = "/git_repositories/amcData/MainData/CleanedPartial/LvData.csv", sep = ",")
+write.table(restruct, file = "/git_repositories/amcData/MainData/CleanedPartial/LvData.csv", sep = ",", row.names = FALSE)
 
 
 

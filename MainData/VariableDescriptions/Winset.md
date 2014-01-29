@@ -1,0 +1,1 @@
+W = Winset variable from Bueno de Mesquita et la. (2003)

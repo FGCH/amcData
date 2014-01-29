@@ -1,7 +1,7 @@
 #############
 # Paper Results
 # Christopher Gandrud
-# 14 January 2014
+# 27 January 2014
 #############
 
 ##### Set Up ####################################
@@ -66,10 +66,14 @@ Data$ClaimsNoOut[Data$ClaimsOnGov < -200] <- NA
 # Models #
 ##########
 
+
+AMCOnly <- subset(Data, AMCAnyCreated == 1)
+Test <- zelig(AMCCent ~ GDPperCapitaLog + economic_abs, model = 'logit', data = AMCOnly, cite = FALSE)
+
 #### Any Created ######################################
 #### Any Created ######################################
 MA1 <- coxph(Surv(year1990, AMCAnyCreated) ~ SystemicCrisisLag3 + EconReScale + 
-               polity2 + GDPperCapitaLog +
+               GDPperCapitaLog +
                cluster(imfcode) + strata(NumAMCCountryNoNA), data = Data)
 
 MA2 <- coxph(Surv(year1990, AMCAnyCreated) ~ SystemicCrisisLag3 + EconReScale + 
