@@ -1,13 +1,13 @@
 # AMC Full Data Set
-## Updated 12 December 2012
+## Updated 12 May 2014
 
 This data set includes the universe of *public bodies created to acquire and dispose of distressed assets*. These are commonly referred to as asset management companies or bad banks. 
 
-The AMC Full Data Set was gathered largely by Grzegorz Wolszczak.
+Thank you to Grzegorz Wolszczak for research assistance.
 
 The file `AMCFull.csv` in this folder was converted from a Microsoft Excel file available at:
 
-<https://www.dropbox.com/s/thr7v5yeip7f2fj/List_of_countries_2012.09.26.xls>
+<https://www.dropbox.com/s/dnuxm7544wb5lkn/List_of_countries_2012.09.26.xls>
 
 This file contains details about how the data was originally coded.
 

@@ -18,6 +18,7 @@ library(texreg)
 library(ggplot2)
 library(gridExtra)
 library(corrgram)
+library(DataCombine)
 
 # Set Up
 setwd("~/Dropbox/AMCProject/TempData") 
@@ -61,6 +62,17 @@ Data$year1990 <- Data$year - 1990
 Data$ClaimsNoOut <- Data$ClaimsOnGov
 Data$ClaimsNoOut[Data$ClaimsOnGov > 200] <- NA
 Data$ClaimsNoOut[Data$ClaimsOnGov < -200] <- NA
+
+# Create Polity Residual (part that doesn't expalin economic institutional quality)
+DataNoNA <- DropNA(Data, 'economic_abs')
+DataNoNA <- DropNA(DataNoNA, 'polity2')
+
+Resid <- lm(economic_abs ~ polity2, data = DataNoNA)
+DataNoNA$PolResid <- Resid$residuals
+
+MA6 <- coxph(Surv(year1990, AMCAnyCreated) ~ SystemicCrisisLag3 + IMF.AMC + PolResid + EconReScale +
+               GDPperCapitaLog + 
+               cluster(imfcode) + strata(NumAMCCountryNoNA), data = DataNoNA)
 
 ##########
 # Models #
