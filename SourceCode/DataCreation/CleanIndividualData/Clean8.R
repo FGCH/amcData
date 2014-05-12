@@ -1,13 +1,13 @@
 #############
 # Fill in holes from WDI (gathered with Clean7.R)
 # Christopher Gandrud
-# 24 March 2013
+# 12 May 2014
 #############
 
 # Load packages
 library(countrycode)
 library(xtable)
-library(DataCombine) # Install using: devtools::install_github("DataCombine", "christophergandrud")
+library(DataCombine)
 
 # Load data created from Clean7.R
 WDIData <- read.csv("/git_repositories/amcData/MainData/CleanedPartial/WDIData.csv")
@@ -63,7 +63,7 @@ LADebtSur <- LADebtSur[, c("iso2c", "year", "cashsurdefimf")]
 
 # Use LADebtSur to fill in WDI CashSurplusDeficit
 WDIComb <- FillIn(WDIComb, LADebtSur, Var1 = "CashSurplusDeficit", 
-				  Var2 = "cashsurdefimf")
+				  Var2 = "cashsurdefimf", allow.cartesian = TRUE)
 
 #### Merge with data from the Asian Development Bank ####
 # Data downloaded from: https://sdbs.adb.org

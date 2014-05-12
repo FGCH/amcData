@@ -1,7 +1,7 @@
 ############ 
 # Clean Up Unified Democracy Scores (2010) (UDS) and Polity IV
 # Christopher Gandrud
-# Updated 29 January 2014
+# Updated 12 May 2014
 ############
 
 # Load required packages
@@ -11,7 +11,7 @@ library(xtable)
 
 #### UDS ####
 # Download data from the Unified Democracy Score Website: http://www.unified-democracy-scores.org/
-url <- "http://www.unified-democracy-scores.org/files/uds_summary.csv.gz"
+url <- "http://www.unified-democracy-scores.org/files/20140312/z/uds_summary.csv.gz"
 temp <- tempfile()
 download.file(url, temp)
 uds <- read.csv(gzfile(temp, "uds_summary.csv"))

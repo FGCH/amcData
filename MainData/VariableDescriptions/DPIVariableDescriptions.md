@@ -1,8 +1,8 @@
 # Variable Labels and Variable Descriptions for DPI (2010) Data
  See: <http://go.worldbank.org/2EAGGLRZ40>
 
- <!-- html table generated in R 3.0.2 by xtable 1.7-1 package -->
-<!-- Wed Jan 29 10:37:00 2014 -->
+ <!-- html table generated in R 3.1.0 by xtable 1.7-3 package -->
+<!-- Mon May 12 11:17:38 2014 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH> ColNames </TH> <TH> Description </TH> <TH> Source </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> yrcurnt </TD> <TD> Years left in the chief executive's current term </TD> <TD> DPI (2012) </TD> </TR>
